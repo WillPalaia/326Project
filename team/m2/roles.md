@@ -25,4 +25,10 @@ Commit 1: Completed to the users.md file
 Commit 2: Made diagrams and possible templates for project ideas
 Commit 3: Created pictures of what team members ideas would look like on our web application
 
-
+ 
+## Ben Thomas - Project Architect/Full-stack 
+- **Role**: Develops in-depth psuedo-code for each feature, selects the different API's, libraries, and technologies we will use. 
+- **Top 3 Commits**:
+  1. [Commit 1](https://github.com/WillPalaia/326Project/commit/6c3b23b9900155b8c6d0dfc3eceef46daf170d12): Brainstormed and wrote down features with Blake. Came up with the product name "TrailSafe" 
+  2. [Commit 2]: Attended meeting and brainstormed project ideas
+  3. [Commit 3]: Wrote in-depth psuedo-code for Cellular Coverage Data feature
