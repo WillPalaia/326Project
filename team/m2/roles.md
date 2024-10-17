@@ -7,4 +7,8 @@
   2. [Commit 2](https://github.com/repo/3c63ecef5afb9be9c49fedabd24e4689960fae59): Created the `team/m2` and `team/reports` folders, allowing for submission of Milestone #2.
   3. [Commit 3]: Oversaw the first team meeting, ensuring that we make good progress to be able to complete the milestone with time to spare.
 
+## Blake Thomas - Success Architect / Full Stack Engineer
+
+-**Roles**:  
+
 
