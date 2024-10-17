@@ -12,3 +12,11 @@
 -**Roles**:  
 
 
+## Will Hammond - UI Manager
+Role: Reviews team submissions and ensures that all deliverables meet the necessary quality standards. Frank is responsible for proofreading and ensuring the accuracy of all documents before submission.
+Top 3 Commits:
+Commit 1: Completed to the users.md file
+Commit 2: Made diagrams and possible templates for project ideas
+Commit 3: Created pictures of what team members ideas would look like on our web application
+
+
