@@ -10,3 +10,8 @@
  help brainstorm ideas for project and help write out content that go in the markdown files.
 - **Details**: Create the necessary folders and files needs for `team/m2` and `team/reports`
 - **Link to Commit**: [Initial Commit](https://github.com/repo/bfa2ceebec4406b3a9286d66c3e5040223cd4f4e)
+
+### October 17, 2024
+- **TASK**: Complete the draft for the problem.md file.
+- **Details**: Completed the file, working through it with the correct formatting.
+- **Link to Commit**: [Initial Commit](https://github.com/repo/e958b2978b1cde55e145abef51b9037c42546f97)
