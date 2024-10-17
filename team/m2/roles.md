@@ -5,7 +5,7 @@
 - **Top 3 Commits**:
   1. [Commit 1](https://github.com/repo/94299bbf1fe97b3fe26477bb5f79dc1f30fece8d): Created the initial GitHub repository and set up the project structure.
   2. [Commit 2](https://github.com/repo/3c63ecef5afb9be9c49fedabd24e4689960fae59): Created the `team/m2` and `team/reports` folders, allowing for submission of Milestone #2.
-  3. [Commit 3]: Oversaw the first team meeting, ensuring that we make good progress to be able to complete the milestone with time to spare.
+  3. [Commit 3](https://github.com/repo/e958b2978b1cde55e145abef51b9037c42546f97): Created the `team/m2/problem.md` file and filled it out, following the correct formatting used in the example.
 
 ## Blake Thomas - Success Architect 
 
