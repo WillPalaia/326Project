@@ -17,6 +17,23 @@ Key Elements:
 
 A hiker logs into TrailSafe to prepare for a hike the next day. From the Main Dashboard, they can check their saved trails, look at the weather forecast, and decide which trail to take. They see that one of their friends is available and send them a message inviting them to the hike. They review the trail list to compare the distances and select a trail that fits within their time frame for the day. If they plan a new trail, they can click "Add New Trails" and input the necessary details. The dashboard allows them to manage all aspects of their hike in one place efficiently.
 
+## Profile Page
+
+The **Profile Page** is designed to provide a personalized overview of the user's identity and their hiking experiences. We collect and display each user's User ID, Username, Location, Phone Number, and a detailed history of trails they've completed. This information is presented in a simple and intuitive layout, making it easy for users to view their past hikes and provide feedback through comments and ratings.
+
+Key Elements:
+
+**User Information Section**:
+1. **User ID**: A unique identifier for each user.
+2. **Username**: The name the user has chosen to display.
+3. **Location**: The user's location, which helps identify trails near them.
+4. **Phone Number**: Contact information that can be used for safety features, such as emergency contacts.
+
+**Trail History Section**:
+1. **Trail List**: Displays all the trails the user has completed, listed in order from most recent to oldest.
+2. **Rating**: A 5-star rating system that allows users to rate their experience on each trail.
+3. **Comment**: Users can comment briefly about their experience, such as trail difficulty, scenic views, or personal preferences.
+
 ## Begin Trail Screen
 
 The **Begin Trail Screen** is the core feature of TrailSafe that allows users to start tracking their hike officially. This screen provides all necessary information before heading out on a trail, ensuring that hikers are well-prepared and safe. The interface presents important data such as the current weather, start time, trail name, useful message and items that should be packed. The inclusion of a checklist for hiking essentials ensures that users don’t forget important gear. Before beginning the hike, users are also prompted to confirm their emergency contact information, adding an extra layer of safety.
