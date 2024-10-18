@@ -4,7 +4,7 @@
 
 The **Main Dashboard** is the first screen users see after logging into the TrailSafe web application. Before starting a trail, it is a central hub for all the essential information hikers need. The dashboard provides quick access to trail details, weather conditions, friends, and safety features, ensuring that users have everything they need at a glance. The layout is designed to be straightforward and intuitive, allowing users to easily navigate through various features, such as adding new trails, checking weather updates, and tracking their hiking progress.
 
-![Front Page](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Front%20page.png?raw=true)
+![Front Page](https://github.com/WillPalaia/326Project/blob/main/team/m2/UI%20diagram/Front%20page.png?raw=true)
 
 Key Elements:
 
@@ -21,8 +21,8 @@ A hiker logs into TrailSafe to prepare for a hike the next day. From the Main Da
 
 The **Profile Page** is designed to provide a personalized overview of the user's identity and their hiking experiences. We collect and display each user's User ID, Username, Location, Phone Number, and a detailed history of their completed trails. This information is presented in a simple and intuitive layout, making it easy for users to view their past hikes and provide feedback through comments and ratings.
 
-![Profile Page1](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Function%205.png?raw=true)
-![Profile Page2](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Function%204.png?raw=true)
+![Profile Page1](https://github.com/WillPalaia/326Project/blob/main/team/m2/UI%20diagram/Function%205.png?raw=true)
+![Profile Page2](https://github.com/WillPalaia/326Project/blob/main/team/m2/UI%20diagram/Function%204.png?raw=true)
 
 Key Elements:
 
@@ -41,7 +41,7 @@ Key Elements:
 
 The **Begin Trail Screen** is the core feature of TrailSafe that allows users to start tracking their hike officially. This screen provides all necessary information before heading out on a trail, ensuring that hikers are well-prepared and safe. The interface presents important data such as the current weather, start time, trail name, useful message and items that should be packed. The inclusion of a checklist for hiking essentials ensures that users don’t forget important gear. Before beginning the hike, users are also prompted to confirm their emergency contact information, adding an extra layer of safety.
 
-![Begin Trail](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Function%202.png?raw=true)
+![Begin Trail](https://github.com/WillPalaia/326Project/blob/main/team/m2/UI%20diagram/Function%202.png?raw=true)
 
 Key Elements:
 
@@ -60,7 +60,7 @@ A hiker is ready to start their planned trail for the day. From the Begin Trail 
 
 The **Add New Trails Screen** allows hikers to input a new trail they plan to hike. This feature allows users to customize their hiking experience by adding new routes, whether a popular trail they’ve recently discovered or a personal route. The screen is designed to simplify the process, with input fields for the trail name, start and end times, total distance, and weather information. It also allows the user to set key points such as the starting location and destination, helping them plan their hike in detail before heading out.
 
-![Begin Trail](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Function%201.png?raw=true)
+![Begin Trail](https://github.com/WillPalaia/326Project/blob/main/team/m2/UI%20diagram/Function%201.png?raw=true)
 
 Key Elements:
 
