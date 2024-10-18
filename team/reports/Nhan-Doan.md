@@ -6,4 +6,4 @@
 ## October 18, 2024
 - **Task**: Completed ui-diagrams.md file
 - **Details**: Finalized the ui_diagram.md file, detailing the user interface components and layout for the project.
-- commit link: 
+- **Link to Commit**: [ui-diagram.md](https://github.com/WillPalaia/326Project/edit/main/team/m2/ui-diagrams.md)
