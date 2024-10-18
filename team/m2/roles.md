@@ -35,3 +35,6 @@
   2. commit 2: Assisted with refining the visual aspects of the web application's design.
   3. commit 3: Ensured that the UI is user-friendly and visually aligns with the project’s goals.
 
+## Dongpei Zhang - Note-taker
+- **Role**: Recorded detailed notes during the meeting to ensure all points are clearly communicated.
+- **Top 3 Commits**:
