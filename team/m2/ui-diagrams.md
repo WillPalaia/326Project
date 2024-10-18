@@ -21,6 +21,7 @@ A hiker logs into TrailSafe to prepare for a hike the next day. From the Main Da
 
 The **Profile Page** is designed to provide a personalized overview of the user's identity and their hiking experiences. We collect and display each user's User ID, Username, Location, Phone Number, and a detailed history of their completed trails. This information is presented in a simple and intuitive layout, making it easy for users to view their past hikes and provide feedback through comments and ratings.
 
+![Profile Page1](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Function%205.png?raw=true)
 ![Profile Page2](https://github.com/WillPalaia/326Project/blob/main/team/UI%20diagram/Function%204.png?raw=true)
 
 Key Elements:
