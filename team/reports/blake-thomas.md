@@ -1,4 +1,4 @@
-## Contribution Log for Will Palaia
+## Contribution Log for Blake Thomas
 
 ### October 14, 2024
 - **Task**: Helped to brainstorm potential ideas, keep group on timeline, and organize meeting. 
