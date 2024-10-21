@@ -1,7 +1,7 @@
 # Application Features
 
 ## Google Maps Integration
-This feature utilizes the Google Maps API to source and display hiking trails. Users can search or select a trail from a map interface to begin their journey. This integration provides a user-friendly way for hikers to discover and plan their routes, ensuring they have accurate and up-to-date trail information before setting out on their adventure.
+This feature utilizes the Google Maps API to source and display hiking trails. Users can search or select a trail from a map interface to begin their journey. This integration provides a user-friendly way for hikers to discover and plan their routes, ensuring they have accurate and up-to-date trail information before setting out on their adventure. In addition, the API also provides the closet shelters in case of any emergency (e.g landslide, flood, etc.)
 **Assigned to**: 
 
 ## Cellular Coverage Data
@@ -9,7 +9,11 @@ This feature integrates an API that provides cellular network coverage and signa
 **Assigned to**: 
 
 ## SOS Feature
-The SOS feature allows hikers to submit a trail itinerary and timeline for their trip, along with an emergency contact. If the hiker does not arrive back within their intended trip window, the system automatically contacts their emergency contact via SMS or Email. This feature provides an additional layer of safety, ensuring that help can be summoned if a hiker is overdue.
+The SOS feature allows hikers to submit a trail itinerary and timeline for their trip, along with an emergency contact. There are 3 parts of this feature:
+- There is a dedicated SOS button, so that when the user presses it, it'll immediately call emergency contact and find the nearest shelter.
+- There is also a speedtracker using Google Maps, whenever the user moves faster than some threshold (which is a sign of emergency from which the user has to run away), make a beeping sound, if after some time, the user doesn't turn it off, call emergency contact.
+- If the hiker does not arrive back within their intended trip window, the contact mechanism will be similar to the 2nd part. There will also be a way for the user to extend stay period.
+
 **Assigned to**: 
 
 ## Gear Recommendation
