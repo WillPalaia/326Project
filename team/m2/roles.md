@@ -41,3 +41,6 @@
   1. [commit 1](https://github.com/WillPalaia/326Project/blob/main/team/m2/data.md): Started and finished data.md
   2. Commit 2: communicated with the team to make sure all points are covered within data.md
   3. Commit 3: Attended the meeting about brainstorming ideas
+
+## Tri Than - Backend
+**Role**: Implement core features and setup APIs.
