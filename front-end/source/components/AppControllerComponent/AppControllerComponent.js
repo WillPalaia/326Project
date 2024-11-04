@@ -2,6 +2,7 @@ import { TaskListComponent } from '../TaskListComponent/TaskListComponent.js';
 import { SimpleTaskListViewComponent } from '../SimpleTaskListViewComponent/SimpleTaskListViewComponent.js';
 import { TaskInputComponent } from '../TaskInputComponent/TaskInputComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
+import { DynamicSidebarComponent } from '../DynamicSidebarComponent/DynamicSidebarComponent.js';
 
 export class AppControllerComponent {
   #container = null; // Private container for the component
@@ -10,12 +11,14 @@ export class AppControllerComponent {
   #taskInputComponent = null; // Instance of the task input component
   #simpleTaskListViewComponent = null; // Instance of the simple view component
   #hub = null; // EventHub instance for managing events
+  #dynamicSidebarComponent = null;
 
   constructor() {
     this.#hub = EventHub.getInstance();
     this.#taskListComponent = new TaskListComponent();
     this.#taskInputComponent = new TaskInputComponent();
     this.#simpleTaskListViewComponent = new SimpleTaskListViewComponent();
+    this.#dynamicSidebarComponent = new DynamicSidebarComponent();
   }
 
   // Render the AppController component and return the container
@@ -27,6 +30,7 @@ export class AppControllerComponent {
     this.#taskInputComponent.render();
     this.#taskListComponent.render();
     this.#simpleTaskListViewComponent.render();
+    this.#dynamicSidebarComponent.render();
 
     // Initially render the main view
     this.#renderCurrentView();

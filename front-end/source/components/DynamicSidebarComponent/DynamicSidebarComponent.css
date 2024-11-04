@@ -1,0 +1,63 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  #sidebar {
+    width: 20%;
+    height: 100%;
+    background-color: #24094d87;
+    color: #fff;
+    position: fixed;
+    left: -20%;
+    top: 0;
+    transition: 0.3s;
+    padding-top: 20px;
+    overflow-y: auto;
+  }
+
+  #sidebar.open {
+    left: 0;
+  }
+
+  #sidebar h2, #sidebar p {
+    margin-left: 20px;
+    margin-top: 50px;
+  }
+
+  #sidebarItems button {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    color: #565555;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: -30px;
+  }
+  #sidebarItems button:hover {
+    color: #b1acac;
+  }
+
+  #toggleButton {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-color: #05022f00;
+    color: #5e5d5d;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+  }
+  #toggleButton:hover {
+    color: #c5c3c3;
+  }
+
+  #content {
+    margin-left: 60px;
+    padding: 20px;
+  }
