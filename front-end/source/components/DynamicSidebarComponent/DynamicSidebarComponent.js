@@ -1,16 +1,12 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
+import { EventHub } from '../../eventhub/EventHub.js';
 
 
 export class DynamicSidebarComponent extends BaseComponent {
   constructor() {
     super();
     this.loadCSS('DynamicSidebarComponent');
-  }
-
-
-  // Method to update sidebar content
-  updateSidebarContent(content) {
-    this.sidebarContent.textContent = `You selected: ${content}`;
+    this.hub = EventHub.getInstance();
   }
 
 
@@ -29,6 +25,7 @@ export class DynamicSidebarComponent extends BaseComponent {
     // Create sidebar
     const sidebar = document.createElement("div");
     sidebar.id = "sidebar";
+    sidebar.style.zIndex = 1000
     document.body.appendChild(sidebar);
 
 
@@ -51,11 +48,17 @@ export class DynamicSidebarComponent extends BaseComponent {
 
 
     // Create sidebar items
-    const items = ["Home", "Profile", "Settings", "Friends"];
+    const items = ["Home", "Profile", "Friends", "Settings"];
     items.forEach(item => {
       const button = document.createElement("button");
       button.textContent = item;
-      button.onclick = () => this.updateSidebarContent(item);
+
+      // Publish event to navigate to a new page on button click
+      button.onclick = () => {
+
+        this.hub.publish("NavigateToPage", item); // Publish the event with item as data
+      
+      };
       sidebarItems.appendChild(button);
     });
 

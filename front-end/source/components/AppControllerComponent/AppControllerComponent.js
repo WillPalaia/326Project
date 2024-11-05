@@ -3,6 +3,7 @@ import { SimpleTaskListViewComponent } from '../SimpleTaskListViewComponent/Simp
 import { TaskInputComponent } from '../TaskInputComponent/TaskInputComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { DynamicSidebarComponent } from '../DynamicSidebarComponent/DynamicSidebarComponent.js';
+import { MainPageComponent } from '../MainPageComponent/MainPageComponent.js';
 
 export class AppControllerComponent {
   #container = null; // Private container for the component
@@ -12,6 +13,7 @@ export class AppControllerComponent {
   #simpleTaskListViewComponent = null; // Instance of the simple view component
   #hub = null; // EventHub instance for managing events
   #dynamicSidebarComponent = null;
+  #mainPageComponent = null;
 
   constructor() {
     this.#hub = EventHub.getInstance();
@@ -19,6 +21,7 @@ export class AppControllerComponent {
     this.#taskInputComponent = new TaskInputComponent();
     this.#simpleTaskListViewComponent = new SimpleTaskListViewComponent();
     this.#dynamicSidebarComponent = new DynamicSidebarComponent();
+    this.#mainPageComponent = new MainPageComponent();
   }
 
   // Render the AppController component and return the container
@@ -71,6 +74,11 @@ export class AppControllerComponent {
       this.#currentView = 'main';
       this.#renderCurrentView();
     });
+
+    // Listen for navigation events
+    this.#hub.subscribe("NavigateToPage", (page) => {
+      this.#navigateToPage(page);
+    });
   }
 
   // Toggles the view between main and simple
@@ -82,6 +90,35 @@ export class AppControllerComponent {
       this.#currentView = 'main';
       this.#hub.publish('SwitchToMainView', null);
     }
+  }
+
+  // New method to handle page navigation
+  #navigateToPage(page) {
+    const viewContainer = this.#container.querySelector('#viewContainer');
+    viewContainer.innerHTML = ''; // Clear existing content
+    if (page === "Home") {
+      this.#currentView = 'main';
+      this.#mainPageComponent.render();
+    }
+    if (page === "Profile") {
+      this.#currentView = 'profile';
+      const pageContent = document.createElement("div");
+      pageContent.innerHTML = `<h1>${page} Page</h1><p>Content for ${page} page goes here2.</p>`;
+      viewContainer.appendChild(pageContent);
+    }
+    if (page === "Friends") {
+      this.#currentView = 'friends';
+      const pageContent = document.createElement("div");
+      pageContent.innerHTML = `<h1>${page} Page</h1><p>Content for ${page} page goes here3.</p>`;
+      viewContainer.appendChild(pageContent);
+    }
+    if (page === "Settings") {
+      this.#currentView = 'settings';
+      const pageContent = document.createElement("div");
+      pageContent.innerHTML = `<h1>${page} Page</h1><p>Content for ${page} page goes here4</p>`;
+      viewContainer.appendChild(pageContent);
+    }
+    
   }
 
   // Renders the current view based on the #currentView state
@@ -99,7 +136,7 @@ export class AppControllerComponent {
       viewContainer.appendChild(this.#taskListComponent.render());
     } else {
       // Render the simple task list view
-      viewContainer.appendChild(this.#simpleTaskListViewComponent.render());      
+      viewContainer.appendChild(this.#simpleTaskListViewComponent.render());
     }
   }
 }
