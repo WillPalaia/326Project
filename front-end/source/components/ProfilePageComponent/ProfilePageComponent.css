@@ -1,0 +1,14 @@
+#title{
+    position: absolute;
+
+  top: 0%;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 12px;
+
+  color:navy;
+  background-color: rgb(203, 200, 200);
+}

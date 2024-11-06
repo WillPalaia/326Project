@@ -9,64 +9,70 @@ export class DynamicSidebarComponent extends BaseComponent {
     this.hub = EventHub.getInstance();
   }
 
-
   render() {
+    // Check if the sidebar already exists; if so, return it to avoid re-adding
+    let sidebar = document.getElementById("sidebar");
+    if (sidebar) return sidebar;
+
+    // Create sidebar container
+    sidebar = document.createElement("div");
+    sidebar.id = "sidebar";
+    sidebar.classList.add("closed"); // Start closed
+    document.body.appendChild(sidebar);
+
     // Create toggle button
     const toggleButton = document.createElement("button");
     toggleButton.id = "toggleButton";
     toggleButton.textContent = "☰";
-    toggleButton.style.position = "fixed";  // Keep button fixed on the page
-    toggleButton.style.left = "10px";       // Position outside the sidebar
-    toggleButton.style.top = "10px";        // Consistent top margin
-    toggleButton.style.zIndex = "1000"; 
+    toggleButton.style.position = "fixed";
+    toggleButton.style.left = "10px";
+    toggleButton.style.top = "10px";
+    toggleButton.style.zIndex = "1000";
     document.body.appendChild(toggleButton);
-
-
-    // Create sidebar
-    const sidebar = document.createElement("div");
-    sidebar.id = "sidebar";
-    sidebar.style.zIndex = 1000
-    document.body.appendChild(sidebar);
-
 
     // Sidebar content structure
     const sidebarTitle = document.createElement("h2");
-    sidebarTitle.textContent = "TrailSafe";
+    sidebarTitle.textContent = "Dynamic Sidebar";
     sidebar.appendChild(sidebarTitle);
 
-
-    // Save reference to sidebar content paragraph
-    this.sidebarContent = document.createElement("p");
-    this.sidebarContent.id = "sidebarContent";
-    this.sidebarContent.textContent = "Click on items below to update this content.";
-    sidebar.appendChild(this.sidebarContent);
-
+    const sidebarContent = document.createElement("p");
+    sidebarContent.id = "sidebarContent";
+    sidebarContent.textContent = "Click on items below to update this content.";
+    sidebar.appendChild(sidebarContent);
 
     const sidebarItems = document.createElement("ul");
     sidebarItems.id = "sidebarItems";
     sidebar.appendChild(sidebarItems);
 
-
-    // Create sidebar items
+    // Define sidebar navigation items
     const items = ["Home", "Profile", "Friends", "Settings"];
     items.forEach(item => {
       const button = document.createElement("button");
       button.textContent = item;
-
-      // Publish event to navigate to a new page on button click
       button.onclick = () => {
-
-        this.hub.publish("NavigateToPage", item); // Publish the event with item as data
-      
+        this.hub.publish("NavigateToPage", item); // Publish event to navigate
+        this.toggleSidebar(false); // Close sidebar after navigation
       };
       sidebarItems.appendChild(button);
     });
 
-
-    // Toggle sidebar visibility
+    // Toggle sidebar visibility on button click
     toggleButton.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-      toggleButton.textContent = sidebar.classList.contains("open") ? "✖" : "☰";
+      this.toggleSidebar();
     });
+
+    return sidebar;
+  }
+
+  // Toggle sidebar open/close and update button text
+  toggleSidebar(open = null) {
+    const sidebar = document.getElementById("sidebar");
+    const toggleButton = document.getElementById("toggleButton");
+
+    if (!sidebar || !toggleButton) return;
+
+    const isOpen = open !== null ? open : sidebar.classList.contains("closed");
+    sidebar.classList.toggle("closed", !isOpen);
+    toggleButton.textContent = isOpen ? "✖" : "☰";
   }
 }
