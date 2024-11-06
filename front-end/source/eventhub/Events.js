@@ -19,4 +19,5 @@ export const Events = {
   // View Switching Events:
   SwitchToMainView: 'SwitchToMainView',
   SwitchToSimpleView: 'SwitchToSimpleView',
+  SwitchToGearRecommendation: 'SwitchToGearRecommendation'
 };
