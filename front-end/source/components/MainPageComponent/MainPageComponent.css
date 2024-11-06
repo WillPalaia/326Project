@@ -1,18 +1,54 @@
-#title{
-    position: absolute;
-
+#title {
+  position: absolute;
   top: 0%;
-
   left: 50%;
-
   transform: translateX(-50%);
+  padding: 1% 30%;
+  border-radius: 12px;
+  color: rgb(24, 67, 11);
+  background-color: rgb(201, 203, 200);
+  z-index: 5; /* Lower than the sidebar */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-  color:mintcream;
-  background-color: darkblue;
-
-  
 
 
+#sidebar.closed {
+  transform: translateX(-100%); /* Hide sidebar when closed */
+}
 
-    font-family: Verdana, Geneva, Tahoma, sans-serif
+#trailBtn {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  font-size: 200%;
+  padding: 3% 6%;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  background-image: url("https://images.unsplash.com/photo-1454496522488-7a8e488e8606?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: box-shadow 0.4s;
+  z-index: 10;
+}
+
+#beginBtn {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  font-size: 200%;
+  padding: 3% 7%;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  background-image: url("https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?cs=srgb&dl=pexels-sagui-andrea-200115-618833.jpg&fm=jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: box-shadow 0.4s;
+  z-index: 10;
+}
+
+#trailBtn:hover, #beginBtn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }

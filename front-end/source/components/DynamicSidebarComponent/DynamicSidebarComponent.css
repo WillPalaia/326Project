@@ -7,7 +7,7 @@ body {
   #sidebar {
     width: 20%;
     height: 100%;
-    background-color: #24094d87;
+    background-color: #043b0287;
     color: #fff;
     position: fixed;
     left: -20%;
@@ -15,10 +15,15 @@ body {
     transition: 0.3s;
     padding-top: 20px;
     overflow-y: auto;
+    z-index: 100;
   }
 
-  #sidebar.open {
-    left: 0;
+  #sidebar.closed {
+    left: -20%; /* Hidden state */
+  }
+  
+  #sidebar:not(.closed) {
+    left: 0; /* Open state */
   }
 
   #sidebar h2, #sidebar p {
