@@ -1,0 +1,18 @@
+#title{
+    position: absolute;
+
+  top: 0%;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color:mintcream;
+  background-color: darkblue;
+
+  
+
+
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
