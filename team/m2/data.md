@@ -2,7 +2,7 @@
 
 ## Overview
  
-### 1. User Profile
+### 1. User Info
 
 - **Description**: We are going to have a user profile system so, we have to store user login data and other info
 - **Attributes**:
@@ -14,8 +14,8 @@
    - **comments**: User's comments on the trails they have been to
    - **trailDuration**: records user's time on the trail
    - **trailDate**: when the user went on the trail
-   - **friends**: stores the user's list of friends
-- **Data Source**: User-Input and Data from third-party APIs
+   - **emergencyContacts**: User's emergency contact in case of emergencies
+- **Data Source**: User-Input 
 
 ### 2. Trails
 
@@ -26,7 +26,7 @@
     - **approximateDuration**: Average time it takes to complete the Trail
     - **generalTips**: Message that hikers should abide by for their safety
     - **currentWeather**: Shows the current weather of the current trail
-- **Data Source**: Data from third-party APIs
+- **Data Source**: Data from third-party APIs (google place API)
 
 ### Weather
 
@@ -34,7 +34,7 @@
 - **Attributes**:
     - **date**: the current date
     - **weather**: the weather at the current date
-- **Data Source**: Data from third-party APIs
+- **Data Source**: Data from third-party APIs (openWeather API)
 
 ## Relationships Between Data 
 - **UserProfile to Trails**: one user can have many trails. To add on to the user's Trail history they must consult Trails
@@ -42,6 +42,5 @@
 
 ## Data Source
  - UserProfile is mostly user-input, but trail history is to be input by the user from the trails which is a third-party API.
- - Trails is data that was taken from a third-party API
- - Weather is data that was taken from a third-part API
-
+ - Trails is data that was taken from a third-party API (google place API)
+ - Weather is data that was taken from a third-part API (openWeather API)
