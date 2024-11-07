@@ -34,8 +34,7 @@ export class BeginTrailComponent extends BaseComponent {
             const pageComponent = new GearRecComponent();
             pageComponent.render();
           })
-
-
+          
         return container
     }
 }
