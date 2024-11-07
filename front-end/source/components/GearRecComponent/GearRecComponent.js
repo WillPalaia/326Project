@@ -62,6 +62,6 @@ export class GearRecComponent extends BaseComponent {
     const title = document.createElement("h1");
     title.id = "title2";
     title.textContent = "Gear recommendation page works!";
-    container.appendChild(title);localStorage
+    container.appendChild(title);
   }
 }
