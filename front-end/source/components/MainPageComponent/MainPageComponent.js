@@ -1,5 +1,6 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
+import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -38,6 +39,12 @@ export class MainPageComponent extends BaseComponent {
     beginTrailBtn.id = "beginBtn";
     beginTrailBtn.textContent = "Begin Trail";
     container.appendChild(beginTrailBtn);
+
+    // adding event listener to " Begin Trail"
+    beginTrailBtn.addEventListener('click', () => {
+      const pageComponent = new BeginTrailComponent();
+      pageComponent.render();
+    })
 
     return container;
   }

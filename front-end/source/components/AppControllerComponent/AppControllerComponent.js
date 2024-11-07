@@ -4,16 +4,19 @@ import { MainPageComponent } from '../MainPageComponent/MainPageComponent.js';
 import { ProfilePageComponent } from '../ProfilePageComponent/ProfilePageComponent.js';
 import { SettingsPageComponent } from '../SettingsPageComponent/SettingsPageComponent.js';
 import { FriendsPageComponent } from '../FriendsPageComponent/FriendsPageComponent.js';
+import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 
 export class AppControllerComponent {
   #container = null;
   #hub = null;
   #dynamicSidebarComponent = null;
   #viewContainer = null;
+  #GearRecComponent = null;
 
   constructor() {
     this.#hub = EventHub.getInstance();
     this.#dynamicSidebarComponent = new DynamicSidebarComponent();
+    this.#GearRecComponent = new GearRecComponent();
   }
 
   render() {
