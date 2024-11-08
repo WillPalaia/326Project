@@ -1,6 +1,7 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
+import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -43,6 +44,11 @@ export class MainPageComponent extends BaseComponent {
     // adding event listener to " Begin Trail"
     beginTrailBtn.addEventListener('click', () => {
       const pageComponent = new BeginTrailComponent();
+      pageComponent.render();
+    })
+
+    addTrailBtn.addEventListener('click', () => {
+      const pageComponent = new AddNewTrailComponent();
       pageComponent.render();
     })
 
