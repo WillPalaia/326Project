@@ -2,6 +2,7 @@ import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
+import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -62,7 +63,8 @@ export class MainPageComponent extends BaseComponent {
     })
 
     aboutPageBtn.addEventListener('click', () => {
-      const pageComponent = new AboutPageComponent;
+      const pageComponent = new AboutPageComponent();
+      console.log("rendering About")
       pageComponent.render();
     })
 

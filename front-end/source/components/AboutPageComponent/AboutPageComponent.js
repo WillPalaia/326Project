@@ -1,24 +1,11 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 
-export class AddNewTrailComponent extends BaseComponent {
+export class AboutPageComponent extends BaseComponent {
     constructor() {
         super();
-        this.loadCSS('AddNewTrailComponent');
+        this.loadCSS('AboutPageComponent');
         this.hub = EventHub.getInstance();
-        this.trailNameInput = null;
-        this.trailImageInput = null;
-        this.trailImagePreview = null;
-        this.startDateInput = null;
-        this.startTimeInput = null;
-        this.endTimeInput = null;
-        this.fromLocationInput = null;
-        this.toLocationInput = null;
-        this.weatherInfo = null;
-        this.distanceInfo = null;
-        this.weatherDisplay = null;
-        this.distanceDisplay = null;
     }
 
     render() {
@@ -31,113 +18,87 @@ export class AddNewTrailComponent extends BaseComponent {
             container.innerHTML = '';
         }
 
-        container.classList.add('add-new-trail-container');
+        container.classList.add('about-page-container');
 
-    
-        // Trail Name Input
-        const trailNameDiv = document.createElement('div');
-        trailNameDiv.className = 'trail-name';
-        trailNameDiv.textContent = 'Trail Name:';
-        container.appendChild(trailNameDiv);
+        //main Header
+        const header = document.createElement('header');
+        const title = document.createElement('h1');
+        title.textContent = 'About TrailSafe';
+        title.className = 'about-title';
+        header.appendChild(title);
+        container.appendChild(header);
 
-        this.trailNameInput = document.createElement('input');
-        this.trailNameInput.type = 'text';
-        this.trailNameInput.placeholder = 'Enter trail name';
-        container.appendChild(this.trailNameInput);
+        //mission Section
+        const missionSection = document.createElement('section');
+        missionSection.className = 'mission-section';
+        
+        const missionTitle = document.createElement('h2');
+        missionTitle.textContent = 'Our Mission';
+        
+        const missionText = document.createElement('p');
+        missionText.textContent = 'TrailSafe is dedicated to making outdoor adventures safer and more accessible. We provide tools and resources to help hikers plan, track, and safely complete their trail experiences.';
+        
+        missionSection.appendChild(missionTitle);
+        missionSection.appendChild(missionText);
+        container.appendChild(missionSection);
 
-        // Trail Image Input
-        const trailImageDiv = document.createElement('div');
-        trailImageDiv.className = 'trail-image';
-        trailImageDiv.textContent = 'Trail Image:';
-        container.appendChild(trailImageDiv);
+        //features Section
+        const featuresSection = document.createElement('section');
+        featuresSection.className = 'features-section';
+        
+        const featuresTitle = document.createElement('h2');
+        featuresTitle.textContent = 'Key Features';
+        
+        const featuresGrid = document.createElement('div');
+        featuresGrid.className = 'features-grid';
 
-        this.trailImageInput = document.createElement('input');
-        this.trailImageInput.type = 'file';
-        this.trailImageInput.accept = 'image/*';
-        this.trailImageInput.addEventListener('change', this.handleImageUpload.bind(this));
-        container.appendChild(this.trailImageInput);
+        //create feature cards
+        const features = [
+            {
+                title: 'Trail Logging',
+                description: 'Log your hiking routes with map and location information.'
+            },
+            {
+                title: 'SOS Feature',
+                description: 'Notify emergency services in the event of emergency'
+            },
+            {
+                title: 'TrailSafe Insights',
+                description: 'Get insights based on your previous hikes and trail activity'
+            }
+        ];
 
-        this.trailImagePreview = document.createElement('img');
-        this.trailImagePreview.className = 'trail-image-preview';
-        container.appendChild(this.trailImagePreview);
+        features.forEach(feature => {
+            const featureCard = document.createElement('article');
+            featureCard.className = 'feature-card';
+            
+            const featureTitle = document.createElement('h3');
+            featureTitle.textContent = feature.title;
+            
+            const featureDesc = document.createElement('p');
+            featureDesc.textContent = feature.description;
+            
+            featureCard.appendChild(featureTitle);
+            featureCard.appendChild(featureDesc);
+            featuresGrid.appendChild(featureCard);
+        });
 
-        // From Location Input
-        const fromLocationDiv = document.createElement('div');
-        fromLocationDiv.className = 'from-location-input';
-        fromLocationDiv.textContent = 'From Location:';
-        container.appendChild(fromLocationDiv);
+        featuresSection.appendChild(featuresTitle);
+        featuresSection.appendChild(featuresGrid);
+        container.appendChild(featuresSection);
 
-        this.fromLocationInput = document.createElement('input');
-        this.fromLocationInput.type = 'text';
-        this.fromLocationInput.placeholder = 'Enter starting location';
-        container.appendChild(this.fromLocationInput);
-
-        // To Location Input
-        const toLocationDiv = document.createElement('div');
-        toLocationDiv.className = 'to-location-input';
-        toLocationDiv.textContent = 'To Location:';
-        container.appendChild(toLocationDiv);
-
-        this.toLocationInput = document.createElement('input');
-        this.toLocationInput.type = 'text';
-        this.toLocationInput.placeholder = 'Enter destination location';
-        container.appendChild(this.toLocationInput);
-
-        // Calculate Distance Button
-        const calculateDistanceButton = document.createElement('button');
-        calculateDistanceButton.textContent = 'Calculate Distance';
-        calculateDistanceButton.className = 'calculate-distance-button';
-        calculateDistanceButton.addEventListener('click', this.calculateDistanceHandler.bind(this));
-        container.appendChild(calculateDistanceButton);
-
-        // Distance Info Display
-        this.distanceDisplay = document.createElement('div');
-        this.distanceDisplay.className = 'distance-display';
-        container.appendChild(this.distanceDisplay);
-
-        // Add Trail Button
-        const submitButton = document.createElement('button');
-        submitButton.textContent = 'Add Trail';
-        submitButton.className = 'submit-button';
-        submitButton.addEventListener('click', this.addTrail.bind(this));
-        container.appendChild(submitButton);
-    }
-
-    handleImageUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.trailImagePreview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    async calculateDistanceHandler() {
-        const fromLocation = this.fromLocationInput.value;
-        const toLocation = this.toLocationInput.value;
-        this.distanceInfo = await this.calculateDistance(fromLocation, toLocation);
-        this.distanceDisplay.textContent = `Distance: ${this.distanceInfo}`;
-    }
-
-
-    async addTrail() {
-        const trailName = this.trailNameInput.value;
-        const fromLocation = this.fromLocationInput.value;
-        const toLocation = this.toLocationInput.value;
-
-        this.distanceInfo = await this.calculateDistance(fromLocation, toLocation);
-
-        console.log(`Trail Name: ${trailName}`);
-        console.log(`Distance from ${fromLocation} to ${toLocation}: ${this.distanceInfo}`);
-    }
-
-    async getWeatherInfo(date) {
-        return 'Sunny';
-    }
-
-    async calculateDistance(from, to) {
-        return '10 km';
+        // Contact Section
+        const contactSection = document.createElement('section');
+        contactSection.className = 'contact-section';
+        
+        const contactTitle = document.createElement('h2');
+        contactTitle.textContent = 'Contact Us';
+        
+        const contactInfo = document.createElement('p');
+        contactInfo.textContent = 'Have questions or suggestions? Reach out to us at support@trailsafe.com';
+        
+        contactSection.appendChild(contactTitle);
+        contactSection.appendChild(contactInfo);
+        container.appendChild(contactSection);
     }
 }
