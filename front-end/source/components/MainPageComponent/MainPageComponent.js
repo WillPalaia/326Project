@@ -35,11 +35,20 @@ export class MainPageComponent extends BaseComponent {
     addTrailBtn.textContent = "Add New Trail";
     container.appendChild(addTrailBtn);
 
+
     // Create and add the "Add New Trail" button
     const beginTrailBtn = document.createElement("button");
     beginTrailBtn.id = "beginBtn";
     beginTrailBtn.textContent = "Begin Trail";
     container.appendChild(beginTrailBtn);
+
+    
+    // Create and add the "About" button
+    const aboutPageBtn = document.createElement("button");
+    aboutPageBtn.id = "aboutBtn";
+    aboutPageBtn.textContent = "About TrailSafe";
+    container.appendChild(aboutPageBtn);
+    
 
     // adding event listener to " Begin Trail"
     beginTrailBtn.addEventListener('click', () => {
