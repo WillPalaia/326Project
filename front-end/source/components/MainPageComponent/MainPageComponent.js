@@ -61,6 +61,11 @@ export class MainPageComponent extends BaseComponent {
       pageComponent.render();
     })
 
+    aboutPageBtn.addEventListener('click', () => {
+      const pageComponent = new AboutPageComponent;
+      pageComponent.render();
+    })
+
     return container;
   }
 }
