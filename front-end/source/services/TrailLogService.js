@@ -5,6 +5,23 @@ import Service from './Service.js';
 This is a service file that can be used to log data in the browser 
 redgarding the trails that a user adds. It will track the trail name, 
 location, length, and date hiked. 
+
+Example Usage: 
+
+// Store a new trail
+
+this.hub.publish(Events.StoreTrail, {
+  trailName: "Blake's Trail",
+  distance: 5.2
+});
+
+// Listen for success
+this.hub.subscribe(Events.StoreTrailSuccess, (trail) => {
+  // Handle success
+});
+
+// Load all trails
+this.hub.publish(Events.LoadTrails);
 */ 
 
 export class TrailLogService extends Service {
