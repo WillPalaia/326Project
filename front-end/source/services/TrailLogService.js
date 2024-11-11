@@ -89,20 +89,20 @@ export class TrailLogService extends Service {
     });
   }
 
-  async clearTasks() {
+  async clearTrails() {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction([this.storeName], 'readwrite');
       const store = transaction.objectStore(this.storeName);
       const request = store.clear();
 
       request.onsuccess = () => {
-        this.publish(Events.UnStoreTasksSuccess);
-        resolve('All tasks cleared');
+        this.publish(Events.ClearTrailsSuccess);
+        resolve('All trails cleared');
       };
 
       request.onerror = () => {
-        this.publish(Events.UnStoreTasksFailure);
-        reject('Error clearing tasks');
+        this.publish(Events.ClearTrailsFailure);
+        reject('Error clearing trails');
       };
     });
   }
