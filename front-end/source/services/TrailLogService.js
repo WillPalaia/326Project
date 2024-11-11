@@ -70,21 +70,21 @@ export class TrailLogService extends Service {
     });
   }
 
-  async loadTasksFromDB() {
+  async loadTrailsFromDB() {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction([this.storeName], 'readonly');
       const store = transaction.objectStore(this.storeName);
       const request = store.getAll();
 
       request.onsuccess = event => {
-        const tasks = event.target.result;
-        tasks.forEach(task => this.publish('NewTask', task));
-        resolve(tasks);
+        const trails = event.target.result;
+        trails.forEach(trail => this.publish('NewTrail', trail));
+        resolve(trails);
       };
 
       request.onerror = () => {
-        this.publish(Events.LoadTasksFailure);
-        reject('Error retrieving tasks');
+        this.publish(Events.LoadTrailsFailure);
+        reject('Error retrieving trails');
       };
     });
   }
