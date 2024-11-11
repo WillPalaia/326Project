@@ -7,18 +7,18 @@ redgarding the trails that a user adds. It will track the trail name,
 location, length, and date hiked. 
 */ 
 
-export class TaskRepositoryService extends Service {
+export class TrailLogService extends Service {
   constructor() {
     super();
-    this.dbName = 'taskDB';
-    this.storeName = 'tasks';
+    this.dbName = 'trailDB';
+    this.storeName = 'trails';
     this.db = null;
 
     // Initialize the database
     this.initDB()
       .then(() => {
-        // Load tasks on initialization
-        this.loadTasksFromDB();
+        // Load trails on initialization
+        this.loadTrailsFromDB();
       })
       .catch(error => {
         console.error(error);
