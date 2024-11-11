@@ -78,7 +78,7 @@ export class TrailLogService extends Service {
 
       request.onsuccess = event => {
         const trails = event.target.result;
-        trails.forEach(trail => this.publish('NewTrail', trail));
+        trails.forEach(trail => this.publish(Events.NewTrail, trail));
         resolve(trails);
       };
 
@@ -109,11 +109,11 @@ export class TrailLogService extends Service {
 
   addSubscriptions() {
     this.subscribe(Events.StoreTrail, data => {
-      this.storeTask(data);
+      this.storeTrail(data);
     });
 
     this.subscribe(Events.ClearTrails, ()=>{
-        this.clearTrails
+        this.clearTrails();
     })
 
     this.subscribe(Events.LoadTrails, () => {
