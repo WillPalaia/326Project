@@ -108,12 +108,16 @@ export class TrailLogService extends Service {
   }
 
   addSubscriptions() {
-    this.subscribe(Events.StoreTask, data => {
+    this.subscribe(Events.StoreTrail, data => {
       this.storeTask(data);
     });
 
-    this.subscribe(Events.UnStoreTasks, () => {
-      this.clearTasks();
+    this.subscribe(Events.ClearTrails, ()=>{
+        this.clearTrails
+    })
+
+    this.subscribe(Events.LoadTrails, () => {
+      this.loadTrailsFromDB();
     });
   }
 }
