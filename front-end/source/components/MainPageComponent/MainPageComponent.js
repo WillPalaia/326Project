@@ -2,6 +2,7 @@ import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
+import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -35,11 +36,20 @@ export class MainPageComponent extends BaseComponent {
     addTrailBtn.textContent = "Add New Trail";
     container.appendChild(addTrailBtn);
 
+
     // Create and add the "Add New Trail" button
     const beginTrailBtn = document.createElement("button");
     beginTrailBtn.id = "beginBtn";
     beginTrailBtn.textContent = "Begin Trail";
     container.appendChild(beginTrailBtn);
+
+    
+    // Create and add the "About" button
+    const aboutPageBtn = document.createElement("button");
+    aboutPageBtn.id = "aboutBtn";
+    aboutPageBtn.textContent = "About TrailSafe";
+    container.appendChild(aboutPageBtn);
+    
 
     // adding event listener to " Begin Trail"
     beginTrailBtn.addEventListener('click', () => {
@@ -49,6 +59,12 @@ export class MainPageComponent extends BaseComponent {
 
     addTrailBtn.addEventListener('click', () => {
       const pageComponent = new AddNewTrailComponent();
+      pageComponent.render();
+    })
+
+    aboutPageBtn.addEventListener('click', () => {
+      const pageComponent = new AboutPageComponent();
+      console.log("rendering About")
       pageComponent.render();
     })
 

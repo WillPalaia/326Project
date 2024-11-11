@@ -49,6 +49,23 @@
   z-index: 10;
 }
 
-#trailBtn:hover, #beginBtn:hover {
+#aboutBtn {
+  position: absolute;
+  top: 35%;
+  right: 15%;
+  font-size: 200%;
+  padding: 3% 7%;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  background-image: url("https://images.pexels.com/photos/7369/startup-photos.jpg?cs=srgb&dl=pexels-startup-stock-photos-7369.jpg&fm=jpg&_gl=1*yzlr6m*_ga*OTMyODQ5ODguMTczMTI3MjA1NQ..*_ga_8JE65Q40S6*MTczMTI3MjA1NS4xLjEuMTczMTI3MjM0OC4wLjAuMA..");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: box-shadow 0.4s;
+  z-index: 10;
+}
+
+
+#trailBtn:hover, #beginBtn:hover, #aboutBtn:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
