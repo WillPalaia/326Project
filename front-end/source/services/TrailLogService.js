@@ -48,20 +48,24 @@ export class TrailLogService extends Service {
     });
   }
 
-  async storeTask(taskData) {
+  async storeTrail(trailData) {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction([this.storeName], 'readwrite');
       const store = transaction.objectStore(this.storeName);
-      const request = store.add(taskData);
+      //add an object to the DB that includes the trail name and distance
+      const request = store.add({
+        trailName: trailData.trailName,
+        distance: Number(trailData.distance)
+      });
 
       request.onsuccess = () => {
-        this.publish(Events.StoreTaskSuccess, taskData);
-        resolve('Task stored successfully');
+        this.publish(Events.StoreTrailSuccess, trailData);
+        resolve('Trail stored successfully');
       };
 
       request.onerror = () => {
-        this.publish(Events.StoreTaskFailure, taskData);
-        reject('Error storing task: ');
+        this.publish(Events.StoreTrailFailure, trailData);
+        reject('Error storing trail');
       };
     });
   }
