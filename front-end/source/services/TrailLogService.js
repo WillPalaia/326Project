@@ -8,19 +8,18 @@ location, length, and date hiked.
 
 Example Usage: 
 
-// Store a new trail
+//store a new trail
 
 this.hub.publish(Events.StoreTrail, {
   trailName: "Blake's Trail",
   distance: 5.2
 });
 
-// Listen for success
+//listen for success
 this.hub.subscribe(Events.StoreTrailSuccess, (trail) => {
-  // Handle success
 });
 
-// Load all trails
+//load all trails
 this.hub.publish(Events.LoadTrails);
 */ 
 
