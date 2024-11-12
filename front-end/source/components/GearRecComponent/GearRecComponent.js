@@ -10,8 +10,6 @@ export class GearRecComponent extends BaseComponent {
     this.hub = EventHub.getInstance();
   }
 
-  
-
   render() {
     // Create or find a specific container for this component's content
     let container = document.getElementById('mainPageContainer');
