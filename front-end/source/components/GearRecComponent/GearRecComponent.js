@@ -6,11 +6,9 @@ import { TaskComponent } from '../TaskComponent/TaskComponent.js';
 export class GearRecComponent extends BaseComponent {
   constructor() {
     super();
-    this.loadCSS('MainPageComponent');
+    this.loadCSS('GearRecComponent');
     this.hub = EventHub.getInstance();
   }
-
-  
 
   render() {
     // Create or find a specific container for this component's content
@@ -27,6 +25,11 @@ export class GearRecComponent extends BaseComponent {
     forecastContainer.id = 'forecastContainer';
     container.appendChild(forecastContainer);
 
+    const title = document.createElement("h1");
+    title.id = "GearRecTitle";
+    title.textContent = "Gear recommendation";
+    container.appendChild(title);
+
     const apiUrl = 'https://mock.yerf.dev/';
 
     fetch(apiUrl)
@@ -37,9 +40,7 @@ export class GearRecComponent extends BaseComponent {
         return response.json();
       })
       .then((data) => {
-        console.log('hi')
         const location = document.createElement("h2");
-        console.log('hi2')
         location.textContent = `Location: ${data.location}`;
         forecastContainer.appendChild(location);
 
@@ -47,21 +48,31 @@ export class GearRecComponent extends BaseComponent {
         data.forecast.forEach(dayForecast => {
           const dayElement = document.createElement('div');
           dayElement.classList.add('forecast-day');
+          const avgTemp = (dayForecast.high + dayForecast.low) / 2;
+          const gearRecommendation = this.GearRec(avgTemp);
           
           dayElement.innerHTML = `
             <h3>${dayForecast.day}</h3>
             <p>High: ${dayForecast.high}°${data.unit}</p>
             <p>Low: ${dayForecast.low}°${data.unit}</p>
             <p>${dayForecast.description}</p>
+            <p>Recommended Gear: ${gearRecommendation}</p>
           `;
           
           forecastContainer.appendChild(dayElement);
         })
     })
-    
-    const title = document.createElement("h1");
-    title.id = "title2";
-    title.textContent = "Gear recommendation page works!";
-    container.appendChild(title);
+  }
+
+  GearRec(avgTemp){
+    if (avgTemp < 40) {
+      return 'Winter coat, gloves, and hat';
+    } else if (avgTemp >= 40 && avgTemp < 60) {
+      return 'Light jacket or sweater';
+    } else if (avgTemp >= 60 && avgTemp < 80) {
+      return 'T-shirt and shorts';
+    } else {
+      return 'Light, breathable clothing like a tank top and shorts';
+    }
   }
 }
