@@ -10,14 +10,9 @@ export class AddNewTrailComponent extends BaseComponent {
         this.trailNameInput = null;
         this.trailImageInput = null;
         this.trailImagePreview = null;
-        this.startDateInput = null;
-        this.startTimeInput = null;
-        this.endTimeInput = null;
         this.fromLocationInput = null;
         this.toLocationInput = null;
-        this.weatherInfo = null;
         this.distanceInfo = null;
-        this.weatherDisplay = null;
         this.distanceDisplay = null;
     }
 
@@ -121,7 +116,6 @@ export class AddNewTrailComponent extends BaseComponent {
         this.distanceDisplay.textContent = `Distance: ${this.distanceInfo}`;
     }
 
-
     async addTrail() {
         const trailName = this.trailNameInput.value;
         const fromLocation = this.fromLocationInput.value;
@@ -131,10 +125,6 @@ export class AddNewTrailComponent extends BaseComponent {
 
         console.log(`Trail Name: ${trailName}`);
         console.log(`Distance from ${fromLocation} to ${toLocation}: ${this.distanceInfo}`);
-    }
-
-    async getWeatherInfo(date) {
-        return 'Sunny';
     }
 
     async calculateDistance(from, to) {
