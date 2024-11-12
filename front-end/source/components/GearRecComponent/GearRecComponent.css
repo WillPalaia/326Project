@@ -1,0 +1,27 @@
+#GearRecTitle{
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1% 30%;
+    border-radius: 12px;
+    color: rgb(24, 67, 11);
+    background-color: rgb(201, 203, 200);
+    z-index: 5; /* Lower than the sidebar */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+#forecastContainer {
+    padding-top: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    /* background-color: red; */
+}
+
+.forecast-day{
+    padding-left: 5vh;
+    /* background-color: blue; */
+}
