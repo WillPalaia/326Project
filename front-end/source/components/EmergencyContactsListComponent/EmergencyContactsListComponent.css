@@ -1,0 +1,32 @@
+.emergency-contacts-list {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.emergency-contacts-list h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contact-container {
+    margin-bottom: 15px;
+}
+
+.no-contacts-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+    background: #f5f5f5;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+#contactsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
