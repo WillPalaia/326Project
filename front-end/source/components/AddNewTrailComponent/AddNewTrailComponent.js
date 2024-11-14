@@ -1,24 +1,13 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 
 export class AddNewTrailComponent extends BaseComponent {
     constructor() {
         super();
         this.loadCSS('AddNewTrailComponent');
         this.hub = EventHub.getInstance();
-        this.trailNameInput = null;
-        this.trailImageInput = null;
-        this.trailImagePreview = null;
-        this.startDateInput = null;
-        this.startTimeInput = null;
-        this.endTimeInput = null;
-        this.fromLocationInput = null;
-        this.toLocationInput = null;
-        this.weatherInfo = null;
-        this.distanceInfo = null;
-        this.weatherDisplay = null;
-        this.distanceDisplay = null;
+        this.trailData = [];
+        this.trailImageUrl = '';
     }
 
     render() {
@@ -33,7 +22,17 @@ export class AddNewTrailComponent extends BaseComponent {
 
         container.classList.add('add-new-trail-container');
 
-    
+        // Header Section
+        const header = document.createElement('div');
+        header.className = 'header';
+
+        const headerTitle = document.createElement('h2');
+        headerTitle.className = 'header-title';
+        headerTitle.textContent = 'Add Your New Trail';
+
+        header.appendChild(headerTitle);
+        container.appendChild(header);
+
         // Trail Name Input
         const trailNameDiv = document.createElement('div');
         trailNameDiv.className = 'trail-name';
@@ -46,11 +45,6 @@ export class AddNewTrailComponent extends BaseComponent {
         container.appendChild(this.trailNameInput);
 
         // Trail Image Input
-        const trailImageDiv = document.createElement('div');
-        trailImageDiv.className = 'trail-image';
-        trailImageDiv.textContent = 'Trail Image:';
-        container.appendChild(trailImageDiv);
-
         this.trailImageInput = document.createElement('input');
         this.trailImageInput.type = 'file';
         this.trailImageInput.accept = 'image/*';
@@ -101,6 +95,14 @@ export class AddNewTrailComponent extends BaseComponent {
         submitButton.className = 'submit-button';
         submitButton.addEventListener('click', this.addTrail.bind(this));
         container.appendChild(submitButton);
+
+        // Success Message Display
+        this.successMessage = document.createElement('div');
+        this.successMessage.className = 'success-message';
+        this.successMessage.style.display = 'none';
+        container.appendChild(this.successMessage);
+
+        return container;
     }
 
     handleImageUpload(event) {
@@ -109,6 +111,7 @@ export class AddNewTrailComponent extends BaseComponent {
             const reader = new FileReader();
             reader.onload = (e) => {
                 this.trailImagePreview.src = e.target.result;
+                this.trailImageUrl = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -121,23 +124,54 @@ export class AddNewTrailComponent extends BaseComponent {
         this.distanceDisplay.textContent = `Distance: ${this.distanceInfo}`;
     }
 
-
     async addTrail() {
         const trailName = this.trailNameInput.value;
         const fromLocation = this.fromLocationInput.value;
         const toLocation = this.toLocationInput.value;
+        if (!trailName || !fromLocation || !toLocation) {
+            this.showErrorMessage("Please fill out all the fields to add the trail.");
+            return;
+        }
+        const distance = await this.calculateDistance(fromLocation, toLocation);
+        const newTrail = { trailName, fromLocation, toLocation, distance, trailImage: this.trailImageUrl };
+        this.trailData.push(newTrail);
+        this.showSuccessMessage(`Trail "${trailName}" added successfully!`);
 
-        this.distanceInfo = await this.calculateDistance(fromLocation, toLocation);
+        // Publish an event to notify other components immediately
+        this.hub.publish("TrailAdded", newTrail);
 
-        console.log(`Trail Name: ${trailName}`);
-        console.log(`Distance from ${fromLocation} to ${toLocation}: ${this.distanceInfo}`);
-    }
-
-    async getWeatherInfo(date) {
-        return 'Sunny';
+        // Clear the form after successful addition
+        this.clearForm();
     }
 
     async calculateDistance(from, to) {
         return '10 km';
+    }
+
+    showSuccessMessage(message) {
+        this.successMessage.textContent = message;
+        this.successMessage.style.display = 'block';
+        setTimeout(() => {
+            this.successMessage.style.display = 'none';
+        }, 3000);
+    }
+
+    showErrorMessage(message) {
+        this.successMessage.textContent = message;
+        this.successMessage.style.display = 'block';
+        setTimeout(() => {
+            this.successMessage.style.display = 'none';
+        }, 3000);
+    }
+
+    // Function to clear form fields
+    clearForm() {
+        this.trailNameInput.value = '';
+        this.fromLocationInput.value = '';
+        this.toLocationInput.value = '';
+        this.trailImageInput.value = '';
+        this.trailImagePreview.src = '';
+        this.distanceDisplay.textContent = '';
+        this.trailImageUrl = '';
     }
 }
