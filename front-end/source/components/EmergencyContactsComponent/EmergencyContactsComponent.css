@@ -1,0 +1,31 @@
+.emergency-contact-item {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contact-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.contact-email {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.emergency-contact-item:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}

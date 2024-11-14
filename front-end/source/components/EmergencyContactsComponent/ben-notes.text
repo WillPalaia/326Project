@@ -1,0 +1,41 @@
+## Feature: Display Emergency Contact(Grabs information from indexDB and displays the name and email of all of your emergency contacts)
+Member: Ben Thomas
+cases:
+- If there are no emergency contacts display “no emergency contacts” 
+- If there are emergency contacts display contact information (consisting of first name, last name, email) from 
+
+## Feature: Add Emergency Contact(Prompts user to add an emergency contacts) (2 pts)
+Member: Ben Thomas
+User is prompted to input the first name, last name, and email of their "emergency contact". This information will be stored inside indexDB
+
+
+Notes on Oct 29 Lecture: 
+https://umamherst.instructure.com/courses/14192/external_tools/147
+
+- each component is responsible for its own CSS (cascading style sheet), everything about them is contained. They are responsible for loading themselves up to the browser  
+
+Main.js notes: 
+
+
+BaseComponent: is a base class with some functionality, where "3 components that represent the UI" inherit  
+
+3 components that represent the UI:  
+TaskComponent: represents individual task 
+TaskInputComponent: 
+TaskListComponent: 
+
+
+Services: 
+Service.js: (it didn't seem that important when he explained it)
+TaskRepositoryService.js: indexDb is attached to this 
+
+
+EventHub: everything is connected to this asynchrously, 
+EventHub.js: uses subscribe to notify other components
+Event.js: a good way to centralize the events that can occur in your system 
+
+
+
+
+Questions: 
+- in the simplest form what is a container 
