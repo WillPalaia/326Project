@@ -33,7 +33,31 @@ export class TrailLogService extends Service {
     // Initialize the database
     this.initDB()
       .then(() => {
-        // Load trails on initialization
+
+        //test data 
+        const testTrails = [
+            {
+                trailName: "Mount Monadnock",
+                distance: 4.2
+            },
+            {
+                trailName: "Purgatory Chasm",
+                distance: 2.7
+            },
+            {
+                trailName: "Mount Wachusett",
+                distance: 3.3
+            },
+            {
+                trailName: "Middlesex Fells Loop",
+                distance: 6.5
+            }
+        ];
+
+        testTrails.forEach(trail => {
+            this.storeTrail(trail);
+        });
+        
         this.loadTrailsFromDB();
       })
       .catch(error => {

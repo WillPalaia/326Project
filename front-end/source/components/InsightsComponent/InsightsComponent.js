@@ -78,31 +78,3 @@ export class InsightsComponent extends BaseComponent{
             this.trailCountElement.textContent = `Number of Trails Completed: ${this.trails.length}`;
         }
 }
-
-//Test Data 
-const testTrails = [
-    {
-        trailName: "Mount Monadnock",
-        distance: 4.2
-    },
-    {
-        trailName: "Purgatory Chasm",
-        distance: 2.7
-    },
-    {
-        trailName: "Mount Wachusett",
-        distance: 3.3
-    },
-    {
-        trailName: "Middlesex Fells Loop",
-        distance: 6.5
-    },
-    {
-        trailName: "Blue Hills Skyline Trail",
-        distance: 8.8
-    }
-];
-
-// Get service and add trails
-const trailService = new TrailLogService();
-testTrails.forEach(trail => trailService.storeTrail(trail));
