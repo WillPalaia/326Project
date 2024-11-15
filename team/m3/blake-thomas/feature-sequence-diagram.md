@@ -4,6 +4,7 @@ This feature retrieves trail data on the hikers previous saved trails using inde
 to create a visualization dashboard that shows insights to the hiker. Relevant fields show insights such as
 "total mileage hiked" and "trails completed. 
 
+```mermaid
 graph TD;
     A[TrailLogService]-->B[IndexedDB];
     B-->C[Store Trail Data];
@@ -13,3 +14,4 @@ graph TD;
     B-->E;
     G[New Trail]-->B;
     B-->D;
+```
