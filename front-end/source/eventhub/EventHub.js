@@ -8,6 +8,7 @@ export class EventHub {
     if (!this.events[event]) {
       this.events[event] = [];
     }
+    //adds new listener to event 
     this.events[event].push(listener);
 
     // Return an unsubscribe function for convenience

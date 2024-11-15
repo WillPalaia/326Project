@@ -87,3 +87,28 @@
 #trailBtn:hover, #beginBtn:hover, #aboutBtn:hover, #insightsBtn:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
+
+#emergencyContactsBtn {
+  position: absolute;
+  top: 70%;
+  right: 36%;
+  font-size: 200%;
+  padding: 3% 7%;
+  color: rgb(0, 0, 0);
+  border-radius: 12px;
+  background-image: url("../../../Images/sos.jpg");
+  background-size: cover;
+  width: 400px;
+  height: 200px;
+  padding: 20px 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: box-shadow 0.4s;
+  z-index: 10
+}
+
+#emergencyContactsBtn:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
