@@ -21,19 +21,39 @@ export class InsightsComponent extends BaseComponent{
 
 }
         render(){
-            //create container for various insights
-            const container = document.createElement('div');
-            container.className = 'insights-container';
+            //update view
+            let container = document.getElementById('mainPageContainer');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'mainPageContainer';
+                document.body.appendChild(container);
+            } else {
+                container.innerHTML = '';
+            }
+            container.classList.add('insights-container');
 
-            this.totalDistanceElem = document.createElement('div');
+            const header = document.createElement('header');
+            const title = document.createElement('h1');
+            title.textContent = 'Trail Insights';
+            title.className = 'insights-title';
+            header.appendChild(title);
+            container.appendChild(header);
+
+
+            //create container for various insights
+            const statsSection = document.createElement('section');
+            statsSection.className = 'stats-section';
+
+            this.totalDistanceElemment = document.createElement('div');
             this.totalDistanceElement.className = 'total-distance';
+            statsSection.appendChild(this.totalDistanceElement);
 
             this.trailCountElement = document.createElement('div');
             this.trailCountElement.className = 'trail-count';
+            statsSection.appendChild(this.trailCountElement);
             
             //add to container 
-            container.appendChild(this.totalDistanceElement);
-            container.appendChild(this.trailCountElement);
+            container.appendChild(statsSection);
 
             this.loadTrailData();
         }
