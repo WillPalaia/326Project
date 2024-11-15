@@ -1,14 +1,42 @@
-#title{
-    position: absolute;
+#profilePageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
 
-  top: 0%;
+  /* Ensure full screen */
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
 
-  left: 50%;
+  /* Background image */
+  background-image: url("https://plus.unsplash.com/premium_photo-1677002240252-af3f88114efc?q=80&w=2025&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==");
+  background-size: cover; /* Ensure the image covers the entire container */
+  background-repeat: no-repeat; /* Prevent tiling */
+  background-position: center; /* Center the image */
+  margin: 0; /* Remove any default margins */
+  box-sizing: border-box; /* Include padding in width/height calculations */
+}
 
-  transform: translateX(-50%);
+#profilePictureSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for visibility */
+  padding: 20px;
+  border-radius: 10px;
+}
 
-  border-radius: 12px;
+#profileImage {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image scales proportionally */
+  border: 2px solid #ccc;
+}
 
-  color:navy;
-  background-color: rgb(203, 200, 200);
+#profilePictureInput {
+  font-size: 1em;
 }
