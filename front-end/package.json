@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start-server": "http-server ./source -p 3000",
+    "start-server": "http-server ./source -p 3000 -c5",
     "test": "npx playwright test",
     "test:ui": "npx playwright test --ui"
   },
