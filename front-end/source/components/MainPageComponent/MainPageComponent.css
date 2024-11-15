@@ -91,14 +91,17 @@
 
 #emergencyContactsBtn {
   position: absolute;
-  top: 35%;
-  right: 50%;
+  top: 70%;
+  right: 36%;
   font-size: 200%;
   padding: 3% 7%;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   border-radius: 12px;
-  background-image: url("https://images.pexels.com/photos/7369/startup-photos.jpg?cs=srgb&dl=pexels-startup-stock-photos-7369.jpg&fm=jpg&_gl=1*yzlr6m*_ga*OTMyODQ5ODguMTczMTI3MjA1NQ..*_ga_8JE65Q40S6*MTczMTI3MjA1NS4xLjEuMTczMTI3MjM0OC4wLjAuMA..");
+  background-image: url("../../../Images/sos.jpg");
   background-size: cover;
+  width: 400px;
+  height: 200px;
+  padding: 20px 40px;
   background-repeat: no-repeat;
   background-position: center;
   transition: box-shadow 0.4s;
