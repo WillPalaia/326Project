@@ -32,7 +32,7 @@ export class GearRecComponent extends BaseComponent {
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
+          throw new Error(`did not get resonse`);
         }
         return response.json();
       })
@@ -66,7 +66,6 @@ export class GearRecComponent extends BaseComponent {
       })
       .catch((error) => {
         console.error('Error fetching weather data:', error);
-        this.displayError(container, error);
       });
   }
   
