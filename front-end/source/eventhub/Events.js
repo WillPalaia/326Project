@@ -45,4 +45,9 @@ export const Events = {
     // View Switching Events:
   SwitchToMainView: 'SwitchToMainView',
   SwitchToSimpleView: 'SwitchToSimpleView',
+
+  'EmergencyContact:new': 'EmergencyContact:new',
+  'EmergencyContact:store': 'EmergencyContact:store',
+  'EmergencyContact:stored': 'EmergencyContact:stored',
+  'EmergencyContact:error': 'EmergencyContact:error',
 };
