@@ -3,6 +3,9 @@ import { EventHub } from '../../eventhub/EventHub.js';
 import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
 import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
+import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
+import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
+import { InsightsComponent } from '../InsightsComponent/InsightsComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -49,8 +52,22 @@ export class MainPageComponent extends BaseComponent {
     aboutPageBtn.id = "aboutBtn";
     aboutPageBtn.textContent = "About TrailSafe";
     container.appendChild(aboutPageBtn);
-    
 
+
+     // Emergency Contact button 
+    const emergencyContactsBtn = document.createElement("button"); // creates button 
+    emergencyContactsBtn.id = "emergencyContactsBtn"; // sets the HTML id of the element
+    emergencyContactsBtn.textContent = "Emergency Contacts"; //sets text for button 
+    container.appendChild(emergencyContactsBtn); // appends button to "container" variable which is assigned on line 21 
+    
+    // Create and add the "About" button
+    const insightsPageBtn = document.createElement("button");
+    insightsPageBtn.id = "insightsBtn";
+    insightsPageBtn.textContent = "Insights";
+    container.appendChild(insightsPageBtn);
+
+    
+     //Event Listeners 
     // adding event listener to " Begin Trail"
     beginTrailBtn.addEventListener('click', () => {
       const pageComponent = new BeginTrailComponent();
@@ -67,6 +84,51 @@ export class MainPageComponent extends BaseComponent {
       console.log("rendering About")
       pageComponent.render();
     })
+
+
+
+    // In your Event Listeners 
+    //When button is clicked execute the function below 
+    emergencyContactsBtn.addEventListener('click', () => {
+      
+      // Clears container all content from container element 
+      container.innerHTML = '';
+
+      // Create title for the emergency contacts page
+      const pageTitle = document.createElement("h2");
+      pageTitle.textContent = "Emergency Contacts";
+      container.appendChild(pageTitle);
+
+      
+      /*Temporary Code I do not know where to put this*/
+      //is this the only way I can do it because I am rendering multiple folders? 
+      // Create and render input component
+
+      /*Lines 99-104: Add inputComponent and listComponent to container and then later container is rendered */
+      const inputComponent = new EmergencyContactsInputComponent();
+      container.appendChild(inputComponent.render()); 
+
+      // Create and render list component
+      const listComponent = new EmergencyContactsListComponent();
+      container.appendChild(listComponent.render());
+
+      //"Back to Main" button: re-renders main page 
+      const backButton = document.createElement("button");
+      backButton.id = "backToMainBtn";
+      backButton.textContent = "Back to Main";
+      backButton.addEventListener('click', () => {
+          // Re-render main page
+          this.render();
+      });
+      container.appendChild(backButton);
+    });
+
+
+    insightsPageBtn.addEventListener('click',()=>{
+      const pageComponent = new InsightsComponent();
+      pageComponent.render();
+    })
+
 
     return container;
   }
