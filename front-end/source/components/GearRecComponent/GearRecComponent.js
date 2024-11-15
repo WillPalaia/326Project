@@ -1,13 +1,11 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { Events } from '../../eventhub/Events.js';
-import { TaskComponent } from '../TaskComponent/TaskComponent.js';
 
 export class GearRecComponent extends BaseComponent {
   constructor() {
     super();
-    this.loadCSS('GearRecComponent');
-    this.hub = EventHub.getInstance();
+    this.loadCSS('GearRecComponent'); // Load CSS specific to this component
+    this.hub = EventHub.getInstance(); // Initialize the event hub
   }
 
   render() {
@@ -18,53 +16,60 @@ export class GearRecComponent extends BaseComponent {
       container.id = 'mainPageContainer';
       document.body.appendChild(container);
     } else {
-      container.innerHTML = ''; // Clear any previous content in the container
+      container.innerHTML = ''; // Clear any previous content
     }
 
-    const forecastContainer = document.createElement('div');
-    forecastContainer.id = 'forecastContainer';
-    container.appendChild(forecastContainer);
-
-    const title = document.createElement("h1");
-    title.id = "GearRecTitle";
-    title.textContent = "Gear recommendation";
+    // Add title
+    const title = document.createElement('h1');
+    title.id = 'GearRecTitle';
+    title.textContent = 'GEAR RECOMMENDATION';
     container.appendChild(title);
 
+    // API URL
     const apiUrl = 'https://mock.yerf.dev/';
 
+    // Fetch data from the API
     fetch(apiUrl)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`did not get resonse`);
         }
         return response.json();
       })
       .then((data) => {
-        const location = document.createElement("h2");
+        const forecastContainer = document.createElement('div');
+        forecastContainer.id = 'forecastContainer';
+        container.appendChild(forecastContainer);
+
+        // Display location
+        const location = document.createElement('div');
+        location.id = 'locationContainer';
         location.textContent = `Location: ${data.location}`;
         forecastContainer.appendChild(location);
 
         // Display each day's forecast
-        data.forecast.forEach(dayForecast => {
-          const dayElement = document.createElement('div');
-          dayElement.classList.add('forecast-day');
-          const avgTemp = (dayForecast.high + dayForecast.low) / 2;
-          const gearRecommendation = this.GearRec(avgTemp);
-          
-          dayElement.innerHTML = `
-            <h3>${dayForecast.day}</h3>
-            <p>High: ${dayForecast.high}°${data.unit}</p>
-            <p>Low: ${dayForecast.low}°${data.unit}</p>
-            <p>${dayForecast.description}</p>
-            <p>Recommended Gear: ${gearRecommendation}</p>
-          `;
-          
-          forecastContainer.appendChild(dayElement);
-        })
-    })
-  }
+        data.forecast.forEach((dayForecast) => {
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('forecast-day');
+        const avgTemp = (dayForecast.high + dayForecast.low) / 2;
+        const gearRecommendation = this.GearRec(avgTemp);
 
-  GearRec(avgTemp){
+        dayElement.innerHTML = `
+          <h3>${dayForecast.day}</h3>
+          <p>High: ${dayForecast.high}°${data.unit}</p>
+          <p>Low: ${dayForecast.low}°${data.unit}</p>
+          <p>${dayForecast.description}</p>
+          <p>Recommended Gear: ${gearRecommendation}</p>
+        `;
+        forecastContainer.appendChild(dayElement);
+    });
+      })
+      .catch((error) => {
+        console.error('Error fetching weather data:', error);
+      });
+  }
+  
+  GearRec(avgTemp) {
     if (avgTemp < 40) {
       return 'Winter coat, gloves, and hat';
     } else if (avgTemp >= 40 && avgTemp < 60) {
