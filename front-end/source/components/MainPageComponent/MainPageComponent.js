@@ -5,7 +5,7 @@ import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailCompone
 import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
 import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
 import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
-
+import { InsightsComponent } from '../InsightsComponent/InsightsComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -55,13 +55,19 @@ export class MainPageComponent extends BaseComponent {
 
 
      // Emergency Contact button 
-     const emergencyContactsBtn = document.createElement("button"); // creates button 
-     emergencyContactsBtn.id = "emergencyContactsBtn"; // sets the HTML id of the element
-     emergencyContactsBtn.textContent = "Emergency Contacts"; //sets text for button 
-     container.appendChild(emergencyContactsBtn); // appends button to "container" variable which is assigned on line 21 
-     //Event Listeners 
+    const emergencyContactsBtn = document.createElement("button"); // creates button 
+    emergencyContactsBtn.id = "emergencyContactsBtn"; // sets the HTML id of the element
+    emergencyContactsBtn.textContent = "Emergency Contacts"; //sets text for button 
+    container.appendChild(emergencyContactsBtn); // appends button to "container" variable which is assigned on line 21 
     
+    // Create and add the "About" button
+    const insightsPageBtn = document.createElement("button");
+    insightsPageBtn.id = "insightsBtn";
+    insightsPageBtn.textContent = "Insights";
+    container.appendChild(insightsPageBtn);
 
+    
+     //Event Listeners 
     // adding event listener to " Begin Trail"
     beginTrailBtn.addEventListener('click', () => {
       const pageComponent = new BeginTrailComponent();
@@ -78,6 +84,7 @@ export class MainPageComponent extends BaseComponent {
       console.log("rendering About")
       pageComponent.render();
     })
+
 
 
     // In your Event Listeners 
@@ -115,6 +122,12 @@ export class MainPageComponent extends BaseComponent {
       });
       container.appendChild(backButton);
     });
+
+
+    insightsPageBtn.addEventListener('click',()=>{
+      const pageComponent = new InsightsComponent();
+      pageComponent.render();
+    })
 
 
     return container;
