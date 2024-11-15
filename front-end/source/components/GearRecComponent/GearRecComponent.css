@@ -1,20 +1,25 @@
 #GearRecTitle{
     position: absolute;
-    width: 30vw;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1% 30%;
+    width: 80vw; 
+    height: 50vh; 
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    padding: 2%; 
     border-radius: 12px;
-    color: rgb(24, 67, 11);
-    background-color: rgb(201, 203, 200);
-    z-index: 5; /* Lower than the sidebar */
+    color: rgb(255, 255, 255);
+    background-image: url('https://www.trekking-mont-blanc.com/wp-content/uploads/2020/06/Materiel-pour-une-randonnee-en-ete-1080x675.jpg');
+    z-index: 5;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
 }
 
 #forecastContainer {
     width: 80vw;
-    padding-top: 15%;
+    padding-top: 43%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,18 +30,18 @@
 
 #locationContainer {
     position: absolute;
-    top: 20%;
+    top: 65%;
     left: 40%;
     font-weight: bolder;
     font-size: 3vh;
-    color: green;
+    color: rgb(23, 85, 23);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     /* background-color: aquamarine; */
 }
 
 .forecast-day{
     padding-left: 2vh;
-    height: 55vh;
+    height: 50vh;
     color: green;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(201, 203, 200);
