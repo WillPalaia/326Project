@@ -32,7 +32,7 @@ export class DynamicSidebarComponent extends BaseComponent {
 
     // Sidebar content structure
     const sidebarTitle = document.createElement("h2");
-    sidebarTitle.textContent = "Dynamic Sidebar";
+    sidebarTitle.textContent = "Explore";
     sidebar.appendChild(sidebarTitle);
 
     const sidebarContent = document.createElement("p");

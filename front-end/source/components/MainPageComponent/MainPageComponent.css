@@ -1,3 +1,15 @@
+#mainPageContainer {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column by default */
+  grid-template-rows: auto;
+  gap: 20px; /* Default gap between items */
+  padding: 20px;
+  max-width: 100%;
+  justify-items: center;
+}
+
+
+
 #title {
   position: absolute;
   top: 0%;
@@ -31,6 +43,8 @@
   background-position: center;
   transition: box-shadow 0.4s;
   z-index: 10;
+  transition: all 0.4s;
+  box-sizing: border-box;
 }
 
 #beginBtn {
@@ -47,6 +61,8 @@
   background-position: center;
   transition: box-shadow 0.4s;
   z-index: 10;
+  transition: all 0.4s;
+  box-sizing: border-box;
 }
 
 #aboutBtn {
@@ -63,6 +79,8 @@
   background-position: center;
   transition: box-shadow 0.4s;
   z-index: 10;
+  transition: all 0.4s;
+  box-sizing: border-box;
 }
 
 #insightsBtn {
@@ -87,6 +105,91 @@
 #trailBtn:hover, #beginBtn:hover, #aboutBtn:hover, #insightsBtn:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
+/* Small-Medium screens: 2 columns */
+@media (min-width: 90%) {
+  #mainPageContainer {
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 1em;
+  }
+  #beginBtn{
+    right:5%;
+    top:30%
+  }
+  #trailBtn {
+    left:5%;
+    top:30%
+  }
+  #aboutBtn{
+    
+    top:60%
+  }
+}
+
+/* Medium screens: 2 columns */
+@media (min-width: 95%) {
+  #mainPageContainer {
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 1em;
+  }
+  #beginBtn{
+    right:15%;
+    top:15%
+  }
+  #trailBtn {
+    left:15%;
+    top:15%
+  }
+  
+  #aboutBtn{
+    
+    top:35%
+  }
+}
+
+
+
+/* Large screens: 3 columns */
+@media (min-width: 100%) {
+  #mainPageContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Small screens: Adjust font size and padding */
+@media (max-width: 599px) {
+  #title {
+    font-size: 1.5em;
+    padding: 5px 20px;
+  }
+  button {
+    font-size: .5em;
+    padding: 15px 20px;
+    max-width: 140px; /* Reduce max width */
+  }
+  #aboutBtn{
+    font-size: .8em;
+    top:40%
+  }
+}
+
+/* Very small screens: Stack elements vertically */
+@media (max-width: 400px) {
+  #mainPageContainer {
+    grid-template-columns: 1fr;
+    gap: 10px; /* Reduce spacing for very small screens */
+  }
+  
+  #title {
+    font-size: 1.5em;
+  }
+  button {
+    font-size: .8em;
+    padding: 8px 12px;
+  }
+  #aboutBtn{
+    font-size: .5em;
+  }
 
 
 #emergencyContactsBtn {
