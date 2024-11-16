@@ -1,5 +1,17 @@
 import { EventHub } from '../eventhub/EventHub.js';
-import { Service } from './Service.js';
+import Service from './Service.js';
+
+/*
+Example Usage: 
+
+//set in EmergencyContactsInput.js
+contactData = {Ben, Thomas, benjthomas@umass.edu}
+
+#publishNewContact(contactData) {
+    hub.publish('EmergencyContact:store', contactData);
+} 
+
+*/
 
 export class EmergencyContactsService extends Service {
     constructor() {
@@ -11,8 +23,21 @@ export class EmergencyContactsService extends Service {
         // Initialize database and subscribe to events
         this.initDB()
             .then(() => {
+                //test data 
+                const contactData = [
+                    {
+                        FirstName: "Ben",
+                        LastName: "Thomas",
+                        Email: "benjthomas@umass.edu"
+                    }
+                ];
+
+            contactData.forEach(contact => {
+            this.storeContact(contact);
+        });
                 this.loadContactsFromDB();  // Load existing contacts on initialization
                 this.addSubscriptions();
+
             })
             .catch(error => {
                 console.error('Failed to initialize DB:', error);
