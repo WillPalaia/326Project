@@ -1,6 +1,5 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
 import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
 import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';

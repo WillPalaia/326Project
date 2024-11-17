@@ -15,3 +15,7 @@
 - **Details**: Finished the CSS and HTML and got the mock api working
 **Link to Commit**: https://github.com/WillPalaia/326Project/commit/52119c65714dd83c31e18a6052b71091bc474dfb
  
+### Nov 17, 2024
+- **Task**: redid Gear Recommendation logic
+- **Details**: I made it so that it takes user input to search through my fake api so in the future when i use the real api it doesn't just show one place.
+**Link to Commit**: 

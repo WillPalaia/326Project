@@ -1,42 +1,28 @@
 #GearRecTitle{
     position: absolute;
-    width: 80vw; 
-    height: 50vh; 
-    top: 0; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    padding: 2%; 
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1% 30%;
     border-radius: 12px;
-    color: rgb(255, 255, 255);
-    background-image: url('https://www.trekking-mont-blanc.com/wp-content/uploads/2020/06/Materiel-pour-une-randonnee-en-ete-1080x675.jpg');
-    z-index: 5;
+    color: rgb(24, 67, 11);
+    background-color: rgb(201, 203, 200);
+    z-index: 5; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: center; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    overflow: hidden; 
 }
 
 #forecastContainer {
     width: 80vw;
-    padding-top: 43%;
+    padding-top: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: large;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     /* background-color: red; */
-}
-
-#locationContainer {
-    position: absolute;
-    top: 65%;
-    left: 40%;
-    font-weight: bolder;
-    font-size: 3vh;
-    color: rgb(23, 85, 23);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    /* background-color: aquamarine; */
 }
 
 .forecast-day{
@@ -47,3 +33,36 @@
     background-color: rgb(201, 203, 200);
     /* background-color: blue;  */
 }
+
+#searchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+  }
+  
+  #searchInput {
+    width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px; 
+  }
+  
+  #searchButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: green; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+  }
+  
+  #searchButton:hover {
+    background-color: darkgreen; 
+  }
