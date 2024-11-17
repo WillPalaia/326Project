@@ -99,9 +99,6 @@ export class EmergencyContactsInputComponent extends BaseComponent {
         // Publish new contact event
         hub.publish('EmergencyContact:new', contactData);  //List Component sees this and updates the display - sent to event.js //hub.publish(Events.NewTask, { task, file });
  
-        // Publish store contact event
-        hub.publish('EmergencyContact:store', contactData); //Storage Component sees this and saves to database, not implemented yet - sent to event.js // hub.publish(Events.StoreTask, { task, file });
-        
     }
 
     #clearInputs() {

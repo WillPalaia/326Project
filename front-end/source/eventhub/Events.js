@@ -47,7 +47,7 @@ export const Events = {
   SwitchToSimpleView: 'SwitchToSimpleView',
 
   'EmergencyContact:new': 'EmergencyContact:new',
-  'EmergencyContact:store': 'EmergencyContact:store',
-  'EmergencyContact:stored': 'EmergencyContact:stored',
+  'EmergencyContact:loaded': 'EmergencyContact:loaded',
+  'EmergencyContact:request': 'EmergencyContact:request', 
   'EmergencyContact:error': 'EmergencyContact:error',
 };
