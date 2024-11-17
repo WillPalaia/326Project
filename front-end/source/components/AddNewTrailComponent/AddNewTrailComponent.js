@@ -1,5 +1,6 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
+import { MainPageComponent } from '../MainPageComponent/MainPageComponent.js'; // Import the main page component
 
 export class AddNewTrailComponent extends BaseComponent {
     constructor() {
@@ -96,6 +97,13 @@ export class AddNewTrailComponent extends BaseComponent {
         submitButton.addEventListener('click', this.addTrail.bind(this));
         container.appendChild(submitButton);
 
+        // Back to Main Page Button
+        const backButton = document.createElement('button');
+        backButton.textContent = 'Back to Main Page';
+        backButton.className = 'back-button';
+        backButton.addEventListener('click', this.navigateToMainPage.bind(this)); // Navigate to main page
+        container.appendChild(backButton);
+
         // Success Message Display
         this.successMessage = document.createElement('div');
         this.successMessage.className = 'success-message';
@@ -103,6 +111,11 @@ export class AddNewTrailComponent extends BaseComponent {
         container.appendChild(this.successMessage);
 
         return container;
+    }
+
+    navigateToMainPage() {
+        const mainPageComponent = new MainPageComponent(); // Instantiate MainPageComponent
+        mainPageComponent.render(); // Render the main page
     }
 
     handleImageUpload(event) {
@@ -164,7 +177,6 @@ export class AddNewTrailComponent extends BaseComponent {
         }, 3000);
     }
 
-    // Function to clear form fields
     clearForm() {
         this.trailNameInput.value = '';
         this.fromLocationInput.value = '';
