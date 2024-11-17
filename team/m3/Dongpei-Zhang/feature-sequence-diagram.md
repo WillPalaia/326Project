@@ -4,11 +4,6 @@ This feature grabs from weather currently a fake api (will implement with real o
 with a given location that is provided and displays it on the screen. This feature also takes the average of the
 low and high temperatures and recommends gear that the user should bring.
 
-A is user
-B is gearRecComponent
-C is API
-D is DOM
-
 # Sequence Diagram
 ```mermaid
 sequenceDiagram

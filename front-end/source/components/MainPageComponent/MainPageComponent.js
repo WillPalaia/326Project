@@ -6,6 +6,7 @@ import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js'
 import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
 import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
 import { InsightsComponent } from '../InsightsComponent/InsightsComponent.js';
+import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 
 
 export class MainPageComponent extends BaseComponent {
@@ -38,14 +39,6 @@ export class MainPageComponent extends BaseComponent {
     addTrailBtn.id = "trailBtn";
     addTrailBtn.textContent = "Add New Trail";
     container.appendChild(addTrailBtn);
-
-
-    // Create and add the "Add New Trail" button
-    const beginTrailBtn = document.createElement("button");
-    beginTrailBtn.id = "beginBtn";
-    beginTrailBtn.textContent = "Begin Trail";
-    container.appendChild(beginTrailBtn);
-
     
     // Create and add the "About" button
     const aboutPageBtn = document.createElement("button");
@@ -69,9 +62,14 @@ export class MainPageComponent extends BaseComponent {
     
      //Event Listeners 
     // adding event listener to " Begin Trail"
-    beginTrailBtn.addEventListener('click', () => {
-      const pageComponent = new BeginTrailComponent();
-      pageComponent.render();
+    const recommendGearBtn = document.createElement("button")
+    recommendGearBtn.id = "gearBtn";
+    recommendGearBtn.textContent = "Gear Recommendation";
+    container.appendChild(recommendGearBtn);
+
+    recommendGearBtn.addEventListener('click', () => {
+        const pageComponent = new GearRecComponent();
+        pageComponent.render();
     })
 
     addTrailBtn.addEventListener('click', () => {
