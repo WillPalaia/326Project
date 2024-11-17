@@ -1,11 +1,11 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { BeginTrailComponent } from '../BeginTrailComponent/BeginTrailComponent.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
 import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
 import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
 import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
 import { InsightsComponent } from '../InsightsComponent/InsightsComponent.js';
+import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 
 export class MainPageComponent extends BaseComponent {
   constructor() {
@@ -38,12 +38,12 @@ export class MainPageComponent extends BaseComponent {
     addTrailBtn.innerHTML = "<span>Add New Trail</span>";
     container.appendChild(addTrailBtn);
 
-    // Create and add the "Begin Trail" button
-    const beginTrailBtn = document.createElement("button");
-    beginTrailBtn.id = "beginBtn";
-    beginTrailBtn.className = "component-box";
-    beginTrailBtn.innerHTML = "<span>Begin Trail</span>";
-    container.appendChild(beginTrailBtn);
+    // Create and add the "Gear Recommendations" button
+    const gearRecBtn = document.createElement("button");
+    gearRecBtn.id = "gearRecBtn";
+    gearRecBtn.className = "component-box";
+    gearRecBtn.innerHTML = "<span>Gear Recommendations</span>";
+    container.appendChild(gearRecBtn);
 
     // Create and add the "About" button
     const aboutPageBtn = document.createElement("button");
@@ -68,8 +68,8 @@ export class MainPageComponent extends BaseComponent {
 
     // Event Listeners
     // Adding event listener to "Begin Trail"
-    beginTrailBtn.addEventListener('click', () => {
-      const pageComponent = new BeginTrailComponent();
+    gearRecBtn.addEventListener('click', () => {
+      const pageComponent = new GearRecComponent();
       pageComponent.render();
     });
 
