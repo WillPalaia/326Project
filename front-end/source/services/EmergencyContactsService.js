@@ -1,17 +1,6 @@
 import { EventHub } from '../eventhub/EventHub.js';
 import Service from './Service.js';
 
-/*
-Example Usage: 
-
-//set in EmergencyContactsInput.js
-contactData = {Ben, Thomas, benjthomas@umass.edu}
-
-#publishNewContact(contactData) {
-    hub.publish('EmergencyContact:store', contactData);
-} 
-
-*/
 
 export class EmergencyContactsService extends Service {
     constructor() {
@@ -141,7 +130,6 @@ export class EmergencyContactsService extends Service {
             request.onerror = () => {
                 console.error('error clearing data from IndexedDB');
                 EventHub.getInstance().publish('EmergencyContact:error', {
-                    message: 'Failed to clear contacts'
                 });
                 reject('Error clearing data from IndexedDB');
             };
