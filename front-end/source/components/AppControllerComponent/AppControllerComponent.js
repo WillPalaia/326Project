@@ -2,6 +2,7 @@ import { EventHub } from '../../eventhub/EventHub.js';
 import { DynamicSidebarComponent } from '../DynamicSidebarComponent/DynamicSidebarComponent.js';
 import { MainPageComponent } from '../MainPageComponent/MainPageComponent.js';
 import { ProfilePageComponent } from '../ProfilePageComponent/ProfilePageComponent.js';
+import { SettingsPageComponent } from '../SettingsPageComponent/SettingsPageComponent.js';
 import { FriendsPageComponent } from '../FriendsPageComponent/FriendsPageComponent.js';
 import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 
@@ -63,6 +64,9 @@ export class AppControllerComponent {
         break;
       case 'Profile':
         pageComponent = new ProfilePageComponent();
+        break;
+      case 'Settings':
+        pageComponent = new SettingsPageComponent();
         break;
       case 'Friends':
         pageComponent = new FriendsPageComponent();

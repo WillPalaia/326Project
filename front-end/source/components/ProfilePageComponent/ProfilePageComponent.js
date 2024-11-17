@@ -9,55 +9,24 @@ export class ProfilePageComponent extends BaseComponent {
     }
   
   
-      render() {
-        let container = document.getElementById('profilePageContainer');
+    render() {
+        // Create or find a specific container for this component's content
+        let container = document.getElementById('mainPageContainer');
         if (!container) {
           container = document.createElement('div');
-          container.id = 'profilePageContainer';
+          container.id = 'mainPageContainer';
           document.body.appendChild(container);
         } else {
-          container.innerHTML = '';
+          container.innerHTML = ''; // Clear any previous content in the container
         }
     
-        // Title
-        const title = document.createElement('h1');
-        title.textContent = 'Your Profile';
+        // Create and add the title
+        const title = document.createElement("h1");
+        title.id = "title3";
+        title.textContent = "Profile";
+        title.style.zIndex = "1000"; 
         container.appendChild(title);
-    
-        // Profile Picture Section
-        const profilePictureSection = document.createElement('div');
-        profilePictureSection.id = 'profilePictureSection';
-        container.appendChild(profilePictureSection);
-    
-        const profileImage = document.createElement('img');
-        profileImage.id = 'profileImage';
-        profileImage.src = 'https://via.placeholder.com/150'; // Placeholder image
-        profileImage.alt = 'Profile Picture';
-        profileImage.style.width = '150px';
-        profileImage.style.height = '150px';
-        profileImage.style.borderRadius = '50%'; // Circular image
-        profileImage.style.border = '2px solid #ccc';
-        profilePictureSection.appendChild(profileImage);
-    
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = 'image/*'; // Only allow image uploads
-        fileInput.id = 'profilePictureInput';
-        profilePictureSection.appendChild(fileInput);
-    
-        // Event Listener to Update Profile Image
-        fileInput.addEventListener('change', (event) => {
-          const file = event.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              profileImage.src = e.target.result; // Update image src with the uploaded file
-            };
-            reader.readAsDataURL(file);
-          }
-        });
     
         return container;
       }
     }
-    

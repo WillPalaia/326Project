@@ -1,10 +1,10 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 
-export class FriendsPageComponent extends BaseComponent {
+export class SettingsPageComponent extends BaseComponent {
     constructor() {
       super();
-      this.loadCSS('FriendsPageComponent');
+      this.loadCSS('SettingsPageComponent');
       this.hub = EventHub.getInstance();
     }
   
@@ -22,8 +22,8 @@ export class FriendsPageComponent extends BaseComponent {
     
         // Create and add the title
         const title = document.createElement("h1");
-        title.id = "title2";
-        title.textContent = "Friends";
+        title.id = "title4";
+        title.textContent = "Settings";
         title.style.zIndex = "1000"; 
         container.appendChild(title);
     
