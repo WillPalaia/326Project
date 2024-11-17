@@ -16,32 +16,22 @@ contactData = {Ben, Thomas, benjthomas@umass.edu}
 export class EmergencyContactsService extends Service {
     constructor() {
         super();
+        console.log('1. Service constructor starting');
         this.dbName = 'emergencyContactsDB';
         this.storeName = 'contacts';
         this.db = null;
 
         // Initialize database and subscribe to events
-        this.initDB()
-            .then(() => {
-                //test data 
-                const contactData = [
-                    {
-                        FirstName: "Ben",
-                        LastName: "Thomas",
-                        Email: "benjthomas@umass.edu"
-                    }
-                ];
-
-            contactData.forEach(contact => {
-            this.storeContact(contact);
-        });
-                this.loadContactsFromDB();  // Load existing contacts on initialization
-                this.addSubscriptions();
-
-            })
-            .catch(error => {
-                console.error('Failed to initialize DB:', error);
+        this.initDB().then(() => {
+                console.log('2. DB initialized');
+                console.log('DB initialized, about to load contacts');
+                this.loadContactsFromDB().then(contacts => {
+                    console.log('3. Contacts loaded and published', contacts);
             });
+        })
+        
+        
+                //Reminder: this.addSubscriptions(); is automatically called in service.js so calling it again here would be making two calls of this.addSubscriptions();
     }
 
     async initDB() {
@@ -74,20 +64,19 @@ export class EmergencyContactsService extends Service {
             const request = store.add(contactData);
 
             request.onsuccess = () => {
-                EventHub.getInstance().publish('EmergencyContact:stored', contactData);
+                //EventHub.getInstance().publish('EmergencyContact:new', contactData);
                 resolve('Contact stored successfully');
             };
 
             request.onerror = () => {
                 EventHub.getInstance().publish('EmergencyContact:error', {
-                    message: 'Failed to store contact',
-                    data: contactData
+                    message: 'Failed to load contact',
                 });
                 reject('Error storing contact');
             };
         });
     }
-
+    //Publishes loadedContacts to be passed to EClistComp
     async loadContactsFromDB() {
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction([this.storeName], 'readonly');
@@ -96,10 +85,10 @@ export class EmergencyContactsService extends Service {
 
             request.onsuccess = event => {
                 const contacts = event.target.result;
-                // Publish each contact individually to maintain consistency with new contacts
-                contacts.forEach(contact => {
-                    EventHub.getInstance().publish('EmergencyContact:new', contact);
-                });
+                console.log('About to publish contacts:', contacts);
+                EventHub.getInstance().publish('EmergencyContact:loaded', contacts);
+                console.log('Published contacts event');
+                
                 resolve(contacts);
             };
 
@@ -111,11 +100,18 @@ export class EmergencyContactsService extends Service {
             };
         });
     }
-
+ 
     addSubscriptions() {
         // Subscribe to store contact events
-        EventHub.getInstance().subscribe('EmergencyContact:store', contactData => {
-            this.storeContact(contactData);
+        EventHub.getInstance().subscribe('EmergencyContact:new', contactData => {
+            // Store in database
+            this.storeContact(contactData).catch(error => {
+                // If storage fails, notify system
+                EventHub.getInstance().publish('EmergencyContact:error', {
+                    message: 'Failed to store contact',
+                    error
+                });
+        });
         });
     }
 }
