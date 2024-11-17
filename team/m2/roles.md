@@ -21,12 +21,15 @@
   2. Commit 2: Made diagrams and possible templates for project ideas
   3. Commit 3: Created pictures of what team members ideas would look like on our web application
 
-## Ben Thomas - Project Architect/Full-stack 
+## Ben Thomas - Front-end developer  
 - **Role**: Develops in-depth psuedo-code for each feature, selects the different API's, libraries, and technologies we will use.
 - **Top 3 Commits**:
-  1. [Commit 1](https://github.com/WillPalaia/326Project/commit/6c3b23b9900155b8c6d0dfc3eceef46daf170d12): Brainstormed and wrote down features with Blake. Came up with the product name "TrailSafe" 
-  2. Commit 2: Attended meeting and brainstormed project ideas
-  3. Commit 3: Wrote in-depth psuedo-code for Cellular Coverage Data feature
+  1. [Commit 1]: (https://github.com/WillPalaia/326Project/commit/53c8f25f2300a6c921e880fa214ec22921713cbd): Implemented first drafts for all components including JS and CSS. 
+  - Allows user to input information (EmergencyContactInputComponent.js), information is stored in a list(EmergencyContactListComponent.js), information is then rendered (EmergencyContactListComponent.js/EmergencyContactComponent.js)
+  2. [Commit 2]: (https://github.com/WillPalaia/326Project/commit/b543efc0e1695b3dbc916c969ca6e6a18bfe155d): IndexedDB and EmergencyContactsList became completely functional without any bugs preventing particular functionalities. 
+  - This marked when user could add render/refresh page and see their emergency contacts
+  - user can add contacts and have them seamlessly and instantly added to both UI and indexedDB
+  3. [Commit 3]: (https://github.com/WillPalaia/326Project/commit/a70c4cde5069fa05720ceb5f2c5074b71b3e9988): Added a button that clears IndexedDB and UI of emergency contacts
 
 ## Nhan Doan - UI Designer
 - **Role**: Designed the user interface and ensured a clear, functional layout for the application. Focused on creating diagrams that represent the app's structure and user experience.
