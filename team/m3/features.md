@@ -48,6 +48,30 @@ There will also be a way for the user to extend stay period.
 **Point Value**: 
 **Completed By**: Ben and Tri
 
+## Add Emergency Contact: 
+- The Add Emergency Contact feature provides users with the ability to store and manage emergency contact information within the application. When users need to input emergency contact details, they must provide three pieces of information: a first name, last name, and email address. The feature implements a form system that ensures data validity before storing the information in IndexedDB for persistent storage across browser sessions. To maintain data integrity  the system requires all form fields to be completed before submission is allowed. The email validation system uses regex pattern matching to verify that provided email addresses conforms to standard email formats, preventing invalid data from being stored. Once validated, the contact information is stored in IndexedDB, ensuring the data persists even after the browser is closed. In the case a user incorrectly inputs their data they will be alerted by an error message that says "Please fill in all fields." or "Please enter a valid email address", helping users correct input errors immediately, improving the overall user experience.. 
+- When a user inputs their data it will be instantaneously added to the UI. 
+**Point Value**: 3
+**Completed By**: Ben Thomas
+
+## Clear Emergency Contacts: 
+- The Clear Emergency Contacts feature implements a data management system that enables users to remove all emergency contact records from both the user interface and persistent storage. This feature goes beyond simple UI deletion by also wiping the data from indexedDB. When the clear button is clicked the UI will instantaneously remove your emergency contacts.
+**Point Value**: 3
+**Completed By**: Ben Thomas
+
+
+## Emergency Contacts UI:
+- The Emergency Contacts UI feature implements a data visualization and management interface that demonstrates significant complexity through its real-time synchronization between the UI and IndexedDB persistent storage. 
+- When the user accesses the application or refreshed, the system will immediately grab the data from IndexedDB and display it to the user. 
+- When a new contact is added through the input form, the system not only persists this data to IndexedDB but also triggers an immediate UI update through the event system, ensuring the display reflects the current state without requiring a page refresh. All while managing different possible errors and protecting data integrity. 
+- When users activate the clear functionality, the system coordinate numerous operations: initiating a database clear transaction, awaiting successful completion, and then instantly updating the UI to reflect the empty state. 
+- By interacting with User Interface on a single render the user is capable of causing the system to apply 3 different calls on IndexedDB: .getall, .clear, .add
+- Further, beyond the different functionalities the Emergency Contacts UI displays contact information in a clear, organized format while providing instantaneous visual updates whenever users add or remove contacts.
+**Point Value**: 5
+**Completed By**: Ben Thomas
+
+
+
 ## Add Start New Trail
 The Add New Trails feature allows users to create and save detailed trail information for their backpacking adventures. This includes specifying the trail name, start and end locations, and uploading a relevant image for the trail. It also calculates the distance between locations (currently using a mocked value) and ensures all data is validated before being saved. This feature integrates seamlessly with the application's trail management system to store and display user-added trails.
 **Point Value**: 3

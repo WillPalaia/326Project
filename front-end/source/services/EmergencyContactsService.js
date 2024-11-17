@@ -16,7 +16,6 @@ export class EmergencyContactsService extends Service {
         this.initDB().then(() => {
                 console.log('3. DB initialized');
                 //this.EmergencyContactRequestListener();
-                console.log('Next Stop');
             
             
         })     
