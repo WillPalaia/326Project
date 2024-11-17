@@ -100,13 +100,6 @@ export class AddNewTrailComponent extends BaseComponent {
         submitButton.addEventListener('click', this.addTrail.bind(this)); // Save trail using TrailLogService
         container.appendChild(submitButton);
 
-        // Back to Main Page Button
-        const backButton = document.createElement('button');
-        backButton.textContent = 'Back to Main Page';
-        backButton.className = 'back-button';
-        backButton.addEventListener('click', this.navigateToMainPage.bind(this));
-        container.appendChild(backButton);
-
         // Success Message Display
         this.successMessage = document.createElement('div');
         this.successMessage.className = 'success-message';
