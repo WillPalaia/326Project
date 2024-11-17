@@ -45,7 +45,7 @@ export class GearRecComponent extends BaseComponent {
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Error fetching weather data');
+          throw new Error('Error getting weather data');
         }
         return response.json();
       })
