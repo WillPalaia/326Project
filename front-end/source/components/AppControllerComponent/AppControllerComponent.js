@@ -5,18 +5,19 @@ import { ProfilePageComponent } from '../ProfilePageComponent/ProfilePageCompone
 import { SettingsPageComponent } from '../SettingsPageComponent/SettingsPageComponent.js';
 import { FriendsPageComponent } from '../FriendsPageComponent/FriendsPageComponent.js';
 import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
+import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
 
 export class AppControllerComponent {
   #container = null;
   #hub = null;
   #dynamicSidebarComponent = null;
+  #homeIconComponent = null;
   #viewContainer = null;
-  #GearRecComponent = null;
 
   constructor() {
     this.#hub = EventHub.getInstance();
     this.#dynamicSidebarComponent = new DynamicSidebarComponent();
-    this.#GearRecComponent = new GearRecComponent();
+    this.#homeIconComponent = new HomeIconComponent();
   }
 
   render() {
@@ -24,8 +25,9 @@ export class AppControllerComponent {
     this.#setupContainerContent();
     this.#attachEventListeners();
     this.#dynamicSidebarComponent.render();
+    this.#homeIconComponent.render();
 
-    // Render Home page initially
+    // Render the Home page initially
     this.#renderPage('Home');
 
     // Append container to body or specific parent

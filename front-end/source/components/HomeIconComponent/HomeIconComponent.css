@@ -1,0 +1,21 @@
+/* HomeIconComponent.css */
+
+/* General styles for the home icon */
+#homeIcon {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 1000;
+    cursor: pointer;
+    font-size: 1.8rem; /* Make the icon slightly bigger */
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove button border */
+    padding: 0.5rem; /* Add some padding around the icon */
+    border-radius: 50%; /* Optional: Add a rounded look */
+  }
+  
+  /* Add hover effect */
+  #homeIcon:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Subtle hover effect */
+  }
+  

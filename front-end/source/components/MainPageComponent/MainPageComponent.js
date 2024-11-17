@@ -111,16 +111,6 @@ export class MainPageComponent extends BaseComponent {
       // Create and render list component
       const listComponent = new EmergencyContactsListComponent();
       container.appendChild(listComponent.render());
-
-      //"Back to Main" button: re-renders main page 
-      const backButton = document.createElement("button");
-      backButton.id = "backToMainBtn";
-      backButton.textContent = "Back to Main";
-      backButton.addEventListener('click', () => {
-          // Re-render main page
-          this.render();
-      });
-      container.appendChild(backButton);
     });
 
 
