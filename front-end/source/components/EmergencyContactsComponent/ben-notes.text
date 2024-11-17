@@ -39,3 +39,15 @@ Event.js: a good way to centralize the events that can occur in your system
 
 Questions: 
 - in the simplest form what is a container 
+
+
+
+
+Note for 11/16
+- For some reason indexedDB for EmergencyContacts is not being created 
+- the first thing I want to test is whether the issue is because data is not being transported from ECinput or if it is a problem with ECservices 
+
+
+
+What I learned during this project: 
+- place a console.log("function_name") so you can always understand the flow of functions 

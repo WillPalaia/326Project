@@ -1,5 +1,6 @@
 import { AppControllerComponent } from './components/AppControllerComponent/AppControllerComponent.js';
-import { TaskRepositoryFactory } from './services/TaskRepositoryFactory.js';
+//import { TaskRepositoryFactory } from './services/TaskRepositoryFactory.js';
+import { EmergencyContactsService } from './services/EmergencyContactsService.js';
 
 // Create an instance of AppControllerComponent
 const appController = new AppControllerComponent();
@@ -9,4 +10,5 @@ const appContainer = document.getElementById('app');
 appContainer.appendChild(appController.render());
 
 // Services
-const taskRepository = TaskRepositoryFactory.get('remote');
+//const taskRepository = TaskRepositoryFactory.get('remote');
+const emergencyContactsService = new EmergencyContactsService();

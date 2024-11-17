@@ -98,10 +98,7 @@ export class EmergencyContactsInputComponent extends BaseComponent {
         const hub = EventHub.getInstance(); //ensures there is only one eventHub, "singleton"
         // Publish new contact event
         hub.publish('EmergencyContact:new', contactData);  //List Component sees this and updates the display - sent to event.js //hub.publish(Events.NewTask, { task, file });
-        //store these event names in event.js 
-        // Publish store contact event
-        hub.publish('EmergencyContact:store', contactData); //Storage Component sees this and saves to database, not implemented yet - sent to event.js // hub.publish(Events.StoreTask, { task, file });
-        //store these in event.js 
+ 
     }
 
     #clearInputs() {
