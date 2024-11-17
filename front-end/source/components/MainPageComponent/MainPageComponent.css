@@ -6,109 +6,96 @@
   padding: 1% 30%;
   border-radius: 12px;
   color: rgb(24, 67, 11);
-  background-color: rgb(201, 203, 200);
+  background-color: rgb(226, 226, 226);
   z-index: 5; /* Lower than the sidebar */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-
 
 #sidebar.closed {
   transform: translateX(-100%); /* Hide sidebar when closed */
 }
 
-#trailBtn {
-  position: absolute;
-  top: 15%;
-  left: 15%;
+.component-box {
+  width: 40%;
   font-size: 200%;
-  padding: 3% 6%;
+  padding: 3% 7%;
   color: rgb(255, 255, 255);
   border-radius: 12px;
-  background-image: url("https://images.unsplash.com/photo-1454496522488-7a8e488e8606?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: box-shadow 0.4s;
+  transition: box-shadow 0.4s, background-color 0.4s;
   z-index: 10;
+  opacity: 0.8; /* Slight transparency */
+}
+
+.component-box:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  opacity: 1; /* Remove transparency on hover */
+}
+
+.component-box span {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Border around each letter */
+}
+
+#trailBtn {
+  position: absolute;
+  top: 15%;
+  left: 7%;
+  background-image: url("https://images.unsplash.com/photo-1454496522488-7a8e488e8606?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D");
 }
 
 #beginBtn {
   position: absolute;
   top: 15%;
-  right: 15%;
-  font-size: 200%;
-  padding: 3% 7%;
-  color: rgb(255, 255, 255);
-  border-radius: 12px;
+  right: 7%;
   background-image: url("https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?cs=srgb&dl=pexels-sagui-andrea-200115-618833.jpg&fm=jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: box-shadow 0.4s;
-  z-index: 10;
 }
 
 #aboutBtn {
   position: absolute;
-  top: 35%;
-  right: 15%;
-  font-size: 200%;
-  padding: 3% 7%;
-  color: rgb(255, 255, 255);
-  border-radius: 12px;
-  background-image: url("https://images.pexels.com/photos/7369/startup-photos.jpg?cs=srgb&dl=pexels-startup-stock-photos-7369.jpg&fm=jpg&_gl=1*yzlr6m*_ga*OTMyODQ5ODguMTczMTI3MjA1NQ..*_ga_8JE65Q40S6*MTczMTI3MjA1NS4xLjEuMTczMTI3MjM0OC4wLjAuMA..");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: box-shadow 0.4s;
-  z-index: 10;
+  top: 40%;
+  right: 7%;
+  background-image: url("https://i0.wp.com/stepintoblacksburg.org/wp-content/uploads/2019/03/hiking-trail-lg.jpg?fit=2400%2C1600&ssl=1");
 }
 
 #insightsBtn {
   position: absolute;
-  top: 35%;
-  right: 55%;
-  font-size: 200%;
-  padding: 3% 7%;
-  color: rgb(255, 255, 255);
-  border-radius: 12px;
+  top: 40%;
+  left: 7%;
   background-image: url("https://images.pexels.com/photos/7369/startup-photos.jpg?cs=srgb&dl=pexels-startup-stock-photos-7369.jpg&fm=jpg&_gl=1*yzlr6m*_ga*OTMyODQ5ODguMTczMTI3MjA1NQ..*_ga_8JE65Q40S6*MTczMTI3MjA1NS4xLjEuMTczMTI3MjM0OC4wLjAuMA..");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: box-shadow 0.4s;
-  z-index: 10;
 }
-
-
-
-
-#trailBtn:hover, #beginBtn:hover, #aboutBtn:hover, #insightsBtn:hover {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
 
 #emergencyContactsBtn {
   position: absolute;
   top: 70%;
-  right: 36%;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 200%;
   padding: 3% 7%;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   border-radius: 12px;
   background-image: url("../../../Images/sos.jpg");
   background-size: cover;
-  width: 400px;
+  width: 40%;
   height: 200px;
   padding: 20px 40px;
   background-repeat: no-repeat;
   background-position: center;
-  transition: box-shadow 0.4s;
-  z-index: 10
+  transition: box-shadow 0.4s, transform 0.3s ease;
+  z-index: 10;
+  opacity: 0.8; /* Slight transparency */
 }
 
 #emergencyContactsBtn:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  opacity: 1; /* Remove transparency on hover */
+}
+
+#trailBtn, #beginBtn, #aboutBtn, #insightsBtn {
+  text-align: center;
+}
+
+#trailBtn span, #beginBtn span, #aboutBtn span, #insightsBtn span, #emergencyContactsBtn span {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Border around each letter */
 }
