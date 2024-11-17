@@ -16,22 +16,21 @@ contactData = {Ben, Thomas, benjthomas@umass.edu}
 export class EmergencyContactsService extends Service {
     constructor() {
         super();
-        console.log('1. Service constructor starting');
+        //Reminder: this.addSubscriptions(); is automatically called in service.js so calling it again here would be making two calls of this.addSubscriptions();
+        
+        console.log('2. Service constructor starting');
         this.dbName = 'emergencyContactsDB';
         this.storeName = 'contacts';
         this.db = null;
 
         // Initialize database and subscribe to events
         this.initDB().then(() => {
-                console.log('2. DB initialized');
-                console.log('DB initialized, about to load contacts');
-                this.loadContactsFromDB().then(contacts => {
-                    console.log('3. Contacts loaded and published', contacts);
-            });
-        })
-        
-        
-                //Reminder: this.addSubscriptions(); is automatically called in service.js so calling it again here would be making two calls of this.addSubscriptions();
+                console.log('3. DB initialized');
+                //this.EmergencyContactRequestListener();
+                console.log('Next Stop');
+            
+            
+        })     
     }
 
     async initDB() {
@@ -56,29 +55,32 @@ export class EmergencyContactsService extends Service {
             };
         });
     }
-
+    //the reason this code uses a promise is because for it to be async it needs to use a promise
     async storeContact(contactData) {
+        console.log("storeContact()")
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction([this.storeName], 'readwrite');
             const store = transaction.objectStore(this.storeName);
+            //The .add IndexedDB method returns an object called an IDBRequest. This object comes with specific event handlers that work with onsuccess and onerror. It essentially tells onsuccess if the data was stored in IndexedDB 
             const request = store.add(contactData);
 
             request.onsuccess = () => {
-                //EventHub.getInstance().publish('EmergencyContact:new', contactData);
-                resolve('Contact stored successfully');
+                console.log("stored to IndexedDB successfully")
+                resolve("stored successfully")
+                
             };
 
             request.onerror = () => {
-                EventHub.getInstance().publish('EmergencyContact:error', {
-                    message: 'Failed to load contact',
-                });
-                reject('Error storing contact');
+                console.log("Error storing to IndexedDB");
+                reject("Error storing")
             };
         });
     }
     //Publishes loadedContacts to be passed to EClistComp
     async loadContactsFromDB() {
         return new Promise((resolve, reject) => {
+            console.log('4. LoadContactsFromDB')
+
             const transaction = this.db.transaction([this.storeName], 'readonly');
             const store = transaction.objectStore(this.storeName);
             const request = store.getAll();
@@ -100,18 +102,21 @@ export class EmergencyContactsService extends Service {
             };
         });
     }
- 
+    //Sets up a listener for the event 'EmergencyContact:new: When that event occurs call this.storeContact(contactData);
     addSubscriptions() {
-        // Subscribe to store contact events
-        EventHub.getInstance().subscribe('EmergencyContact:new', contactData => {
-            // Store in database
-            this.storeContact(contactData).catch(error => {
-                // If storage fails, notify system
-                EventHub.getInstance().publish('EmergencyContact:error', {
-                    message: 'Failed to store contact',
-                    error
-                });
+        console.log("1. addSubscriptions")
+
+        const hub = EventHub.getInstance();
+
+        hub.subscribe('EmergencyContact:new', contactData => {
+            console.log('Received request to store ContactData');
+            this.storeContact(contactData)
         });
+
+        hub.subscribe('EmergencyContact:request', () => {
+            console.log('Received request to load contacts');
+            this.loadContactsFromDB();
         });
     }
+
 }
