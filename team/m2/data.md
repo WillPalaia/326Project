@@ -15,7 +15,9 @@
    - **trailDuration**: records user's time on the trail
    - **trailDistance**: records the total distance traveled
    - **trailDate**: when the user went on the trail
-   - **emergencyContacts**: User's emergency contact in case of emergencies
+   - **emergencyContacts first name**: User's emergency contacts first name in case of emergency
+   - **emergencyContacts last name**: User's emergency contacts last name in case of emergency
+   - **emergencyContacts email**: User's emergency contacts first name in case of emergency
 - **Data Source**: User-Input 
 
 ### 2. Trails
