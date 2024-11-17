@@ -2,6 +2,8 @@ import { EventHub } from '../../eventhub/EventHub.js';
 import { Events } from '../../eventhub/Events.js';
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EmergencyContactsComponent } from '../EmergencyContactsComponent/EmergencyContactsComponent.js';
+import { EmergencyContactsService } from '../../services/EmergencyContactsService.js';
+
 
 
 export class EmergencyContactsListComponent extends BaseComponent {
@@ -86,9 +88,15 @@ export class EmergencyContactsListComponent extends BaseComponent {
         <div class="error-message" style="display: none; color: red;"></div>
         <div id="loadingMessage" class="loading-message">Loading contacts...</div>
         <div id="contactsList"></div>
-        <div id="noContactsMessage" class="no-contacts-message">.
+        <div id="noContactsMessage" class="no-contacts-message">.</div>
         </div>
-    `;
+        <button id="clearContactsButton">Clear Contacts</button> 
+        </div>
+    `; 
+    
+    //When clearContactsButton is clicked clear contacts 
+    const clearButton = this.#container.querySelector('#clearContactsButton');
+    clearButton.addEventListener('click', () => this.#clearContactsList());
     }
 
 
@@ -124,8 +132,12 @@ export class EmergencyContactsListComponent extends BaseComponent {
         });
     }
 
-
+    //Clears IndexedDB contacts and clears UI contacts
     #clearContactsList() {
+        const hub = EventHub.getInstance();
+        hub.publish('EmergencyContact:clear', null);
+
+
         this.#contacts = [];
         this.#renderContacts();
     }

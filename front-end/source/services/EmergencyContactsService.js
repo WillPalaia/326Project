@@ -117,6 +117,37 @@ export class EmergencyContactsService extends Service {
             console.log('Received request to load contacts');
             this.loadContactsFromDB();
         });
+
+         // Listen for errors: 
+         hub.subscribe('EmergencyContact:clear', () => {
+            this.clearAllIndexedDBData(); 
+        });
     }
+
+
+    async clearAllIndexedDBData() {
+        return new Promise((resolve, reject) => {
+            console.log('clearAllIndexedDBData');
+    
+            const transaction = this.db.transaction([this.storeName], 'readwrite');  
+            const store = transaction.objectStore(this.storeName);
+            const request = store.clear(); 
+    
+            request.onsuccess = () => {
+                console.log(`data cleared from store: ${this.storeName}`);
+                resolve(`All data cleared from store: ${this.storeName}`);
+            };
+    
+            request.onerror = () => {
+                console.error('error clearing data from IndexedDB');
+                EventHub.getInstance().publish('EmergencyContact:error', {
+                    message: 'Failed to clear contacts'
+                });
+                reject('Error clearing data from IndexedDB');
+            };
+        });
+    }
+    
+
 
 }

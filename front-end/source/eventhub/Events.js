@@ -50,4 +50,5 @@ export const Events = {
   'EmergencyContact:loaded': 'EmergencyContact:loaded',
   'EmergencyContact:request': 'EmergencyContact:request', 
   'EmergencyContact:error': 'EmergencyContact:error',
+  'EmergencyContact:clear': 'EmergencyContact:clear',
 };
