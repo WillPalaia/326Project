@@ -10,7 +10,6 @@ Our web application, **TrailSafe**, is a way for people to get a good idea on wh
 
 Key features include:
 
-- **Cell Coverage Data**: Looks at trail and notes how much and what parts of it is covered by data.
 - **Equipment Advise From Weather Patterns**: Analyzes weather patterns at specific location and time, and gives suggestions on what to bring.
 - **SOS Security Feature**: Notifies emergency contact if the user has not completed their hike in a predetermined amount of time
 

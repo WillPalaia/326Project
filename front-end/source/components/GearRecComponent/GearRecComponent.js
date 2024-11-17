@@ -1,7 +1,5 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { Events } from '../../eventhub/Events.js';
-import { TaskComponent } from '../TaskComponent/TaskComponent.js';
 
 export class GearRecComponent extends BaseComponent {
   constructor() {
@@ -11,60 +9,104 @@ export class GearRecComponent extends BaseComponent {
   }
 
   render() {
-    // Create or find a specific container for this component's content
     let container = document.getElementById('mainPageContainer');
     if (!container) {
       container = document.createElement('div');
       container.id = 'mainPageContainer';
       document.body.appendChild(container);
     } else {
-      container.innerHTML = ''; // Clear any previous content in the container
+      container.innerHTML = ''; 
     }
 
-    const forecastContainer = document.createElement('div');
-    forecastContainer.id = 'forecastContainer';
-    container.appendChild(forecastContainer);
-
-    const title = document.createElement("h1");
-    title.id = "GearRecTitle";
-    title.textContent = "Gear recommendation";
+    //title
+    const title = document.createElement('h1');
+    title.id = 'GearRecTitle';
+    title.textContent = 'GEAR RECOMMENDATION';
     container.appendChild(title);
 
+    //search input and button
+    const searchContainer = document.createElement('div');
+    searchContainer.id = 'searchContainer';
+    container.appendChild(searchContainer);
+
+    const searchInput = document.createElement('input')
+    searchInput.id = 'searchInput';
+    searchInput.placeholder = 'Enter location';
+    searchContainer.appendChild(searchInput);
+
+    const searchButton = document.createElement('button');
+    searchButton.id = 'searchButton';
+    searchButton.textContent = 'Search';
+    searchContainer.appendChild(searchButton);
+
+    // Fake API URL
     const apiUrl = 'https://mock.yerf.dev/';
 
     fetch(apiUrl)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Error getting weather data');
         }
         return response.json();
       })
       .then((data) => {
-        const location = document.createElement("h2");
-        location.textContent = `Location: ${data.location}`;
-        forecastContainer.appendChild(location);
+        // get location and forecast data
+        const location = data.location.toLowerCase();
+        const forecasts = data.forecast;
 
-        // Display each day's forecast
-        data.forecast.forEach(dayForecast => {
-          const dayElement = document.createElement('div');
-          dayElement.classList.add('forecast-day');
-          const avgTemp = (dayForecast.high + dayForecast.low) / 2;
-          const gearRecommendation = this.GearRec(avgTemp);
-          
-          dayElement.innerHTML = `
-            <h3>${dayForecast.day}</h3>
-            <p>High: ${dayForecast.high}°${data.unit}</p>
-            <p>Low: ${dayForecast.low}°${data.unit}</p>
-            <p>${dayForecast.description}</p>
-            <p>Recommended Gear: ${gearRecommendation}</p>
-          `;
-          
-          forecastContainer.appendChild(dayElement);
-        })
-    })
+        const forecastContainer = document.createElement('div');
+        forecastContainer.id = 'forecastContainer';
+        container.appendChild(forecastContainer);
+
+        // Function to render forecasts
+        const renderForecasts = (forecastsToDisplay) => {
+          forecastContainer.innerHTML = ''; 
+
+          if (forecastsToDisplay.length === 0) {
+            forecastContainer.innerHTML = '<p>Location Not Found</p>';
+            return;
+          }
+
+          forecastsToDisplay.forEach((dayForecast) => {
+            const avgTemp = (dayForecast.high + dayForecast.low) / 2;
+            const gearRecommendation = this.GearRec(avgTemp);
+
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('forecast-day');
+            dayElement.innerHTML = `
+              <h3>${dayForecast.day}</h3>
+              <p>High: ${dayForecast.high}°${data.unit}</p>
+              <p>Low: ${dayForecast.low}°${data.unit}</p>
+              <p>${dayForecast.description}</p>
+              <p>Recommended Gear: ${gearRecommendation}</p>
+            `;
+            forecastContainer.appendChild(dayElement);
+          });
+        };
+
+        // Add event listener to search button
+        searchButton.addEventListener('click', () => {
+          const searchQuery = searchInput.value.toLowerCase().trim();
+          // If the search input is empty display nothing
+          if (searchQuery === '') {
+            forecastContainer.innerHTML = '';  
+            return;
+          }
+          // Check if the location matches the search input
+          if (data.location.toLowerCase().includes(searchQuery)) {
+            renderForecasts(forecasts); 
+          } else {
+            renderForecasts([]); 
+          }
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching weather data:', error);
+      });
   }
 
-  GearRec(avgTemp){
+  // function to recommend based on average temp
+  GearRec(avgTemp) {
     if (avgTemp < 40) {
       return 'Winter coat, gloves, and hat';
     } else if (avgTemp >= 40 && avgTemp < 60) {

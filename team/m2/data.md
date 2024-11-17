@@ -13,6 +13,7 @@
    - **rating**: User's rating for each of their trails
    - **comments**: User's comments on the trails they have been to
    - **trailDuration**: records user's time on the trail
+   - **trailDistance**: records the total distance traveled
    - **trailDate**: when the user went on the trail
    - **emergencyContacts**: User's emergency contact in case of emergencies
 - **Data Source**: User-Input 
@@ -26,6 +27,7 @@
     - **approximateDuration**: Average time it takes to complete the Trail
     - **generalTips**: Message that hikers should abide by for their safety
     - **currentWeather**: Shows the current weather of the current trail
+
 - **Data Source**: Data from third-party APIs (google place API)
 
 ### Weather

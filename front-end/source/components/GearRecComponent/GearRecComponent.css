@@ -7,12 +7,16 @@
     border-radius: 12px;
     color: rgb(24, 67, 11);
     background-color: rgb(201, 203, 200);
+    z-index: 5; 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    overflow: hidden; 
 }
 
-
 #forecastContainer {
-    padding-top: 15%;
+    width: 80vw;
+    padding-top: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,8 +26,43 @@
 }
 
 .forecast-day{
-    padding-left: 5vh;
-    height: 55vh;
+    padding-left: 2vh;
+    height: 50vh;
+    color: green;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(201, 203, 200);
     /* background-color: blue;  */
 }
+
+#searchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+  }
+  
+  #searchInput {
+    width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px; 
+  }
+  
+  #searchButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: green; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+  }
+  
+  #searchButton:hover {
+    background-color: darkgreen; 
+  }

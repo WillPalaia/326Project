@@ -32,7 +32,7 @@ export class DynamicSidebarComponent extends BaseComponent {
 
     // Sidebar content structure
     const sidebarTitle = document.createElement("h2");
-    sidebarTitle.textContent = "Dynamic Sidebar";
+    sidebarTitle.textContent = "Explore";
     sidebar.appendChild(sidebarTitle);
 
     const sidebarContent = document.createElement("p");
@@ -45,7 +45,7 @@ export class DynamicSidebarComponent extends BaseComponent {
     sidebar.appendChild(sidebarItems);
 
     // Define sidebar navigation items
-    const items = ["Home", "Profile", "Friends", "Settings"];
+    const items = ["Home", "Profile", "Friends"];
     items.forEach(item => {
       const button = document.createElement("button");
       button.textContent = item;

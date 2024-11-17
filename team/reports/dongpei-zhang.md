@@ -9,3 +9,13 @@
 - **Task**: Create Gear recommendation UI
 - **Details**: Started working on the user interface for gear recommendation page by creating the framework for the page which will be completed at a later date.
 **Link to Commit**: https://github.com/WillPalaia/326Project/commit/7f9e46679cd25000f0395b450542fcc89b052c44
+
+### Nov 15, 2024
+- **Task**: Finish Gear Recommendation UI
+- **Details**: Finished the CSS and HTML and got the mock api working
+**Link to Commit**: https://github.com/WillPalaia/326Project/commit/52119c65714dd83c31e18a6052b71091bc474dfb
+ 
+### Nov 17, 2024
+- **Task**: redid Gear Recommendation logic
+- **Details**: I made it so that it takes user input to search through my fake api so in the future when i use the real api it doesn't just show one place.
+**Link to Commit**: 
