@@ -1,0 +1,67 @@
+#friendPageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f4f4f4;
+    box-sizing: border-box;
+  }
+  
+  #friendInputSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  #friendInput {
+    font-size: 1.2em;
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    background-color: #720000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
+  #friendListSection {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  #friendList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #friendList li {
+    font-size: 1.2em;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  #addFriendBtn{
+    background-color: darkgreen;
+    transition: box-shadow 0.4s;
+    z-index: 10;
+    transition: all 0.4s;
+    box-sizing: border-box; 
+  }
+  #addFriendBtn:hover{
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
