@@ -10,7 +10,7 @@
   width: 100vw; /* Full width of the viewport */
 
   /* Background image */
-  background-image: url("https://plus.unsplash.com/premium_photo-1677002240252-af3f88114efc?q=80&w=2025&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==");
+  background-image: url("https://cdn.sanity.io/images/msxvpai1/production/90f88ca11604dbc2d3c2681c113e442275c9dc32-2440x1342.jpg");
   background-size: cover; /* Ensure the image covers the entire container */
   background-repeat: no-repeat; /* Prevent tiling */
   background-position: center; /* Center the image */
