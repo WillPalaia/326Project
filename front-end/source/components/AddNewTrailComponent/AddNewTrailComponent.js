@@ -1,12 +1,15 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
-import { MainPageComponent } from '../MainPageComponent/MainPageComponent.js'; // Import the main page component
+import { TrailLogService } from '../../services/TrailLogService.js';
+import { MainPageComponent } from '../MainPageComponent/MainPageComponent.js'; 
+import { Events } from '../../eventhub/Events.js'; 
 
 export class AddNewTrailComponent extends BaseComponent {
     constructor() {
         super();
         this.loadCSS('AddNewTrailComponent');
         this.hub = EventHub.getInstance();
+        this.trailLogService = new TrailLogService();
         this.trailData = [];
         this.trailImageUrl = '';
     }
@@ -94,14 +97,14 @@ export class AddNewTrailComponent extends BaseComponent {
         const submitButton = document.createElement('button');
         submitButton.textContent = 'Add Trail';
         submitButton.className = 'submit-button';
-        submitButton.addEventListener('click', this.addTrail.bind(this));
+        submitButton.addEventListener('click', this.addTrail.bind(this)); // Save trail using TrailLogService
         container.appendChild(submitButton);
 
         // Back to Main Page Button
         const backButton = document.createElement('button');
         backButton.textContent = 'Back to Main Page';
         backButton.className = 'back-button';
-        backButton.addEventListener('click', this.navigateToMainPage.bind(this)); // Navigate to main page
+        backButton.addEventListener('click', this.navigateToMainPage.bind(this));
         container.appendChild(backButton);
 
         // Success Message Display
@@ -114,8 +117,8 @@ export class AddNewTrailComponent extends BaseComponent {
     }
 
     navigateToMainPage() {
-        const mainPageComponent = new MainPageComponent(); // Instantiate MainPageComponent
-        mainPageComponent.render(); // Render the main page
+        const mainPageComponent = new MainPageComponent();
+        mainPageComponent.render();
     }
 
     handleImageUpload(event) {
@@ -141,20 +144,32 @@ export class AddNewTrailComponent extends BaseComponent {
         const trailName = this.trailNameInput.value;
         const fromLocation = this.fromLocationInput.value;
         const toLocation = this.toLocationInput.value;
+
         if (!trailName || !fromLocation || !toLocation) {
             this.showErrorMessage("Please fill out all the fields to add the trail.");
             return;
         }
+
+        // Mock distance calculation
         const distance = await this.calculateDistance(fromLocation, toLocation);
-        const newTrail = { trailName, fromLocation, toLocation, distance, trailImage: this.trailImageUrl };
-        this.trailData.push(newTrail);
-        this.showSuccessMessage(`Trail "${trailName}" added successfully!`);
 
-        // Publish an event to notify other components immediately
-        this.hub.publish("TrailAdded", newTrail);
+        // Prepare trail data
+        const trailData = {
+            trailName,
+            distance,
+        };
 
-        // Clear the form after successful addition
-        this.clearForm();
+        // Save the trail using TrailLogService
+        this.trailLogService.storeTrail(trailData)
+            .then(() => {
+                this.showSuccessMessage(`Trail "${trailName}" added successfully!`);
+                this.hub.publish(Events.StoreTrail, trailData); 
+                this.clearForm();
+            })
+            .catch((error) => {
+                console.error(error);
+                this.showErrorMessage('Failed to save the trail. Please try again.');
+            });
     }
 
     async calculateDistance(from, to) {
