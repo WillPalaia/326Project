@@ -30,3 +30,8 @@
 - **TASK**: Added dark mode toggle component.
 - **Details**: Added component to toggle dark mode, works between all of the components and allows for personalization.
 - **Link to Commit**: [Initial Commit](https://github.com/WillPalaia/326Project/pull/62/commits/14e52ec1b75822d48da112210cddab1779ad8e6c)
+
+### November 17, 2024
+- **TASK**: Added Google Maps picture.
+- **Details**: Added picture of google maps in the exact place I want the Google Maps widget to go later on when I connect it with the Google Maps API, allowing user to simply click on the map in order to add the trail they want to add, rather than manually typing it in.
+- **Link to Commit**: [Initial Commit](https://github.com/repo/5cd9d1cfac47e43c3fc9dbd85ae45a99ed7edc6c)
