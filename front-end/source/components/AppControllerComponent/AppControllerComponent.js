@@ -6,6 +6,7 @@ import { FriendsPageComponent } from '../FriendsPageComponent/FriendsPageCompone
 import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
 import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
+import { DarkModeToggleComponent } from '../DarkModeToggleComponent/DarkModeToggleComponent.js';
 
 export class AppControllerComponent {
   #container = null;
@@ -56,11 +57,11 @@ export class AppControllerComponent {
 
   #attachEventListeners() {
     // Listen for navigation events from the sidebar
-    this.#hub.subscribe("NavigateToPage", (page) => {
+    this.#hub.subscribe('NavigateToPage', (page) => {
       this.#renderPage(page);
     });
 
-    this.#hub.subscribe("DarkModeToggled", () => {
+    this.#hub.subscribe('DarkModeToggled', () => {
       const isDarkModeEnabled = document.body.classList.toggle('dark-mode');
       localStorage.setItem('darkMode', isDarkModeEnabled); // Persist the state
     });
