@@ -8,8 +8,7 @@ decision node = {}
 ```mermaid
 graph TD
     subgraph EmergencyContactsInputComponent
-        A[User Inputs Contact Data]
-        B{Validate Input}
+        A[User Inputs Contact Data] --> B{Validate Input}
         B -- Yes --> C[Create contactData Object]
         B -- No --> J[Show Validation Error]
         C --> D[Publish 'EmergencyContact:new' Event]
