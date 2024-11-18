@@ -2,10 +2,9 @@ import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
 import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
-import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
-import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
 import { InsightsComponent } from '../InsightsComponent/InsightsComponent.js';
 import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
+import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 
 export class MainPageComponent extends BaseComponent {
   constructor() {
@@ -59,12 +58,12 @@ export class MainPageComponent extends BaseComponent {
     insightsPageBtn.innerHTML = "<span>Insights</span>";
     container.appendChild(insightsPageBtn);
 
-    // Create and add the "Emergency Contacts" button
-    const emergencyContactsBtn = document.createElement("button");
-    emergencyContactsBtn.id = "emergencyContactsBtn";
-    emergencyContactsBtn.className = "component-box";
-    emergencyContactsBtn.innerHTML = "<span>Emergency Contacts</span>";
-    container.appendChild(emergencyContactsBtn);
+    //// Create and add the "Current Trip" button
+    //const currentTripBtn = document.createElement("button");
+    //currentTripBtn.id = "currentTripBtn";
+    //currentTripBtn.className = "component-box";
+    //currentTripBtn.innerHTML = "<span>Current Trip</span>";
+    //container.appendChild(currentTripBtn);
 
     // Event Listeners
     // Adding event listener to "Begin Trail"
@@ -84,23 +83,10 @@ export class MainPageComponent extends BaseComponent {
       pageComponent.render();
     });
 
-    emergencyContactsBtn.addEventListener('click', () => {
-      // Clears container all content from container element
-      container.innerHTML = '';
-
-      // Create title for the emergency contacts page
-      const pageTitle = document.createElement("h2");
-      pageTitle.textContent = "Emergency Contacts";
-      container.appendChild(pageTitle);
-
-      // Create and render input component
-      const inputComponent = new EmergencyContactsInputComponent();
-      container.appendChild(inputComponent.render());
-
-      // Create and render list component
-      const listComponent = new EmergencyContactsListComponent();
-      container.appendChild(listComponent.render());
-    });
+    //currentTripBtn.addEventListener('click', () => {
+    //  const pageComponent = new CurrentTripComponent();
+    //  pageComponent.render();
+    //});
 
     insightsPageBtn.addEventListener('click', () => {
       const pageComponent = new InsightsComponent();
