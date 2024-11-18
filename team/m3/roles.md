@@ -41,3 +41,10 @@
   - This marked when user could add render/refresh page and see their emergency contacts
   - user can add contacts and have them seamlessly and instantly added to both UI and indexedDB
   3. [Commit 3]: (https://github.com/WillPalaia/326Project/commit/a70c4cde5069fa05720ceb5f2c5074b71b3e9988): Added a button that clears IndexedDB and UI of emergency contacts
+
+## Tri Than - Current Trip component + QA
+- **Roles**: Engineered Current Trip component and review commits
+- **Top 3 Commits**:
+  1. [Commit 1](https://github.com/WillPalaia/326Project/commit/147664aee2937ee5d4e25e2ee22a631207ea1a22): Implement countdown
+  2. [Commit 2](https://github.com/WillPalaia/326Project/commit/147664aee2937ee5d4e25e2ee22a631207ea1a22): Implement emergency contact display
+  3. [Commit 3](https://github.com/WillPalaia/326Project/commit/e554931aa6822510826d29ac1e53d9f84d17b545): Review commit for homepage icon
