@@ -46,16 +46,6 @@ from a map interface to begin their journey. This integration provides a user-fr
 **Point Value**: 2
 **Completed By**: Will P
 
-## SOS Feature
-The SOS feature allows hikers to submit a trail itinerary and timeline for their trip, along with an emergency contact. There are 3 parts 
-of this feature: There is a dedicated SOS button, so that when the user presses it, it'll immediately call emergency contact and find the nearest shelter.
-There is also a speed tracker using Google Maps, whenever the user moves faster than some threshold (which is a sign of emergency from 
-which the user has to run away), make a beeping sound, if after some time, the user doesn't turn it off, call emergency contact.
-If the hiker does not arrive back within their intended trip window, the contact mechanism will be similar to the 2nd part. 
-There will also be a way for the user to extend stay period.
-**Point Value**: 
-**Completed By**: Ben and Tri
-
 ## Add Emergency Contact: 
 - The Add Emergency Contact feature provides users with the ability to store and manage emergency contact information within the application. When users need to input emergency contact details, they must provide three pieces of information: a first name, last name, and email address. The feature implements a form system that ensures data validity before storing the information in IndexedDB for persistent storage across browser sessions. To maintain data integrity  the system requires all form fields to be completed before submission is allowed. The email validation system uses regex pattern matching to verify that provided email addresses conforms to standard email formats, preventing invalid data from being stored. Once validated, the contact information is stored in IndexedDB, ensuring the data persists even after the browser is closed. In the case a user incorrectly inputs their data they will be alerted by an error message that says "Please fill in all fields." or "Please enter a valid email address", helping users correct input errors immediately, improving the overall user experience.. 
 - When a user inputs their data it will be instantaneously added to the UI. 
@@ -90,17 +80,10 @@ enhancing both comfort and safety.
 **Point Value**: 3
 **Completed By**: Dongpei Zhang
 
-## Social Features
-This feature allows users to connect with other hikers by sending friend requests, reviewing and logging trails. 
-Users can also post about trail-specific hazards or features they encountered, such as water sources and campsites. 
-This community-driven aspect of the app enhances the hiking experience by allowing users to share valuable, up-to-date 
-information about trail conditions and points of interest.
+## Social Features 
+Planned on making a page that allows users to add friends by their user id's and possibly even chat with them but was unable to make the 
+indexedDB work and therefore we could not add features that rely on user ID. The storeFriend function is not working properly. it is being called but
+it is not storing in indexedDB
+
 **Point Value**: 3
 **Completed By**: Will Hammond
-
-
-
-
-
-
-
