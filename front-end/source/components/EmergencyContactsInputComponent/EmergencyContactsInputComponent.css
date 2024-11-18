@@ -58,3 +58,11 @@
 #addContactBtn:hover {
     background-color: #0056b3;
 }
+
+.add-emergency-contacts-text {
+    color: black !important;
+  }
+  
+  .dark-mode .add-emergency-contacts-text {
+    color: black !important;
+  }
