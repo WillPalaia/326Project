@@ -17,7 +17,7 @@ graph TD
 
     subgraph EmergencyContactsService
         D --> E[Listen for 'EmergencyContact:new']
-        E --> F[StoreContact() Adds ContactData to IndexedDB]
+        E --> F[StoreContact Adds ContactData to IndexedDB]
         F --> K[Handle Storage Errors if Any]
     end
 
