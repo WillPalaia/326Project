@@ -50,6 +50,7 @@ export class FriendsPageComponent extends BaseComponent {
       if (friendId) {
         this.addFriend(friendId);
         this.hub.publish(Events.NewFriend, friendId)
+        this.hub.publish(Events.StoreFriend, friendId)
         friendInput.value = ''; // Clear input field
       }
     });

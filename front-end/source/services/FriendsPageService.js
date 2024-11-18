@@ -3,6 +3,7 @@ import Service from './Service.js';
 
 export class FriendsPageService extends Service {
   constructor() {
+    console.log("friendspageSeriviuce")
     super();
     this.dbName = 'friendDB';
     this.storeName = 'friends';
