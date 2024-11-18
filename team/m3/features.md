@@ -61,7 +61,6 @@ from a map interface to begin their journey. This integration provides a user-fr
 **Completed By**: Ben Thomas
 
 
-
 ## Add Start New Trail
 The Add New Trails feature allows users to create and save detailed trail information for their backpacking adventures. This includes specifying the trail name, start and end locations, and uploading a relevant image for the trail. It also calculates the distance between locations (currently using a mocked value) and ensures all data is validated before being saved. This feature integrates seamlessly with the application's trail management system to store and display user-added trails.
 **Point Value**: 3
@@ -75,11 +74,11 @@ enhancing both comfort and safety.
 **Point Value**: 3
 **Completed By**: Dongpei Zhang
 
-## Social Features
-This feature allows users to connect with other hikers by sending friend requests, reviewing and logging trails. 
-Users can also post about trail-specific hazards or features they encountered, such as water sources and campsites. 
-This community-driven aspect of the app enhances the hiking experience by allowing users to share valuable, up-to-date 
-information about trail conditions and points of interest.
+## Social Features 
+Planned on making a page that allows users to add friends by their user id's and possibly even chat with them but was unable to make the 
+indexedDB work and therefore we could not add features that rely on user ID. The storeFriend function is not working properly. it is being called but
+it is not storing in indexedDB
+
 **Point Value**: 3
 **Completed By**: Will Hammond
 

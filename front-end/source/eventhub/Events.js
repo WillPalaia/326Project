@@ -33,6 +33,10 @@ export const Events = {
   StoreFriend: 'StoreFriend',
   StoreFriendSuccess: 'StoreFriendSuccess',
   StoreFriendFailure: 'StoreFriendFailure',
+
+  UnStoreFriends: 'UnStoreFriends',
+  UnStoreFriendsSuccess: 'UnStoreFriendsSuccess',
+  UnStoreFriendsFailure: 'UnStoreFriendsFailure',
   
   //core Trail Events
   NewTrail: 'NewTrail',
