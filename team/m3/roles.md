@@ -22,3 +22,13 @@
   1. [commit 1](https://github.com/WillPalaia/326Project/commit/7f9e46679cd25000f0395b450542fcc89b052c44): Started the framework for gear rec component
   2. [commit 2](https://github.com/WillPalaia/326Project/commit/52119c65714dd83c31e18a6052b71091bc474dfb): Finished the CSS and HTML and got the mock api working
   3. [commit 3](https://github.com/WillPalaia/326Project/commit/d65a3ed574de0e997b1187e2a1b0ae6dc42cbdbd): I made it so that it takes user input to search through my fake api so in the future when i use the real api it doesn't just show one place.
+
+## Ben Thomas - Front-end developer  
+- **Role**: Develops in-depth psuedo-code for each feature, selects the different API's, libraries, and technologies we will use.
+- **Top 3 Commits**:
+  1. [Commit 1]: (https://github.com/WillPalaia/326Project/commit/53c8f25f2300a6c921e880fa214ec22921713cbd): Implemented first drafts for all components including JS and CSS. 
+  - Allows user to input information (EmergencyContactInputComponent.js), information is stored in a list(EmergencyContactListComponent.js), information is then rendered (EmergencyContactListComponent.js/EmergencyContactComponent.js)
+  2. [Commit 2]: (https://github.com/WillPalaia/326Project/commit/b543efc0e1695b3dbc916c969ca6e6a18bfe155d): IndexedDB and EmergencyContactsList became completely functional without any bugs preventing particular functionalities. 
+  - This marked when user could add render/refresh page and see their emergency contacts
+  - user can add contacts and have them seamlessly and instantly added to both UI and indexedDB
+  3. [Commit 3]: (https://github.com/WillPalaia/326Project/commit/a70c4cde5069fa05720ceb5f2c5074b71b3e9988): Added a button that clears IndexedDB and UI of emergency contacts
