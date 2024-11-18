@@ -1,6 +1,6 @@
 ## Feature: Add Emergency Contact
 
-This feature takes in a user's emergency contact information through three prompts on the webpage 
+This feature takes in a user's emergency contact information validates data and stores data in IndexedDB and updates UI
 
 Note: 
 decision node = {}
