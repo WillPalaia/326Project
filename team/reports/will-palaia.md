@@ -15,3 +15,18 @@
 - **TASK**: Complete the draft for the problem.md file.
 - **Details**: Completed the file, working through it with the correct formatting.
 - **Link to Commit**: [Initial Commit](https://github.com/repo/e958b2978b1cde55e145abef51b9037c42546f97)
+
+### November 17, 2024
+- **TASK**: Add a component to easily navigate through the application.
+- **Details**: Added a HomeIconComponent to be on every component page. This makes it easy for users to get front any one page back to the home page.
+- **Link to Commit**: [Initial Commit](https://github.com/WillPalaia/326Project/pull/57/commits/fe3581338960cdebc7441224f7de7662b10c9cea)
+
+### November 17, 2024
+- **TASK**: Update the front page css.
+- **Details**: Redid the front page look, added margins, pictures, and functionality between components on front page.
+- **Link to Commit**: [Initial Commit](https://github.com/WillPalaia/326Project/pull/57/commits/0612846d0365dcb1d231c2eef0ac0bdea7fbe9d4)
+
+### November 17, 2024
+- **TASK**: Added dark mode toggle component.
+- **Details**: Added component to toggle dark mode, works between all of the components and allows for personalization.
+- **Link to Commit**: [Initial Commit](https://github.com/WillPalaia/326Project/pull/62/commits/14e52ec1b75822d48da112210cddab1779ad8e6c)

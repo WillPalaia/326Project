@@ -26,16 +26,24 @@ location, and demographic.
 **Completed By**: Blake Thomas
 
 ## Home Page
-This is a page that contains all the buttons for our application.
-**Point Value**: 1
+This is a page that contains all the buttons for our application. Includes CSS and connecting all components onto one page. the page will dynamically resize so that it can be used on multiple different device types, and look visually appealing for the user to easily access whatever they wish to access on the site.
+**Point Value**: 4
 **Completed By**: Will H and Will P 
+
+## Home Icon Button
+This feature allows users to navigate easily throughout the web app. For each component, there will be a home icon that the user can press to take them back to the main page.
+**Point Value**: 2
+**Completed By**: Will P
+
+## Dark Mode
+This feature is used as an additional option for the user to personalize their profile. They will be able to enable a "dark mode" toggle, where all colors will be inverted. Works on every page and every component in the sidebar, taking into account different styling types between the components so that there are no inconsistencies.
+**Point Value**: 3
+**Completed By**: Will P
 
 ## Google Maps Integration
 This feature utilizes the Google Maps API to source and display hiking trails. Users can search or select a trail 
-from a map interface to begin their journey. This integration provides a user-friendly way for hikers to discover and
- plan their routes, ensuring they have accurate and up-to-date trail information before setting out on their adventure. 
- In addition, the API also provides the closet shelters in case of any emergency (e.g landslide, flood, etc.)
-**Point Value**: 3
+from a map interface to begin their journey. This integration provides a user-friendly way for hikers to discover and plan their routes, ensuring they have accurate and up-to-date trail information before setting out on their adventure.  In addition, the API also provides the closet shelters in case of any emergency (e.g landslide, flood, etc.). This will be done on the backend side. For now, it will be an option to "click to add your trail" with an image of Google Maps, as without the API, the trail cannot be looked up.
+**Point Value**: 2
 **Completed By**: Will P
 
 ## SOS Feature
@@ -59,7 +67,6 @@ There will also be a way for the user to extend stay period.
 **Point Value**: 3
 **Completed By**: Ben Thomas
 
-
 ## Emergency Contacts UI:
 - The Emergency Contacts UI feature implements a data visualization and management interface that demonstrates significant complexity through its real-time synchronization between the UI and IndexedDB persistent storage. 
 - When the user accesses the application or refreshed, the system will immediately grab the data from IndexedDB and display it to the user. 
@@ -69,8 +76,6 @@ There will also be a way for the user to extend stay period.
 - Further, beyond the different functionalities the Emergency Contacts UI displays contact information in a clear, organized format while providing instantaneous visual updates whenever users add or remove contacts.
 **Point Value**: 5
 **Completed By**: Ben Thomas
-
-
 
 ## Add Start New Trail
 The Add New Trails feature allows users to create and save detailed trail information for their backpacking adventures. This includes specifying the trail name, start and end locations, and uploading a relevant image for the trail. It also calculates the distance between locations (currently using a mocked value) and ensures all data is validated before being saved. This feature integrates seamlessly with the application's trail management system to store and display user-added trails.
@@ -92,9 +97,6 @@ This community-driven aspect of the app enhances the hiking experience by allowi
 information about trail conditions and points of interest.
 **Point Value**: 3
 **Completed By**: Will Hammond
-
-
-
 
 
 

@@ -106,6 +106,17 @@ export class AddNewTrailComponent extends BaseComponent {
         this.successMessage.style.display = 'none';
         container.appendChild(this.successMessage);
 
+        // New container for the map image
+        const mapImageContainer = document.createElement('div');
+        mapImageContainer.className = 'map-image-container';
+        document.body.appendChild(mapImageContainer);
+
+        const mapImage = document.createElement('img');
+        mapImage.src = 'https://www.groovypost.com/wp-content/uploads/2020/11/my-maps3.jpg';
+        mapImage.alt = 'Map Image';
+        mapImage.className = 'map-image';
+        mapImageContainer.appendChild(mapImage);
+
         return container;
     }
 
