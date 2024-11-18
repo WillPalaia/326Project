@@ -67,3 +67,14 @@ h2 {
     color: #333;
 }
 
+.dark-mode .feature-card p {
+    color: black !important
+}
+
+.dark-mode .contact-section p {
+    color: black !important
+}
+
+.dark-mode .contact-section h2 {
+    color: rgb(24, 67, 11) !important
+}

@@ -29,7 +29,7 @@ export class EmergencyContactsInputComponent extends BaseComponent {
     #getTemplate() {
         return `
             <div class="emergency-contact-form">
-                <h2>Add Emergency Contact</h2>
+                <h2 class="add-emergency-contacts-text">Add Emergency Contact</h2>
                 <div class="input-group">
                     <label for="firstNameInput">First Name:</label>
                     <input type="text" id="firstNameInput" placeholder="Enter first name" required>
