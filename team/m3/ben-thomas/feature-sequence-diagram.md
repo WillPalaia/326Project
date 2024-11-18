@@ -5,7 +5,7 @@ This feature takes in a user's emergency contact information through three promp
 Note: 
 decision node = {}
 
-
+```mermaid
 Graph TD
     subgraph EmergencyContactsInputComponent
             A[User Inputs Contact Data]
@@ -26,3 +26,4 @@ Graph TD
             G --> H[Push ContactData into #contacts]
             H --> I[Render Updated Contacts List on UI]
         end
+```
