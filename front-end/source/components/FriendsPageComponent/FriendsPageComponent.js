@@ -7,8 +7,8 @@ export class FriendsPageComponent extends BaseComponent {
       super();
       this.loadCSS('FriendsPageComponent');
       this.hub = EventHub.getInstance();
-      this.userId = `user-${Math.floor(Math.random() * 10000)}`; // Generate a random user ID
-      this.friendList = []; // Store the list of friend IDs
+      this.userId = `user-${Math.floor(Math.random() * 10000)}`; 
+      this.friendList = []; 
   }
 
   render() {
@@ -43,14 +43,16 @@ export class FriendsPageComponent extends BaseComponent {
       <ul id="friendList"></ul>
     `
     // Add Friend Event Listener
+    const addFriendBtn = document.getElementById('addFriendBtn')
+    const friendInput = document.getElementById('friendInput')
     addFriendBtn.addEventListener('click', () => {
       const friendId = friendInput.value.trim();
       if (friendId) {
         this.addFriend(friendId);
+        this.hub.publish(Events.NewFriend, friendId)
         friendInput.value = ''; // Clear input field
       }
     });
-
     return container;
   }
 
