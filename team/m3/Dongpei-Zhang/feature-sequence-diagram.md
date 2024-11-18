@@ -7,7 +7,6 @@ low and high temperatures and recommends gear that the user should bring.
 # Sequence Diagram
 ```mermaid
 sequenceDiagram
-sequenceDiagram
     participant User as User
     participant Component as GearRecComponent
     participant EventHub as EventHub
