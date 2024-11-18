@@ -15,11 +15,11 @@
 ## November 5, 2024
 - **Task**: Added Add New Page folder to the our project
 - **Details**: I created a form including name, photo and date for users to add a new trails
-- 
+
 ## November 15, 2024
 - **Task**: Added several features to calculate the total distance
 - **Details**: Added function to calculate the total distance based on the input destination.
-- 
+
 ## November 18, 2024
 - **Task**: Finished the Add New Trail page
 - **Details**: Finished this page by connecting the data with our indexDB to store users' data.
