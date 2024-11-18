@@ -28,16 +28,10 @@ export class GearRecComponent extends BaseComponent {
     const searchContainer = document.createElement('div');
     searchContainer.id = 'searchContainer';
     container.appendChild(searchContainer);
-
-    const searchInput = document.createElement('input')
-    searchInput.id = 'searchInput';
-    searchInput.placeholder = 'Enter location';
-    searchContainer.appendChild(searchInput);
-
-    const searchButton = document.createElement('button');
-    searchButton.id = 'searchButton';
-    searchButton.textContent = 'Search';
-    searchContainer.appendChild(searchButton);
+    searchContainer.innerHTML = `
+      <input id="searchInput" placeholder="Enter Location">
+      <button id ="searchButton">Search</button>
+    `
 
     // Fake API URL
     const apiUrl = 'https://mock.yerf.dev/';

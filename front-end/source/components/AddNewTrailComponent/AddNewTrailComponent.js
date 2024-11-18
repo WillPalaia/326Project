@@ -100,18 +100,22 @@ export class AddNewTrailComponent extends BaseComponent {
         submitButton.addEventListener('click', this.addTrail.bind(this)); // Save trail using TrailLogService
         container.appendChild(submitButton);
 
-        // Back to Main Page Button
-        const backButton = document.createElement('button');
-        backButton.textContent = 'Back to Main Page';
-        backButton.className = 'back-button';
-        backButton.addEventListener('click', this.navigateToMainPage.bind(this));
-        container.appendChild(backButton);
-
         // Success Message Display
         this.successMessage = document.createElement('div');
         this.successMessage.className = 'success-message';
         this.successMessage.style.display = 'none';
         container.appendChild(this.successMessage);
+
+        // New container for the map image
+        const mapImageContainer = document.createElement('div');
+        mapImageContainer.className = 'map-image-container';
+        document.body.appendChild(mapImageContainer);
+
+        const mapImage = document.createElement('img');
+        mapImage.src = 'https://www.groovypost.com/wp-content/uploads/2020/11/my-maps3.jpg';
+        mapImage.alt = 'Map Image';
+        mapImage.className = 'map-image';
+        mapImageContainer.appendChild(mapImage);
 
         return container;
     }

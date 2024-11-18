@@ -12,12 +12,14 @@ export class AppControllerComponent {
   #hub = null;
   #dynamicSidebarComponent = null;
   #homeIconComponent = null;
+  #darkModeToggleComponent = null;
   #viewContainer = null;
 
   constructor() {
     this.#hub = EventHub.getInstance();
     this.#dynamicSidebarComponent = new DynamicSidebarComponent();
     this.#homeIconComponent = new HomeIconComponent();
+    this.#darkModeToggleComponent = new DarkModeToggleComponent();
   }
 
   render() {
@@ -26,12 +28,16 @@ export class AppControllerComponent {
     this.#attachEventListeners();
     this.#dynamicSidebarComponent.render();
     this.#homeIconComponent.render();
+    this.#darkModeToggleComponent.render();
 
     // Render the Home page initially
     this.#renderPage('Home');
 
     // Append container to body or specific parent
     document.body.appendChild(this.#container);
+
+    // Apply saved dark mode preference
+    this.#applyDarkMode();
 
     return this.#container;
   }
@@ -52,6 +58,11 @@ export class AppControllerComponent {
     // Listen for navigation events from the sidebar
     this.#hub.subscribe("NavigateToPage", (page) => {
       this.#renderPage(page);
+    });
+
+    this.#hub.subscribe("DarkModeToggled", () => {
+      const isDarkModeEnabled = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDarkModeEnabled); // Persist the state
     });
   }
 
@@ -79,5 +90,12 @@ export class AppControllerComponent {
 
     // Append the selected page component
     this.#viewContainer.appendChild(pageComponent.render());
+  }
+
+  #applyDarkMode() {
+    const isDarkModeEnabled = localStorage.getItem('darkMode') === 'true';
+    if (isDarkModeEnabled) {
+      document.body.classList.add('dark-mode');
+    }
   }
 }

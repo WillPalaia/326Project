@@ -104,3 +104,30 @@
 .add-new-trail-container .success-message.hidden {
   opacity: 0;
 }
+
+.add-new-trail-container * {
+  color: black !important;
+}
+
+.add-new-trail-container button {
+  color: white !important;
+}
+
+.dark-mode .add-new-trail-container button {
+  color: white !important;
+}
+
+.dark-mode .add-new-trail-container * {
+  color: black !important;
+}
+
+.map-image-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.map-image {
+  display: inline-block;
+  width: 300px;
+  height: auto;
+}

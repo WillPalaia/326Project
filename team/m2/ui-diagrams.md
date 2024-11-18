@@ -2,7 +2,7 @@
 
 ## Main Dashboard Screen
 
-The **Main Dashboard** is the first screen users see after logging into the TrailSafe web application. Before starting a trail, it is a central hub for all the essential information hikers need. The dashboard provides quick access to trail details, weather conditions, friends, and safety features, ensuring that users have everything they need at a glance. The layout is designed to be straightforward and intuitive, allowing users to easily navigate through various features, such as adding new trails, checking weather updates, and tracking their hiking progress.
+The **Main Dashboard** is the first screen users see after logging into the TrailSafe web application. Before starting a trail, it is a central hub for all the essential information hikers need. The dashboard provides quick access to trail details, weather conditions, friends, and safety features, ensuring that users have everything they need at a glance. The layout is designed to be straightforward and intuitive, allowing users to easily navigate through various features, such as adding new trails, checking weather updates, and tracking their hiking progress, and Emergency Contacts.
 
 ![Front Page](https://github.com/WillPalaia/326Project/blob/main/team/m2/UI%20diagram/Front%20page.png?raw=true)
 
@@ -12,6 +12,7 @@ Key Elements:
 2. **Begin Trail**: A prominent button that starts the tracking of an existing trail. Once clicked, the user is taken to the trail details page, where they can see current weather and prepare for the hike.
 3. **Friends List**: This section displays the user’s friends with options to send messages, check statuses, and invite friends to join a hike.
 4. **Trails List**: Provides a list of available trails, displaying key information such as trail location, weather, distance, and the user’s progress. This allows hikers to quickly select a trail and decide which one suits their needs for the day.
+5. **Emergency Contacts**: Once button is clicked renders a page that allows user to see their current emergency contacts, add new emergency contacts, or clear emergency contacts
 
 **Use Case**:
 

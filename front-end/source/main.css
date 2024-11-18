@@ -77,3 +77,27 @@ button:hover {
 body {
   background-color: rgb(255, 255, 255);
 }
+
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+
+.dark-mode h1, 
+.dark-mode h2, 
+.dark-mode p {
+  color: #ffffff;
+}
+
+.dark-mode button {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #444444;
+}
+
+.dark-mode button:hover {
+  background-color: #444444;
+}
+

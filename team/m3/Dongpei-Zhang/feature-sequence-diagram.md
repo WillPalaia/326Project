@@ -7,24 +7,22 @@ low and high temperatures and recommends gear that the user should bring.
 # Sequence Diagram
 ```mermaid
 sequenceDiagram
-    participant A as User
-    participant B as GearRecComponent
-    participant C as API
-    participant D as DOM
+sequenceDiagram
+    participant User as User
+    participant Component as GearRecComponent
+    participant EventHub as EventHub
+    participant API as Weather API
 
-    A->>B: Load Page
-    B->>D: Check/Create #mainPageContainer
-    B->>D: Add GearRecTitle to #mainPageContainer
-    B->>C: Fetch Weather Data
-    C-->>B: Return Weather Data (JSON)
-    B->>D: Create forecastContainer and append to #mainPageContainer
-    B->>D: Display Location
-    loop For each day in forecast
-        B->>B: Calculate avgTemp
-        B->>B: Generate Gear Recommendation
-        B->>D: Create forecast-day element
-        B->>D: Append forecast-day to forecastContainer
-    end
-    C-->>B: Return Error 
-    B->>D: Display Error Message
+    User->>Component: Open page
+    Component->>Component: Load CSS and initialize EventHub
+    Component->>Component: Create and render elements (title, input, button)
+    User->>Component: Enter location and click 'Search'
+    Component->>API: Fetch weather data
+    API->>Component: Return weather data
+    Component->>Component: Process and display forecast
+    Component->>User: Display forecast and gear recommendation
+    User->>Component: Enter new location and click 'Search'
+    Component->>API: Fetch new weather data
+    API->>Component: Return new weather data
+    Component->>Component: Update and display new forecast and gear recommendation
 ```

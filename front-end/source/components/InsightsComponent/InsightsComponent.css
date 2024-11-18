@@ -21,3 +21,7 @@
     color: #16a34a;
     padding: 10px;
  }
+
+ .dark-mode .insights-container h1 {
+   color: black !important
+}
