@@ -65,7 +65,7 @@ button:hover {
 /* Desktop (1025px and up) */
 @media (min-width: 1025px) {
   #app {
-    padding: 20px 40px;
+    padding: 0px 0px;
   }
 
   button {

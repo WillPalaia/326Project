@@ -5,6 +5,7 @@ import { ProfilePageComponent } from '../ProfilePageComponent/ProfilePageCompone
 import { FriendsPageComponent } from '../FriendsPageComponent/FriendsPageComponent.js';
 import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
+import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 
 export class AppControllerComponent {
   #container = null;
@@ -68,6 +69,9 @@ export class AppControllerComponent {
         break;
       case 'Friends':
         pageComponent = new FriendsPageComponent();
+        break;
+      case 'CurrentTrip':
+        pageComponent = new CurrentTripComponent();
         break;
       default:
         pageComponent = new MainPageComponent(); // Default to Home
