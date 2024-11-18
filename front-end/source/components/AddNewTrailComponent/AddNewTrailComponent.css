@@ -120,3 +120,14 @@
 .dark-mode .add-new-trail-container * {
   color: black !important;
 }
+
+.map-image-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.map-image {
+  display: inline-block;
+  width: 300px;
+  height: auto;
+}

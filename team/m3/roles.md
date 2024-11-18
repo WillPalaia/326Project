@@ -1,3 +1,5 @@
+# Team Roles and Commit Contributions
+
 ## Blake Thomas - Engineer 
 - **Roles**: Engineered several components and features relevant to the trailSafe App for MIII. 
 - **Top 3 Commits**:
@@ -22,6 +24,13 @@
   1. [commit 1](https://github.com/WillPalaia/326Project/commit/7f9e46679cd25000f0395b450542fcc89b052c44): Started the framework for gear rec component
   2. [commit 2](https://github.com/WillPalaia/326Project/commit/52119c65714dd83c31e18a6052b71091bc474dfb): Finished the CSS and HTML and got the mock api working
   3. [commit 3](https://github.com/WillPalaia/326Project/commit/d65a3ed574de0e997b1187e2a1b0ae6dc42cbdbd): I made it so that it takes user input to search through my fake api so in the future when i use the real api it doesn't just show one place.
+
+## Will Palaia - Project Manager
+- **Role**: Oversees the team meeting and keeps the team on the right track to finish milestones in time. Will is responsible for keeping the team efficient and always moving forward in progress with our goals.
+- **Top 3 Commits**:
+  1. [Commit 1](https://github.com/WillPalaia/326Project/pull/57/commits/fe3581338960cdebc7441224f7de7662b10c9cea)Added a HomeIconComponent to be on every component page. This makes it easy for users to get front any one page back to the home page.
+  2. [Commit 2](https://github.com/WillPalaia/326Project/pull/57/commits/0612846d0365dcb1d231c2eef0ac0bdea7fbe9d4)Redid the front page look, added margins, pictures, and functionality between components on front page.
+  3. [Commit 3](https://github.com/WillPalaia/326Project/pull/62/commits/14e52ec1b75822d48da112210cddab1779ad8e6c)Added component to toggle dark mode, works between all of the components and allows for personalization.
 
 ## Ben Thomas - Front-end developer  
 - **Role**: Develops in-depth psuedo-code for each feature, selects the different API's, libraries, and technologies we will use.
