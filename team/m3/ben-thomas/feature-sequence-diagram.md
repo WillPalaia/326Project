@@ -26,3 +26,4 @@ graph TD;
         G --> H[Push ContactData into #contacts]
         H --> I[Render Updated Contacts List on UI]
     end
+    
