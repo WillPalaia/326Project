@@ -23,6 +23,16 @@ export const Events = {
   UnStoreTasksSuccess: 'UnStoreTasksSuccess',
   UnStoreTasksFailure: 'UnStoreTasksFailure',
   */
+
+  NewFriend: 'NewFriend',
+
+  LoadFriend: 'LoadFriend',
+  LoadFriendSuccess: 'LoadFriendSuccess',
+  LoadFriendFailure: 'LoadFriendFailure',
+
+  StoreFriend: 'StoreFriend',
+  StoreFriendSuccess: 'StoreFriendSuccess',
+  StoreFriendFailure: 'StoreFriendFailure',
   
   //core Trail Events
   NewTrail: 'NewTrail',

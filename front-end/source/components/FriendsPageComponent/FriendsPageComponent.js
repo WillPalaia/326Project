@@ -1,5 +1,6 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
+import { Events } from '../../eventhub/Events.js';
 
 export class FriendsPageComponent extends BaseComponent {
     constructor() {
@@ -7,7 +8,7 @@ export class FriendsPageComponent extends BaseComponent {
       this.loadCSS('FriendsPageComponent');
       this.hub = EventHub.getInstance();
       this.userId = `user-${Math.floor(Math.random() * 10000)}`; // Generate a random user ID
-    this.friendList = []; // Store the list of friend IDs
+      this.friendList = []; // Store the list of friend IDs
   }
 
   render() {
@@ -27,33 +28,20 @@ export class FriendsPageComponent extends BaseComponent {
 
     // Friend ID Input Section
     const inputSection = document.createElement('div');
-    inputSection.id = 'friendInputSection';
+    inputSection.classList.add('friendInputSection');
     container.appendChild(inputSection);
-
-    const friendInput = document.createElement('input');
-    friendInput.type = 'text';
-    friendInput.placeholder = 'Enter Friend User ID';
-    friendInput.id = 'friendInput';
-    inputSection.appendChild(friendInput);
-
-    const addFriendBtn = document.createElement('button');
-    addFriendBtn.textContent = 'Add Friend';
-    addFriendBtn.id = 'addFriendBtn';
-    inputSection.appendChild(addFriendBtn);
-
+    inputSection.innerHTML = `
+      <input type="text" id="friendInput" placeholder="Enter Friend User ID">
+      <Button id="addFriendBtn">Add Friend</Button>
+    `
     // Friend List Section
     const friendListSection = document.createElement('div');
     friendListSection.id = 'friendListSection';
     container.appendChild(friendListSection);
-
-    const friendListTitle = document.createElement('h2');
-    friendListTitle.textContent = 'Friend List';
-    friendListSection.appendChild(friendListTitle);
-
-    const friendList = document.createElement('ul');
-    friendList.id = 'friendList';
-    friendListSection.appendChild(friendList);
-
+    friendListSection.innerHTML = `
+      <h2>Friend List</h2>
+      <ul id="friendList"></ul>
+    `
     // Add Friend Event Listener
     addFriendBtn.addEventListener('click', () => {
       const friendId = friendInput.value.trim();
@@ -70,7 +58,6 @@ export class FriendsPageComponent extends BaseComponent {
   addFriend(friendId) {
     if (!this.friendList.includes(friendId)) {
       this.friendList.push(friendId);
-
       const friendList = document.getElementById('friendList');
       const listItem = document.createElement('li');
       listItem.textContent = friendId;

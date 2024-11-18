@@ -15,3 +15,10 @@
   Put main page into a css grid that changes with the size of the window
   3. [Commit 3](https://github.com/WillPalaia/326Project/pull/47)
   Designed the profile and friends pages. The profile page contains a profile picture section that will be saved with indexedDB, and the friends page creates a unique user ID and allows you to add friends that will be all saved in indexedDB
+
+## Dongpei Zhang - Engineer
+- **Role**: created the fake api for weather and created a component(gear recommendation) that uses that api to recommend gear
+- **Top 3 Commits**:
+  1. [commit 1](https://github.com/WillPalaia/326Project/commit/7f9e46679cd25000f0395b450542fcc89b052c44): Started the framework for gear rec component
+  2. [commit 2](https://github.com/WillPalaia/326Project/commit/52119c65714dd83c31e18a6052b71091bc474dfb): Finished the CSS and HTML and got the mock api working
+  3. [commit 3](https://github.com/WillPalaia/326Project/commit/d65a3ed574de0e997b1187e2a1b0ae6dc42cbdbd): I made it so that it takes user input to search through my fake api so in the future when i use the real api it doesn't just show one place.

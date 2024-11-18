@@ -18,4 +18,4 @@
 ### Nov 17, 2024
 - **Task**: redid Gear Recommendation logic
 - **Details**: I made it so that it takes user input to search through my fake api so in the future when i use the real api it doesn't just show one place.
-**Link to Commit**: 
+**Link to Commit**: https://github.com/WillPalaia/326Project/commit/d65a3ed574de0e997b1187e2a1b0ae6dc42cbdbd 
