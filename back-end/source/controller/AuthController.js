@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import User from "../models/user.js";
+import User from "../model/User.js";
 
 // Load environment variables from a .env file
 dotenv.config();
