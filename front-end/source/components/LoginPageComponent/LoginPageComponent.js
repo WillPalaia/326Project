@@ -56,6 +56,11 @@ export class LoginPageComponent extends BaseComponent {
     logoutBtn.className = "component-box";
     container.appendChild(logoutBtn);
 
+    //Event Listeners
+    registerBtn.addEventListener('click', () => this.register());
+    loginBtn.addEventListener('click', () => this.login());
+    logoutBtn.addEventListener('click', () => this.logout());
+
     //TODO: Add Google Login Button (will)
     //TODO: Add Admin, add forgot password, add delete button?
 
@@ -63,7 +68,16 @@ export class LoginPageComponent extends BaseComponent {
   }
 
   async register() {
-
+    const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const response = await fetch("/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        console.log(JSON.stringify(data, null, 2));
+        alert(data.message);
   }
 
   async login() {
