@@ -64,8 +64,9 @@ export class LoginPageComponent extends BaseComponent {
     loginBtn.addEventListener('click', () => this.login());
     logoutBtn.addEventListener('click', () => this.logout());
 
-    //TODO: Add Google Login Button (will)
+    //TODO: Add Google Login Button
     //TODO: Add Admin, add forgot password, add delete button?
+    //TODO: Add more user feedback for different scenarios, such as username taken. 
 
     return container;
   }
@@ -73,6 +74,8 @@ export class LoginPageComponent extends BaseComponent {
   async register() {
     const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
+
+        //TODO: Verify API endpoints are correct
         const response = await fetch("/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
