@@ -38,3 +38,7 @@ export const login = async (req, res, next) => {
     return res.status(401).json(factoryResponse(401, "Invalid credentials"));
   }
 }
+
+export const googleAuthCallback = (req, res) => {
+  res.redirect("/");
+};
