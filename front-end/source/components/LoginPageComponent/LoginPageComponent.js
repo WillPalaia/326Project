@@ -56,10 +56,16 @@ export class LoginPageComponent extends BaseComponent {
     logoutBtn.textContent = "Logout";
     container.appendChild(logoutBtn);
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.id = "deleteBtn";
+    deleteBtn.textContent = "Delete Account";
+    container.appendChild(deleteBtn);
+
     //Event Listeners
     registerBtn.addEventListener('click', () => this.register());
     loginBtn.addEventListener('click', () => this.login());
     logoutBtn.addEventListener('click', () => this.logout());
+    deleteBtn.addEventListener('click', () => this.deleteAccount());
 
     //TODO: Add Google Login Button
     //TODO: Add Admin, add forgot password, add delete button?
@@ -89,6 +95,19 @@ export class LoginPageComponent extends BaseComponent {
   
   async logout() {
     //TODO: For Will
+  }
+
+  //Method for account deletion
+  async deleteAccount() {
+    //TODO: Make user verify password before deletion permission is granted
+      const username = document.getElementById("username").value;
+      const response = await fetch("/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
+      });
+      const data = await response.json();
+      alert(data.message);
   }
 
   
