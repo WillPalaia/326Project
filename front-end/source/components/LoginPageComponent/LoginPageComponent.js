@@ -41,21 +41,18 @@ export class LoginPageComponent extends BaseComponent {
     //Register Button
     const registerBtn = document.createElement("button");
     registerBtn.id = "registerBtn";
-    registerBtn.className = "component-box";
     registerBtn.textContent = "Register";
     container.appendChild(registerBtn);
 
     //Login Button
     const loginBtn = document.createElement("button");
     loginBtn.id = "loginBtn";
-    loginBtn.className = "component-box";
     loginBtn.textContent = "Login";
     container.appendChild(loginBtn);
 
     //Logout Button 
     const logoutBtn = document.createElement("button");
     logoutBtn.id = "logoutBtn";
-    logoutBtn.className = "component-box";
     logoutBtn.textContent = "Logout";
     container.appendChild(logoutBtn);
 
