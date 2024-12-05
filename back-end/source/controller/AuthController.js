@@ -28,3 +28,13 @@ export const register = async (req, res) => {
     res.json(factoryResponse(200, "Registration successful"));
     console.log("User registered successfully");
 };
+
+// Login route.
+// This route checks the user's credentials and logs them in.
+export const login = async (req, res, next) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ where: { username } });
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    return res.status(401).json(factoryResponse(401, "Invalid credentials"));
+  }
+}
