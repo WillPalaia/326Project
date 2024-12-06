@@ -46,7 +46,21 @@
     text-align: center; 
   }
   
-  #searchInput {
+  /* #searchInput {
+    width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px; 
+  } */
+
+  #latitudeInput {
+    width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px; 
+  }
+
+  #longitudeInput {
     width: 300px; 
     padding: 10px;
     font-size: 16px;

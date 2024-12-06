@@ -29,74 +29,75 @@ export class GearRecComponent extends BaseComponent {
     searchContainer.id = 'searchContainer';
     container.appendChild(searchContainer);
     searchContainer.innerHTML = `
-      <input id="searchInput" placeholder="Enter Location">
+      <input id="latitudeInput" placeholder="Enter Latitude">
+      <input id="longitudeInput" placeholder="Enter longitude">
       <button id ="searchButton">Search</button>
     `
+    const forecastContainer = document.createElement('div');
+    forecastContainer.id = 'forecastContainer';
+    container.appendChild(forecastContainer);
 
-    // Fake API URL
-    const apiUrl = 'https://mock.yerf.dev/';
+    const searchButton = document.getElementById('searchButton')
+    const latitudeInput = document.getElementById('latitudeInput')
+    const longitudeIput = document.getElementById('longitudeInput')
+    
+    // Add event listener to search button
+    searchButton.addEventListener('click', async () => {
+      const latitude = latitudeInput.value.trim()
+      const longitude = longitudeIput.value.trim()
 
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error getting weather data');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // get location and forecast data
-        const location = data.location.toLowerCase();
-        const forecasts = data.forecast;
+      if( !latitude || !longitude){
+        forecastContainer.innerHTM = ``
+        return
+      }
 
-        const forecastContainer = document.createElement('div');
-        forecastContainer.id = 'forecastContainer';
-        container.appendChild(forecastContainer);
+      try {
+        const data = await this.getWeatherData(latitude, longitude)
+        forecastContainer.innerHTML = ``
 
-        // Function to render forecasts
-        const renderForecasts = (forecastsToDisplay) => {
-          forecastContainer.innerHTML = ''; 
+        // getting relevant JSON fields
+        const time = data.daily.time
+        const temperature_2m_max = data.daily.temperature_2m_max
+        const temperature_2m_min = data.daily.temperature_2m_min
+        const weather_code = data.daily.weather_code
 
-          if (forecastsToDisplay.length === 0) {
-            forecastContainer.innerHTML = '<p>Location Not Found</p>';
-            return;
-          }
-
-          forecastsToDisplay.forEach((dayForecast) => {
-            const avgTemp = (dayForecast.high + dayForecast.low) / 2;
-            const gearRecommendation = this.GearRec(avgTemp);
-
-            const dayElement = document.createElement('div');
-            dayElement.classList.add('forecast-day');
-            dayElement.innerHTML = `
-              <h3>${dayForecast.day}</h3>
-              <p>High: ${dayForecast.high}°${data.unit}</p>
-              <p>Low: ${dayForecast.low}°${data.unit}</p>
-              <p>${dayForecast.description}</p>
-              <p>Recommended Gear: ${gearRecommendation}</p>
-            `;
-            forecastContainer.appendChild(dayElement);
-          });
-        };
-
-        // Add event listener to search button
-        searchButton.addEventListener('click', () => {
-          const searchQuery = searchInput.value.toLowerCase().trim();
-          // If the search input is empty display nothing
-          if (searchQuery === '') {
-            forecastContainer.innerHTML = '';  
-            return;
-          }
-          // Check if the location matches the search input
-          if (data.location.toLowerCase().includes(searchQuery)) {
-            renderForecasts(forecasts); 
-          } else {
-            renderForecasts([]); 
-          }
-        });
-      })
-      .catch((error) => {
+        time.forEach((day, index) => {
+          const high = temperature_2m_max
+          const low = temperature_2m_min
+          const avgTemp = (high + low)/2
+          const gearRecommendation = this.gearRec(avgTemp)
+          const dayElement = document.createElement('div');
+          dayElement.classList.add('forecast-day');
+          dayElement.innerHTML = `
+            <h3>${day}</h3>
+            <p>High: ${high}°F</p>
+            <p>Low: ${low}°F</p>
+            <p>Weather Code: ${weather_code[index]}</p>
+            <p>Recommended Gear: ${gearRecommendation}</p>
+          `;
+          forecastContainer.appendChild(dayElement);
+        })
+      } 
+      catch (error){
         console.error('Error fetching weather data:', error);
-      });
+      }
+    });
+  }
+
+  //fetching weatehr data from API
+  async getWeatherData(latitude, longitude){
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&past_days=0&temperature_unit=fahrenheit&daily=temperature_2m_max,temperature_2m_min,weather_code`
+    try {
+      const response = await fetch(apiUrl)
+      if(!response.ok){
+        throw new Error('Failed to fetch weather data');
+      }
+      return response.json()
+    }
+    catch (error) {
+      console.error(error);
+      return
+    }
   }
 
   // function to recommend based on average temp
