@@ -18,6 +18,8 @@ router.post("/login", login);
 
 //TODO: Add routes for logout
 
+router.get("/logout", logout);
+
 // Google Authentication routes
 router.get(
   "/auth/google",

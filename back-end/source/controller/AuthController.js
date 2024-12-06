@@ -39,6 +39,20 @@ export const login = async (req, res, next) => {
   }
 }
 
+// Logout route.
+// This route logs the user out.
+// The req.logout() function is provided by Passport. It removes the user's
+// session and logs them out.
+export const logout = (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      res.json(factoryResponse(500, "Logout failed"));
+      return;
+    }
+    res.json(factoryResponse(200, "Logout successful"));
+  });
+};
+
 export const googleAuthCallback = (req, res) => {
   res.redirect("/");
 };
