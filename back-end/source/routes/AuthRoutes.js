@@ -12,6 +12,7 @@ import { isAuthenticated, authorizeRole } from "../auth/middleware.js";
 
 const router = express.Router();
 
+//Registration Route
 router.post("/register", register);
 
 router.post("/login", login);
@@ -30,10 +31,9 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
   googleAuthCallback
 );
+//TODO: Add routes for login and logout
 
 //Deletion Route
 router.delete("/delete", deleteAccount);
-
-
 
 export default router;

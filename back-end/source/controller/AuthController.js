@@ -56,3 +56,17 @@ export const logout = (req, res) => {
 export const googleAuthCallback = (req, res) => {
   res.redirect("/");
 };
+//This is used to delete the users account from the database
+export const deleteAccount = async (req, res) => {
+    const username = req.body.username;
+    const result = await User.destroy({
+        where: { username: username }
+      });
+      if (result) {
+        //if account deletion successful 
+        res.json(factoryResponse(200, "Account deleted successfully"));
+      } else {
+        //if not
+        res.status(404).json(factoryResponse(404, "Account not found"));
+      }
+  };
