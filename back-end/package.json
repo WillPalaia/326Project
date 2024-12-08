@@ -10,15 +10,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.0.1",
-    "sequelize": "^6.37.5",
-    "sqlite3": "^5.1.7",
+    "@googlemaps/google-maps-services-js": "^3.4.0",
     "@sequelize/sqlite3": "^7.0.0-alpha.43",
-    "bcryptjs": "^2.4.3", 
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
+    "express": "^5.0.1",
     "express-session": "^1.18.1",
     "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
   },
   "type": "module"
 }
