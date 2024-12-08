@@ -60,10 +60,12 @@ export class DarkModeToggleComponent extends BaseComponent {
     }
   }
 
+  // Save state of dark mode
   saveDarkModeState(isDarkMode) {
     localStorage.setItem('darkMode', isDarkMode);
   }
-
+  
+  // Load in dark mode state if page is refreshed
   loadDarkModeState(toggle) {
     const savedDarkMode = localStorage.getItem('darkMode');
     if (savedDarkMode === 'true') {
