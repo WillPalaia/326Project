@@ -1,7 +1,6 @@
 // Server.js
 import express from "express";
 import TaskRoutes from "./routes/TaskRoutes.js";
-import PlaceRoutes from "./routes/PlaceRoutes.js";
 
 class Server {
   constructor() {
@@ -26,11 +25,8 @@ class Server {
   }
 
   // Setup routes by using imported TaskRoutes
-  // /v1 is simply an organizing tool, the help specify where each route is going: Think of it like organizing a library: /v1 is the main section, and TaskRoutes defines all the shelves and books within that section.
   setupRoutes() {
     this.app.use("/v1", TaskRoutes); // Mount TaskRoutes on the app
-    this.app.use("/v1", PlaceRoutes);
-    
   }
 
   // Start the server on a specified port
