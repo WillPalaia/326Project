@@ -13,7 +13,7 @@ export class AllTrailComponent extends BaseComponent {
     // Listen for TrailAdded event
     this.hub.subscribe("TrailAdded", (newTrail) => {
       this.trails.push(newTrail);
-      this.render(); // Update UI when a new trail is added
+      this.updateUI(); // Update UI when a new trail is added
     });
   }
 
@@ -30,15 +30,32 @@ export class AllTrailComponent extends BaseComponent {
     try {
       await this.trailLogService.deleteTask(trailId); // Remove trail from database
       this.trails = this.trails.filter((trail) => trail.id !== trailId); // Remove from local array
-      this.render(); // Re-render UI
+      this.updateUI(); // Re-render UI
     } catch (error) {
       console.error("Error removing trail:", error);
     }
   }
 
-  async render() {
-    await this.fetchTrails();
+  async moveTrailToTop(trailId) {
+    try {
+      const trailIndex = this.trails.findIndex((trail) => trail.id === trailId);
+      if (trailIndex > -1) {
+        const [selectedTrail] = this.trails.splice(trailIndex, 1); // Remove the selected trail
+        this.trails.unshift(selectedTrail); // Add it to the beginning of the list
+        await this.trailLogService.updateTrailOrder(this.trails); // Persist updated order
+        this.updateUI(); // Re-render UI
+      }
+    } catch (error) {
+      console.error("Error updating trail order:", error);
+    }
+  }
 
+  updateUI() {
+    const container = this.createContainer();
+    this.populateContainer(container);
+  }
+
+  createContainer() {
     let container = document.getElementById("mainPageContainer");
     if (!container) {
       container = document.createElement("div");
@@ -47,9 +64,11 @@ export class AllTrailComponent extends BaseComponent {
     } else {
       container.innerHTML = ""; // Clear previous content
     }
-
     container.classList.add("view-all-trails-container");
+    return container;
+  }
 
+  populateContainer(container) {
     // Add a title
     const title = document.createElement("h2");
     title.textContent = "All Trails";
@@ -87,6 +106,7 @@ export class AllTrailComponent extends BaseComponent {
         beginButton.className = "begin-trail-button";
         beginButton.addEventListener("click", () => {
           alert(`Starting trail: ${trail.trailName}`);
+          this.moveTrailToTop(trail.id); // Move the trail to the top of the list
         });
 
         // Add "X" Button
@@ -107,6 +127,12 @@ export class AllTrailComponent extends BaseComponent {
     }
 
     container.appendChild(trailList);
+  }
+
+  async render() {
+    await this.fetchTrails();
+    const container = this.createContainer();
+    this.populateContainer(container);
     return container;
   }
 }
