@@ -18,14 +18,42 @@ class PlaceController {
             const response = await client.textSearch({
                 params: {
                     query: query,
-                    type: config.placeTypes,
+                    type: config.placeTypes.join('|'),
                     language: config.defaultParams.language,
                     key: config.apiKey
                 }
             });
 
             // Send back the search results
-            res.json(response.data.results);
+            if (response.data.results.length === 0) {
+                return res.json([]);
+            }
+
+            // Get the first result
+            const place = response.data.results[0];
+            const placeId = place.place_id;
+
+            // Get place details to retrieve reviews
+            const detailsResponse = await client.placeDetails({
+                params: {
+                    place_id: placeId,
+                    key: config.apiKey,
+                    fields: ['name', 'rating', 'reviews']
+                }
+            });
+
+            const details = detailsResponse.data.result;
+
+            // Extract necessary information
+            const placeData = {
+                name: details.name || 'Unnamed Trail',
+                rating: details.rating || 'N/A',
+                topReview: details.reviews && details.reviews.length > 0
+                    ? details.reviews[0].text
+                    : ''
+            };
+
+            res.json([placeData]);
 
         } catch (error) {
             console.error('error searching places:', error);
