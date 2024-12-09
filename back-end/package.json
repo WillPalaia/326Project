@@ -8,7 +8,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.4.0",
     "@sequelize/sqlite3": "^7.0.0-alpha.43",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -23,6 +25,6 @@
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"
   },
-  "type": "module",
+  "type": "module"
   "description": ""
 }

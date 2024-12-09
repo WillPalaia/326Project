@@ -7,6 +7,8 @@ import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
 import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 import { DarkModeToggleComponent } from '../DarkModeToggleComponent/DarkModeToggleComponent.js';
+import {LoginPageComponent} from '../LoginPageComponent/LoginPageComponent.js';
+import { AllTrailComponent } from '../AllTrailComponent/AllTrailComponent.js';
 
 export class AppControllerComponent {
   #container = null;
@@ -55,6 +57,44 @@ export class AppControllerComponent {
     this.#viewContainer = this.#container.querySelector('#viewContainer');
   }
 
+  async #renderPage(page) {
+    // Clear previous content
+    this.#viewContainer.innerHTML = '';
+
+    let pageComponent;
+    switch (page) {
+      case 'Login':
+        pageComponent = new LoginPageComponent();
+        break;
+      case 'Home':
+        pageComponent = new MainPageComponent();
+        break;
+      case 'Profile':
+        pageComponent = new ProfilePageComponent();
+        break;
+      case 'Friends':
+        pageComponent = new FriendsPageComponent();
+        break;
+      case 'Trails':
+        pageComponent = new AllTrailComponent();
+        await pageComponent.fetchTrails(); // Ensure asynchronous logic is complete
+        break;
+      case 'CurrentTrip':
+        pageComponent = new CurrentTripComponent();
+        break;
+      default:
+        pageComponent = new MainPageComponent(); // Default to Home
+    }
+
+    // Ensure `render` returns a Node
+    const renderedPage = pageComponent.render();
+    if (renderedPage instanceof Node) {
+      this.#viewContainer.appendChild(renderedPage);
+    } else {
+      console.error('Rendered content is not a valid Node:', renderedPage);
+    }
+  }
+
   #attachEventListeners() {
     // Listen for navigation events from the sidebar
     this.#hub.subscribe('NavigateToPage', (page) => {
@@ -67,32 +107,6 @@ export class AppControllerComponent {
     });
   }
 
-  #renderPage(page) {
-    // Clear previous content
-    this.#viewContainer.innerHTML = '';
-
-    let pageComponent;
-    switch (page) {
-      case 'Home':
-        pageComponent = new MainPageComponent();
-        break;
-      case 'Profile':
-        pageComponent = new ProfilePageComponent();
-        break;
-      case 'Friends':
-        pageComponent = new FriendsPageComponent();
-        break;
-      case 'CurrentTrip':
-        pageComponent = new CurrentTripComponent();
-        break;
-      default:
-        pageComponent = new MainPageComponent(); // Default to Home
-    }
-
-    // Append the selected page component
-    this.#viewContainer.appendChild(pageComponent.render());
-  }
-
   #applyDarkMode() {
     const isDarkModeEnabled = localStorage.getItem('darkMode') === 'true';
     if (isDarkModeEnabled) {
@@ -100,3 +114,4 @@ export class AppControllerComponent {
     }
   }
 }
+

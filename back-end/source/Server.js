@@ -1,6 +1,7 @@
 // Server.js
 import express from "express";
 import TaskRoutes from "./routes/TaskRoutes.js";
+import PlaceRoutes from "./routes/PlaceRoutes.js";
 import WeatherRoutes from "./routes/weatherRoutes.js";
 import cors from "cors";
 
@@ -35,8 +36,8 @@ class Server {
 
   // Setup routes by using imported TaskRoutes
   setupRoutes() {
-    // this.app.use("/v1", TaskRoutes); // Mount TaskRoutes on the app
-  
+    this.app.use("/v1", TaskRoutes); // Mount TaskRoutes on the app
+    this.app.use("/v1", PlaceRoutes);
     this.app.use("/v1", WeatherRoutes)
   }
 

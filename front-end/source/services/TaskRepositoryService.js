@@ -10,25 +10,21 @@ export class TaskRepositoryService extends Service {
 
     // Initialize the database
     this.initDB()
-      .then(() => {
-        // Load tasks on initialization
-        this.loadTasksFromDB();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      .then(() => console.log("Database initialized"))
+      .catch(error => console.error('Error initializing database:', error));
   }
 
   async initDB() {
+    if (this.db) return this.db;
+
     return new Promise((resolve, reject) => {
       const request = indexedDB.open(this.dbName, 1);
 
       request.onupgradeneeded = event => {
         const db = event.target.result;
-        db.createObjectStore(this.storeName, {
-          keyPath: 'id',
-          autoIncrement: true,
-        });
+        if (!db.objectStoreNames.contains(this.storeName)) {
+          db.createObjectStore(this.storeName, { keyPath: 'id', autoIncrement: true });
+        }
       };
 
       request.onsuccess = event => {
@@ -36,50 +32,39 @@ export class TaskRepositoryService extends Service {
         resolve(this.db);
       };
 
-      request.onerror = event => {
-        reject('Error initializing IndexedDB');
-      };
+      request.onerror = () => reject('Error initializing IndexedDB');
     });
   }
 
   async storeTask(taskData) {
+    const db = await this.initDB();
+
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction([this.storeName], 'readwrite');
+      const transaction = db.transaction([this.storeName], 'readwrite');
       const store = transaction.objectStore(this.storeName);
       const request = store.add(taskData);
 
-      request.onsuccess = () => {
-        this.publish(Events.StoreTaskSuccess, taskData);
-        resolve('Task stored successfully');
-      };
-
-      request.onerror = () => {
-        this.publish(Events.StoreTaskFailure, taskData);
-        reject('Error storing task: ');
-      };
+      request.onsuccess = () => resolve('Task stored successfully');
+      request.onerror = error => reject(`Error storing task: ${error.target.error}`);
     });
   }
 
   async loadTasksFromDB() {
+    const db = await this.initDB();
+
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction([this.storeName], 'readonly');
+      const transaction = db.transaction([this.storeName], 'readonly');
       const store = transaction.objectStore(this.storeName);
       const request = store.getAll();
 
-      request.onsuccess = event => {
-        const tasks = event.target.result;
-        tasks.forEach(task => this.publish('NewTask', task));
-        resolve(tasks);
-      };
-
-      request.onerror = () => {
-        this.publish(Events.LoadTasksFailure);
-        reject('Error retrieving tasks');
-      };
+      request.onsuccess = event => resolve(event.target.result);
+      request.onerror = error => reject(`Error retrieving tasks: ${error.target.error}`);
     });
   }
 
   async clearTasks() {
+    if (!this.db) throw new Error('Database not initialized');
+
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction([this.storeName], 'readwrite');
       const store = transaction.objectStore(this.storeName);
@@ -90,12 +75,26 @@ export class TaskRepositoryService extends Service {
         resolve('All tasks cleared');
       };
 
-      request.onerror = () => {
+      request.onerror = error => {
         this.publish(Events.UnStoreTasksFailure);
-        reject('Error clearing tasks');
+        reject(`Error clearing tasks: ${error.target.error}`);
       };
     });
   }
+
+  async deleteTask(taskId) {
+    const db = await this.initDB();
+  
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([this.storeName], 'readwrite');
+      const store = transaction.objectStore(this.storeName);
+      const request = store.delete(taskId);
+  
+      request.onsuccess = () => resolve(`Task with ID ${taskId} deleted successfully`);
+      request.onerror = error => reject(`Error deleting task: ${error.target.error}`);
+    });
+  }
+  
 
   addSubscriptions() {
     this.subscribe(Events.StoreTask, data => {

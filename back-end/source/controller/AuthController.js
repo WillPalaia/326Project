@@ -29,6 +29,33 @@ export const register = async (req, res) => {
     console.log("User registered successfully");
 };
 
+// Login route.
+// This route checks the user's credentials and logs them in.
+export const login = async (req, res, next) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ where: { username } });
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    return res.status(401).json(factoryResponse(401, "Invalid credentials"));
+  }
+}
+
+// Logout route.
+// This route logs the user out.
+// The req.logout() function is provided by Passport. It removes the user's
+// session and logs them out.
+export const logout = (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      res.json(factoryResponse(500, "Logout failed"));
+      return;
+    }
+    res.json(factoryResponse(200, "Logout successful"));
+  });
+};
+
+export const googleAuthCallback = (req, res) => {
+  res.redirect("/");
+};
 //This is used to delete the users account from the database
 export const deleteAccount = async (req, res) => {
     const username = req.body.username;
@@ -43,4 +70,3 @@ export const deleteAccount = async (req, res) => {
         res.status(404).json(factoryResponse(404, "Account not found"));
       }
   };
-  
