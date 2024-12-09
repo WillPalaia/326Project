@@ -8,7 +8,7 @@ import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
 import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 import { DarkModeToggleComponent } from '../DarkModeToggleComponent/DarkModeToggleComponent.js';
 import {LoginPageComponent} from '../LoginPageComponent/LoginPageComponent.js';
-import { ViewAllTrailsComponent } from '../AllTrailComponent/AllTrailComponent.js';
+import { AllTrailComponent } from '../AllTrailComponent/AllTrailComponent.js';
 
 export class AppControllerComponent {
   #container = null;
@@ -57,19 +57,7 @@ export class AppControllerComponent {
     this.#viewContainer = this.#container.querySelector('#viewContainer');
   }
 
-  #attachEventListeners() {
-    // Listen for navigation events from the sidebar
-    this.#hub.subscribe('NavigateToPage', (page) => {
-      this.#renderPage(page);
-    });
-
-    this.#hub.subscribe('DarkModeToggled', () => {
-      const isDarkModeEnabled = document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', isDarkModeEnabled); // Persist the state
-    });
-  }
-
-  #renderPage(page) {
+  async #renderPage(page) {
     // Clear previous content
     this.#viewContainer.innerHTML = '';
 
@@ -87,8 +75,9 @@ export class AppControllerComponent {
       case 'Friends':
         pageComponent = new FriendsPageComponent();
         break;
-      case 'Trails' :
-        pageComponent = new ViewAllTrailsComponent()
+      case 'Trails':
+        pageComponent = new AllTrailComponent();
+        await pageComponent.fetchTrails(); // Ensure asynchronous logic is complete
         break;
       case 'CurrentTrip':
         pageComponent = new CurrentTripComponent();
@@ -97,8 +86,25 @@ export class AppControllerComponent {
         pageComponent = new MainPageComponent(); // Default to Home
     }
 
-    // Append the selected page component
-    this.#viewContainer.appendChild(pageComponent.render());
+    // Ensure `render` returns a Node
+    const renderedPage = pageComponent.render();
+    if (renderedPage instanceof Node) {
+      this.#viewContainer.appendChild(renderedPage);
+    } else {
+      console.error('Rendered content is not a valid Node:', renderedPage);
+    }
+  }
+
+  #attachEventListeners() {
+    // Listen for navigation events from the sidebar
+    this.#hub.subscribe('NavigateToPage', (page) => {
+      this.#renderPage(page);
+    });
+
+    this.#hub.subscribe('DarkModeToggled', () => {
+      const isDarkModeEnabled = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDarkModeEnabled); // Persist the state
+    });
   }
 
   #applyDarkMode() {
@@ -108,3 +114,4 @@ export class AppControllerComponent {
     }
   }
 }
+

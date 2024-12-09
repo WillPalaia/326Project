@@ -1,26 +1,42 @@
 import { BaseComponent } from "../BaseComponent/BaseComponent.js";
+import { TaskRepositoryService } from "../../services/TaskRepositoryService.js";
+import { EventHub } from "../../eventhub/EventHub.js";
 
-export class ViewAllTrailsComponent extends BaseComponent {
+export class AllTrailComponent extends BaseComponent {
   constructor() {
     super();
-    this.loadCSS("ViewAllTrailsComponent"); // Load the CSS file for styling
+    this.loadCSS("AllTrailComponent");
+    this.trailLogService = new TaskRepositoryService();
+    this.hub = EventHub.getInstance();
     this.trails = [];
+
+    // Listen for TrailAdded event
+    this.hub.subscribe("TrailAdded", (newTrail) => {
+      this.trails.push(newTrail);
+      this.render(); // Update UI when a new trail is added
+    });
   }
 
   async fetchTrails() {
     try {
-      const response = await fetch("/v1/trails"); // Fetch trails from the backend API
-      if (!response.ok) {
-        throw new Error("Failed to fetch trails");
-      }
-      this.trails = await response.json();
+      this.trails = await this.trailLogService.loadTasksFromDB(); // Fetch all stored trails
+      console.log("Fetched trails:", this.trails);
     } catch (error) {
       console.error("Error fetching trails:", error);
     }
   }
 
+  async removeTrail(trailId) {
+    try {
+      await this.trailLogService.deleteTask(trailId); // Remove trail from database
+      this.trails = this.trails.filter((trail) => trail.id !== trailId); // Remove from local array
+      this.render(); // Re-render UI
+    } catch (error) {
+      console.error("Error removing trail:", error);
+    }
+  }
+
   async render() {
-    // Fetch trails from the database
     await this.fetchTrails();
 
     let container = document.getElementById("mainPageContainer");
@@ -29,7 +45,7 @@ export class ViewAllTrailsComponent extends BaseComponent {
       container.id = "mainPageContainer";
       document.body.appendChild(container);
     } else {
-      container.innerHTML = "";
+      container.innerHTML = ""; // Clear previous content
     }
 
     container.classList.add("view-all-trails-container");
@@ -39,19 +55,53 @@ export class ViewAllTrailsComponent extends BaseComponent {
     title.textContent = "All Trails";
     container.appendChild(title);
 
-    // Add the list of trails
+    // Create the list of trails
     const trailList = document.createElement("ul");
     trailList.className = "trail-list";
 
     if (this.trails.length === 0) {
       const noTrailsMessage = document.createElement("p");
+      noTrailsMessage.className = "no-trails-message";
       noTrailsMessage.textContent = "No trails found.";
       container.appendChild(noTrailsMessage);
     } else {
       this.trails.forEach((trail) => {
         const listItem = document.createElement("li");
         listItem.className = "trail-list-item";
-        listItem.textContent = `Trail Name: ${trail.trailName}, From: ${trail.fromLocation}, To: ${trail.toLocation}, Distance: ${trail.distance}`;
+
+        // Create trail details div
+        const trailDetails = document.createElement("div");
+        trailDetails.innerHTML = `
+          <strong>Trail Name:</strong> ${trail.trailName}<br />
+          <strong>From:</strong> ${trail.fromLocation}<br />
+          <strong>To:</strong> ${trail.toLocation}
+        `;
+
+        // Create button container
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "button-container";
+
+        // Add Begin Trail Button
+        const beginButton = document.createElement("button");
+        beginButton.textContent = "Begin Trail";
+        beginButton.className = "begin-trail-button";
+        beginButton.addEventListener("click", () => {
+          alert(`Starting trail: ${trail.trailName}`);
+        });
+
+        // Add "X" Button
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "X";
+        removeButton.className = "remove-trail-button";
+        removeButton.addEventListener("click", () => this.removeTrail(trail.id));
+
+        // Append buttons to container
+        buttonContainer.appendChild(beginButton);
+        buttonContainer.appendChild(removeButton);
+
+        // Append details and button container to list item
+        listItem.appendChild(trailDetails);
+        listItem.appendChild(buttonContainer);
         trailList.appendChild(listItem);
       });
     }
