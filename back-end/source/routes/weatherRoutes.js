@@ -12,17 +12,13 @@ class WeatherRoutes {
     // Create
     this.router.post("/weather", WeatherController.createWeather.bind(WeatherController));
     console.log("weather routes")
+    
     // Read (all and by id)
-    // this.router.get("/weather", WeatherController.getWeather.bind(WeatherController));
-    // this.router.get("/weather/:id", WeatherController.getWeather.bind(WeatherController));
     this.router.get("/weather", async(req,res) => {
       const {latitude, longitude} = req.query
       await WeatherController.getWeather(req,res)
     })
     
-    // Update
-    // this.router.put("/weather/:id", WeatherController.updateWeather.bind(WeatherController));
-
     this.router.delete("/weather", async (req,res)=> {
       await WeatherController.deleteWeather(req,res)
     })
