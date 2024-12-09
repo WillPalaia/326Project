@@ -8,6 +8,7 @@ import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
 import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 import { DarkModeToggleComponent } from '../DarkModeToggleComponent/DarkModeToggleComponent.js';
 import {LoginPageComponent} from '../LoginPageComponent/LoginPageComponent.js';
+import { ViewAllTrailsComponent } from '../AllTrailComponent/AllTrailComponent.js';
 
 export class AppControllerComponent {
   #container = null;
@@ -85,6 +86,9 @@ export class AppControllerComponent {
         break;
       case 'Friends':
         pageComponent = new FriendsPageComponent();
+        break;
+      case 'Trails' :
+        pageComponent = new ViewAllTrailsComponent()
         break;
       case 'CurrentTrip':
         pageComponent = new CurrentTripComponent();
