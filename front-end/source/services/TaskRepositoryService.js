@@ -62,8 +62,6 @@ export class TaskRepositoryService extends Service {
     });
   }
 
-
-
   async clearTasks() {
     if (!this.db) throw new Error('Database not initialized');
 
@@ -83,6 +81,20 @@ export class TaskRepositoryService extends Service {
       };
     });
   }
+
+  async deleteTask(taskId) {
+    const db = await this.initDB();
+  
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([this.storeName], 'readwrite');
+      const store = transaction.objectStore(this.storeName);
+      const request = store.delete(taskId);
+  
+      request.onsuccess = () => resolve(`Task with ID ${taskId} deleted successfully`);
+      request.onerror = error => reject(`Error deleting task: ${error.target.error}`);
+    });
+  }
+  
 
   addSubscriptions() {
     this.subscribe(Events.StoreTask, data => {
