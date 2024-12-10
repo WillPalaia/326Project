@@ -2,7 +2,7 @@ import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { AddNewTrailComponent } from '../AddNewTrailComponent/AddNewTrailComponent.js';
 import { AboutPageComponent } from '../AboutPageComponent/AboutPageComponent.js';
-import { InsightsComponent } from '../InsightsComponent/InsightsComponent.js';
+import { AddPersonalTrailComponent } from '../PersonalTrailComponent/PersonalTrailComponent.js';
 import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 
@@ -52,11 +52,11 @@ export class MainPageComponent extends BaseComponent {
     container.appendChild(aboutPageBtn);
 
     // Create and add the "Insights" button
-    const insightsPageBtn = document.createElement("button");
-    insightsPageBtn.id = "insightsBtn";
-    insightsPageBtn.className = "component-box";
-    insightsPageBtn.innerHTML = "<span>Insights</span>";
-    container.appendChild(insightsPageBtn);
+    const personalPageBtn = document.createElement("button");
+    personalPageBtn.id = "personalBtn";
+    personalPageBtn.className = "component-box";
+    personalPageBtn.innerHTML = "<span>Personal Trail</span>";
+    container.appendChild(personalPageBtn);
 
     //// Create and add the "Current Trip" button
     //const currentTripBtn = document.createElement("button");
@@ -88,8 +88,8 @@ export class MainPageComponent extends BaseComponent {
     //  pageComponent.render();
     //});
 
-    insightsPageBtn.addEventListener('click', () => {
-      const pageComponent = new InsightsComponent();
+    personalPageBtn.addEventListener('click', () => {
+      const pageComponent = new AddPersonalTrailComponent();
       pageComponent.render();
     });
 
