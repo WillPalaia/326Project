@@ -7,7 +7,7 @@ import { GearRecComponent } from '../GearRecComponent/GearRecComponent.js';
 import { HomeIconComponent } from '../HomeIconComponent/HomeIconComponent.js';
 import { CurrentTripComponent } from '../CurrentTripComponent/CurrentTripComponent.js';
 import { DarkModeToggleComponent } from '../DarkModeToggleComponent/DarkModeToggleComponent.js';
-import {LoginPageComponent} from '../LoginPageComponent/LoginPageComponent.js';
+import { LoginPageComponent } from '../LoginPageComponent/LoginPageComponent.js';
 import { AllTrailComponent } from '../AllTrailComponent/AllTrailComponent.js';
 
 export class AppControllerComponent {
@@ -87,7 +87,7 @@ export class AppControllerComponent {
     }
 
     // Ensure `render` returns a Node
-    const renderedPage = pageComponent.render();
+    const renderedPage = await pageComponent.render();
     if (renderedPage instanceof Node) {
       this.#viewContainer.appendChild(renderedPage);
     } else {
@@ -114,4 +114,3 @@ export class AppControllerComponent {
     }
   }
 }
-
