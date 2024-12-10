@@ -29,12 +29,14 @@ export class DarkModeToggleComponent extends BaseComponent {
     toggle.type = "checkbox";
     toggle.classList.add("dark-mode-toggle");
 
-    toggle.checked = document.body.classList.contains('dark-mode');
+    // Load the dark mode state from localStorage
+    this.loadDarkModeState(toggle);
 
     // Add event listener
     toggle.addEventListener("change", () => {
       this.hub.publish("DarkModeToggled", toggle.checked);
       this.updateLabelColor(label);
+      this.saveDarkModeState(toggle.checked);
     });
 
     const switchLabel = document.createElement('label');
@@ -55,6 +57,23 @@ export class DarkModeToggleComponent extends BaseComponent {
       label.style.color = 'white';
     } else {
       label.style.color = 'black';
+    }
+  }
+
+  // Save state of dark mode
+  saveDarkModeState(isDarkMode) {
+    localStorage.setItem('darkMode', isDarkMode);
+  }
+  
+  // Load in dark mode state if page is refreshed
+  loadDarkModeState(toggle) {
+    const savedDarkMode = localStorage.getItem('darkMode');
+    if (savedDarkMode === 'true') {
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+    } else {
+      document.body.classList.remove('dark-mode');
+      toggle.checked = false;
     }
   }
 }

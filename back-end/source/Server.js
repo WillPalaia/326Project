@@ -1,6 +1,9 @@
 // Server.js
 import express from "express";
 import TaskRoutes from "./routes/TaskRoutes.js";
+import PlaceRoutes from "./routes/PlaceRoutes.js";
+import WeatherRoutes from "./routes/weatherRoutes.js";
+import cors from "cors";
 
 class Server {
   constructor() {
@@ -22,11 +25,20 @@ class Server {
     // used to process incoming requests before they are sent to the routes.
     // There are many middleware functions available in Express, and you can
     // also create custom middleware functions.
+    this.app.use(cors({
+      origin: '*', // Allow all origins
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
+      allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+      credentials: true // Allow cookies if necessary
+  }));
   }
+
 
   // Setup routes by using imported TaskRoutes
   setupRoutes() {
     this.app.use("/v1", TaskRoutes); // Mount TaskRoutes on the app
+    this.app.use("/v1", PlaceRoutes);
+    this.app.use("/v1", WeatherRoutes)
   }
 
   // Start the server on a specified port
