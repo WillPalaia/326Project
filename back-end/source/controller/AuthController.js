@@ -32,13 +32,28 @@ export const register = async (req, res) => {
 // Login route.
 // This route checks the user's credentials and logs them in.
 export const login = async (req, res, next) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ where: { username } });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).json(factoryResponse(401, "Invalid credentials"));
-  }
-}
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ where: { username } });
 
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json(factoryResponse(401, "Invalid credentials"));
+    }
+
+    // If using Passport session management
+    req.login(user, (err) => {
+      if (err) {
+        console.error("Error logging in:", err);
+        return res.status(500).json(factoryResponse(500, "Login failed"));
+      }
+
+      res.json(factoryResponse(200, "Login successful"));
+    });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json(factoryResponse(500, "Internal server error"));
+  }
+};
 // Logout route.
 // This route logs the user out.
 // The req.logout() function is provided by Passport. It removes the user's
