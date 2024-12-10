@@ -17,7 +17,8 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       // This is the same URL that you specified in the Google Developers
       // Console. It is critical that you use the same URL here.
-      callbackURL: "/auth/google/callback",
+      callbackURL: "http://localhost:3000/auth/google/callback",
+
     },
 
     // This is the function that is called when a user is successfully

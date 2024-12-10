@@ -1,9 +1,13 @@
-// Server.js
 import express from "express";
+import session from "express-session";
+import passport from "./auth/passport.js";
+import cors from "cors";
+
+// Import routes
+import AuthRoutes from "./routes/AuthRoutes.js"; 
 import TaskRoutes from "./routes/TaskRoutes.js";
 import PlaceRoutes from "./routes/PlaceRoutes.js";
 import WeatherRoutes from "./routes/weatherRoutes.js";
-import cors from "cors";
 
 class Server {
   constructor() {
@@ -12,39 +16,61 @@ class Server {
     this.setupRoutes();
   }
 
-  // Configure middleware for static files and JSON parsing
+  // Configure middleware
   configureMiddleware() {
     // Serve static files from the front-end
-    this.app.use(express.static("../front-end/source"));
+    this.app.use(express.static("front-end"));
 
-    // Parse JSON bodies, limited to 10mb
+    // Parse JSON bodies
     this.app.use(express.json({ limit: "10mb" }));
 
-    // NOTE:
-    // These middleware functions are built-in Express middleware. They are
-    // used to process incoming requests before they are sent to the routes.
-    // There are many middleware functions available in Express, and you can
-    // also create custom middleware functions.
-    this.app.use(cors({
-      origin: '*', // Allow all origins
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
-      allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-      credentials: true // Allow cookies if necessary
-  }));
+    // Set Content Security Policy headers
+    this.app.use((req, res, next) => {
+      res.setHeader(
+        "Content-Security-Policy",
+        "default-src 'self'; font-src 'self' https://www.slant.co data:; img-src 'self' https://images.pexels.com https://images.unsplash.com https://i0.wp.com; style-src 'self'; script-src 'self';"
+      );
+      next();
+    });
+
+    // Enable CORS
+    this.app.use(
+      cors({
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+      })
+    );
+
+    // Configure session for Passport
+    this.app.use(
+      session({
+        secret: process.env.SESSION_SECRET || "default_secret",
+        resave: false,
+        saveUninitialized: false,
+      })
+    );
+
+    // Initialize Passport
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
   }
 
-
-  // Setup routes by using imported TaskRoutes
+  // Setup routes
   setupRoutes() {
-    this.app.use("/v1", TaskRoutes); // Mount TaskRoutes on the app
+    this.app.use("/v1", TaskRoutes);
     this.app.use("/v1", PlaceRoutes);
-    this.app.use("/v1", WeatherRoutes)
+    this.app.use("/v1", WeatherRoutes);
+
+    // Add authentication routes
+    this.app.use("/", AuthRoutes);
   }
 
-  // Start the server on a specified port
-  start(port = 3000) {
+  // Start the server
+  start(port = process.env.PORT || 3000) {
     this.app.listen(port, () => {
-      console.log(`Server started on port ${port}`);
+      console.log(`Server started on http://localhost:${port}`);
     });
   }
 }
