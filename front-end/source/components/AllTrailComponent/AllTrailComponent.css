@@ -1,6 +1,6 @@
 /* General styles for the All Trails container */
 .view-all-trails-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff;
@@ -9,13 +9,13 @@
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 /* Title styling */
 .view-all-trails-container h2 {
     text-align: center;
-    font-size: 28px;
+    font-size: 100px;
     color: rgb(24, 67, 11);
     font-weight: bold;
     margin-bottom: 20px;
@@ -104,6 +104,6 @@
     color: black !important;
 }
 
-} .dark-mode .view-all-trails-container button {
+.dark-mode .view-all-trails-container button {
     color: white !important;
   }
