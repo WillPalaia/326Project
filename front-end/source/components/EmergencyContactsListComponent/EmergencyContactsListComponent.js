@@ -49,13 +49,13 @@ export class EmergencyContactsListComponent extends BaseComponent {
 
       // check duplicate
       let existed = false;
-      for (const c in this.#contacts) {
-        if (c.name === contact.name && c.phone === contact.phone) {
+      for (const c of this.#contacts) {
+        if (c.email === contact.email) {
           existed = true;
           break;
         }
       }
-      if (! existed) {
+      if (!existed) {
         this.#contacts.push(contact);
       }
       this.#renderContacts();
