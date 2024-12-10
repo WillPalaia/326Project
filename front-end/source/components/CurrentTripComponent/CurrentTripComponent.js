@@ -2,22 +2,68 @@ import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
 import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
 import { EmergencyContactsService } from '../../services/EmergencyContactsService.js';
+import { TaskRepositoryService } from '../../services/TaskRepositoryService.js';
 
+// send email in case of emergency
+const triggerSendEmail = async (trail, contacts) => {
+  try {
+    const res = await fetch('http://localhost:3000/v1/api/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: 'John',
+        from: trail.from,
+        to: trail.to,
+        contacts: contacts,
+      }),
+    });
+  } catch (e) {}
+};
+
+triggerSendEmail();
 let first_load = true; // check if this component is loaded for the first time
 
 // info about the current trip
 const currentTrip = {
-  timeRemaining: 7200,
+  timeRemaining: 0,
   from: '',
   to: '',
+  id: 0,
 };
 
 export class CurrentTripComponent extends BaseComponent {
   constructor() {
     super();
     this.contacts = [];
-    this.helpButton = undefined;
-    this.endTripButton = undefined;
+    this.helpButton = document.createElement('button');
+    this.endTripButton = document.createElement('button');
+    this.countdown = document.createElement('div');
+    this.tripText = document.createElement('div');
+  }
+
+  // update current trip info
+  async getTripInfo() {
+    const service = new TaskRepositoryService();
+    const trails = await service.loadTasksFromDB();
+    if (trails.length > 0) {
+      if (
+        currentTrip.from !== trails[0].fromLocation ||
+        currentTrip.to !== trails[0].toLocation
+      ) {
+        this.endTripButton.style.display = 'block';
+        this.helpButton.style.display = 'block';
+        currentTrip.timeRemaining = 7200;
+        currentTrip.from = trails[0].fromLocation;
+        currentTrip.to = trails[0].toLocation;
+        currentTrip.id = trails[0].id;
+
+        this.tripText.textContent = `We're going from ${currentTrip.from} to ${currentTrip.to}`;
+      }
+    } else {
+      currentTrip.timeRemaining = 0;
+    }
   }
 
   // get emergency contacts
@@ -56,32 +102,33 @@ export class CurrentTripComponent extends BaseComponent {
     }
 
     // trip starting and ending locations
-    const tripText = document.createElement('div');
-    tripText.textContent = "We're going from Amherst to Boston";
-    tripText.style.position = 'absolute';
-    tripText.style.top = '5%';
-    tripText.style.left = '50%';
-    tripText.style.transform = 'translateX(-50%)';
-    tripText.style.fontSize = '30px';
-    tripText.style.fontWeight = 'bold';
-    tripText.style.color = '#a6a69c';
-    tripText.style.textAlign = 'center';
-    tripText.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.8)';
-    container.appendChild(tripText);
+    this.tripText.textContent =
+      currentTrip.timeRemaining > 0
+        ? `We're going from ${currentTrip.from} to ${currentTrip.to}`
+        : 'No Active Trip';
+    this.tripText.style.position = 'absolute';
+    this.tripText.style.top = '5%';
+    this.tripText.style.left = '50%';
+    this.tripText.style.transform = 'translateX(-50%)';
+    this.tripText.style.fontSize = '30px';
+    this.tripText.style.fontWeight = 'bold';
+    this.tripText.style.color = '#a6a69c';
+    this.tripText.style.textAlign = 'center';
+    this.tripText.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.8)';
+    container.appendChild(this.tripText);
 
     // countdown text
-    const countdown = document.createElement('div');
-    countdown.id = 'countdown';
-    countdown.style.position = 'absolute';
-    countdown.style.top = '15%';
-    countdown.style.left = '50%';
-    countdown.style.transform = 'translateX(-50%)';
-    countdown.style.display = 'flex';
-    countdown.style.gap = '20px';
-    countdown.style.background = 'rgba(0, 0, 0, 0.6)';
-    countdown.style.borderRadius = '10px';
-    countdown.style.padding = '20px';
-    countdown.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.3)';
+    this.countdown.id = 'countdown';
+    this.countdown.style.position = 'absolute';
+    this.countdown.style.top = '15%';
+    this.countdown.style.left = '50%';
+    this.countdown.style.transform = 'translateX(-50%)';
+    this.countdown.style.display = 'flex';
+    this.countdown.style.gap = '20px';
+    this.countdown.style.background = 'rgba(0, 0, 0, 0.6)';
+    this.countdown.style.borderRadius = '10px';
+    this.countdown.style.padding = '20px';
+    this.countdown.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.3)';
 
     // edit countdown button
     let isEditingCountdown = false;
@@ -105,7 +152,7 @@ export class CurrentTripComponent extends BaseComponent {
       cancelEditCountdownButton.style.display = 'block';
       alert('Edit button clicked!');
     });
-    countdown.appendChild(editCountDownButton);
+    this.countdown.appendChild(editCountDownButton);
 
     const updateCountdown = () => {
       const daysElement = document.getElementById('days');
@@ -114,21 +161,29 @@ export class CurrentTripComponent extends BaseComponent {
       const secondsElement = document.getElementById('seconds');
 
       if (currentTrip.timeRemaining == 1) {
-        alert('Time is up!');
-        countdown.style.display = 'none';
+        triggerSendEmail(currentTrip, this.contacts);
+        this.countdown.style.display = 'none';
         if (this.helpButton) {
           this.helpButton.style.display = 'none';
         }
+        if (this.endTripButton) {
+          this.endTripButton.style.display = 'none';
+        }
+        alert('Called Emergency Contact!');
       }
 
       if (currentTrip.timeRemaining <= 0) {
-        countdown.style.display = 'none';
+        this.countdown.style.display = 'none';
         if (this.helpButton) {
           this.helpButton.style.display = 'none';
+        }
+        if (this.endTripButton) {
+          this.endTripButton.style.display = 'none';
         }
         return;
       }
 
+      this.countdown.style.display = 'flex';
       currentTrip.timeRemaining -= 1;
 
       const seconds = currentTrip.timeRemaining % 60;
@@ -241,16 +296,18 @@ export class CurrentTripComponent extends BaseComponent {
       return timeBox;
     };
 
-    countdown.appendChild(createInteractiveTimeBox('days', 'DAYS'));
-    countdown.appendChild(createInteractiveTimeBox('hours', 'HOURS'));
-    countdown.appendChild(createInteractiveTimeBox('minutes', 'MINUTES'));
-    countdown.appendChild(createInteractiveTimeBox('seconds', 'SECONDS'));
-    container.appendChild(countdown);
+    this.countdown.appendChild(createInteractiveTimeBox('days', 'DAYS'));
+    this.countdown.appendChild(createInteractiveTimeBox('hours', 'HOURS'));
+    this.countdown.appendChild(createInteractiveTimeBox('minutes', 'MINUTES'));
+    this.countdown.appendChild(createInteractiveTimeBox('seconds', 'SECONDS'));
+    container.appendChild(this.countdown);
 
     if (first_load) {
       first_load = false;
       updateCountdown();
+      this.getTripInfo();
       setInterval(() => updateCountdown(), 1000);
+      setInterval(() => this.getTripInfo(), 1000);
     }
 
     // button container
@@ -315,8 +372,35 @@ export class CurrentTripComponent extends BaseComponent {
 
     container.appendChild(editingCountdownButtons);
 
+    // end trip button
+    this.endTripButton.id = 'endTripButton';
+    this.endTripButton.textContent = 'End Trip';
+    this.endTripButton.style.position = 'absolute';
+    this.endTripButton.style.top = 'calc(20% + 150px)';
+    this.endTripButton.style.left = '55%';
+    this.endTripButton.style.transform = 'translateX(-50%)';
+    this.endTripButton.style.background = 'blue';
+    this.endTripButton.style.color = 'white';
+    this.endTripButton.style.border = 'none';
+    this.endTripButton.style.borderRadius = '50%';
+    this.endTripButton.style.width = '80px';
+    this.endTripButton.style.height = '80px';
+    this.endTripButton.style.fontSize = '16px';
+    this.endTripButton.style.fontWeight = 'bold';
+    this.endTripButton.style.cursor = 'pointer';
+    this.endTripButton.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.3)';
+    this.endTripButton.style.display =
+      currentTrip.timeRemaining <= 0 ? 'none' : 'block';
+    this.endTripButton.addEventListener('click', () => {
+      currentTrip.timeRemaining = 0;
+      const service = new TaskRepositoryService();
+      service.deleteTask(currentTrip.id);
+      alert('Trip Ended!');
+    });
+
+    container.appendChild(this.endTripButton);
+
     // HELP button
-    this.helpButton = document.createElement('button');
     this.helpButton.id = 'helpButton';
     this.helpButton.textContent = 'HELP';
     this.helpButton.style.position = 'absolute';
@@ -336,6 +420,7 @@ export class CurrentTripComponent extends BaseComponent {
     this.helpButton.style.display =
       currentTrip.timeRemaining <= 0 ? 'none' : 'block';
     this.helpButton.addEventListener('click', () => {
+      triggerSendEmail(currentTrip, this.contacts);
       alert('Called Emergency Contact!');
     });
 
@@ -347,7 +432,7 @@ export class CurrentTripComponent extends BaseComponent {
     emergencyBox.style.top = 'calc(20% + 300px)';
     emergencyBox.style.left = '50%';
     emergencyBox.style.transform = 'translateX(-50%)';
-    emergencyBox.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+    emergencyBox.style.backgroundColor = '#aeb5b0';
     emergencyBox.style.padding = '15px';
     emergencyBox.style.borderRadius = '10px';
     emergencyBox.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.3)';
