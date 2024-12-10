@@ -6,7 +6,7 @@ export class EmergencyContactsService extends Service {
     constructor() {
         super();
         //Reminder: this.addSubscriptions(); is automatically called in service.js so calling it again here would be making two calls of this.addSubscriptions();
-        
+
         console.log('2. Service constructor starting');
         this.dbName = 'emergencyContactsDB';
         this.storeName = 'contacts';
@@ -16,9 +16,9 @@ export class EmergencyContactsService extends Service {
         this.initDB().then(() => {
                 console.log('3. DB initialized');
                 //this.EmergencyContactRequestListener();
-            
-            
-        })     
+
+
+        })
     }
 
     async initDB() {
@@ -49,13 +49,13 @@ export class EmergencyContactsService extends Service {
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction([this.storeName], 'readwrite');
             const store = transaction.objectStore(this.storeName);
-            //The .add IndexedDB method returns an object called an IDBRequest. This object comes with specific event handlers that work with onsuccess and onerror. It essentially tells onsuccess if the data was stored in IndexedDB 
+            //The .add IndexedDB method returns an object called an IDBRequest. This object comes with specific event handlers that work with onsuccess and onerror. It essentially tells onsuccess if the data was stored in IndexedDB
             const request = store.add(contactData);
 
             request.onsuccess = () => {
                 console.log("stored to IndexedDB successfully")
                 resolve("stored successfully")
-                
+
             };
 
             request.onerror = () => {
@@ -78,7 +78,7 @@ export class EmergencyContactsService extends Service {
                 console.log('About to publish contacts:', contacts);
                 EventHub.getInstance().publish('EmergencyContact:loaded', contacts);
                 console.log('Published contacts event');
-                
+
                 resolve(contacts);
             };
 
@@ -106,9 +106,9 @@ export class EmergencyContactsService extends Service {
             this.loadContactsFromDB();
         });
 
-         // Listen for errors: 
+         // Listen for errors:
          hub.subscribe('EmergencyContact:clear', () => {
-            this.clearAllIndexedDBData(); 
+            this.clearAllIndexedDBData();
         });
     }
 
@@ -116,16 +116,16 @@ export class EmergencyContactsService extends Service {
     async clearAllIndexedDBData() {
         return new Promise((resolve, reject) => {
             console.log('clearAllIndexedDBData');
-    
-            const transaction = this.db.transaction([this.storeName], 'readwrite');  
+
+            const transaction = this.db.transaction([this.storeName], 'readwrite');
             const store = transaction.objectStore(this.storeName);
-            const request = store.clear(); 
-    
+            const request = store.clear();
+
             request.onsuccess = () => {
                 console.log(`data cleared from store: ${this.storeName}`);
                 resolve(`All data cleared from store: ${this.storeName}`);
             };
-    
+
             request.onerror = () => {
                 console.error('error clearing data from IndexedDB');
                 EventHub.getInstance().publish('EmergencyContact:error', {
@@ -134,7 +134,7 @@ export class EmergencyContactsService extends Service {
             };
         });
     }
-    
+
 
 
 }

@@ -10,21 +10,19 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@emailjs/nodejs": "^5.0.2",
     "@googlemaps/google-maps-services-js": "^3.4.0",
     "@sequelize/sqlite3": "^7.0.0-alpha.43",
+    "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^5.0.1",
     "express-session": "^1.18.1",
-    "mysql2": "^3.11.5",
-    "node-fetch": "^3.3.2",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "router": "^2.0.0",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"
   },
-  "type": "module",
-  "description": ""
+  "type": "module"
 }

@@ -3,31 +3,31 @@ import { Events } from '../../eventhub/Events.js';
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 
 export class EmergencyContactsInputComponent extends BaseComponent {
-    #container = null;
+  #container = null;
 
-    constructor() {
-        super();
-        this.loadCSS('EmergencyContactsInputComponent');
+  constructor() {
+    super();
+    this.loadCSS('EmergencyContactsInputComponent');
+  }
+
+  render() {
+    if (this.#container) {
+      return this.#container;
     }
 
-    render() {
-        if (this.#container) {
-            return this.#container;
-        }
-        
-        this.#createContainer();
-        this.#attachEventListeners();
-        return this.#container;
-    }
+    this.#createContainer();
+    this.#attachEventListeners();
+    return this.#container;
+  }
 
-    #createContainer() {
-        this.#container = document.createElement('div');
-        this.#container.classList.add('emergency-contact-input');
-        this.#container.innerHTML = this.#getTemplate();
-    }
+  #createContainer() {
+    this.#container = document.createElement('div');
+    this.#container.classList.add('emergency-contact-input');
+    this.#container.innerHTML = this.#getTemplate();
+  }
 
-    #getTemplate() {
-        return `
+  #getTemplate() {
+    return `
             <div class="emergency-contact-form">
                 <h2 class="add-emergency-contacts-text">Add Emergency Contact</h2>
                 <div class="input-group">
@@ -45,65 +45,68 @@ export class EmergencyContactsInputComponent extends BaseComponent {
                 <button id="addContactBtn">Add Emergency Contact</button>
             </div>
         `;
+  }
+
+  #attachEventListeners() {
+    const addContactBtn = this.#container.querySelector('#addContactBtn'); //locates and returns "addContactBtn" button id and returns it to addContactBtn
+    addContactBtn.addEventListener('click', () => this.#handleAddContact());
+  }
+
+  #handleAddContact() {
+    const firstName = this.#container
+      .querySelector('#firstNameInput')
+      .value.trim();
+    const lastName = this.#container
+      .querySelector('#lastNameInput')
+      .value.trim();
+    const email = this.#container.querySelector('#emailInput').value.trim();
+
+    // Validation
+    if (!this.#validateInputs(firstName, lastName, email)) {
+      return;
     }
 
-    #attachEventListeners() {
-        const addContactBtn = this.#container.querySelector('#addContactBtn'); //locates and returns "addContactBtn" button id and returns it to addContactBtn
-        addContactBtn.addEventListener('click', () => this.#handleAddContact());
+    // Create contact data object
+    const contactData = {
+      firstName,
+      lastName,
+      email,
+    };
+
+    // Publish events
+    this.#publishNewContact(contactData);
+
+    // Clear form
+    this.#clearInputs();
+  }
+
+  #validateInputs(firstName, lastName, email) {
+    if (!firstName || !lastName || !email) {
+      alert('Please fill in all fields.');
+      return false;
     }
 
-    #handleAddContact() {
-        const firstName = this.#container.querySelector('#firstNameInput').value.trim();
-        const lastName = this.#container.querySelector('#lastNameInput').value.trim();
-        const email = this.#container.querySelector('#emailInput').value.trim();
-
-        // Validation
-        if (!this.#validateInputs(firstName, lastName, email)) {
-            return;
-        }
-
-        // Create contact data object
-        const contactData = {
-            firstName,
-            lastName,
-            email
-        };
-
-        // Publish events
-        this.#publishNewContact(contactData);
-        
-        // Clear form
-        this.#clearInputs();
+    if (!this.#isValidEmail(email)) {
+      alert('Please enter a valid email address.');
+      return false;
     }
 
-    #validateInputs(firstName, lastName, email) {
-        if (!firstName || !lastName || !email) {
-            alert('Please fill in all fields.');
-            return false;
-        }
+    return true;
+  }
 
-        if (!this.#isValidEmail(email)) {
-            alert('Please enter a valid email address.');
-            return false;
-        }
+  #isValidEmail(email) {
+    return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+  }
 
-        return true;
-    }
+  #publishNewContact(contactData) {
+    const hub = EventHub.getInstance(); //ensures there is only one eventHub, "singleton"
+    // Publish new contact event
+    hub.publish('EmergencyContact:new', contactData); //List Component sees this and updates the display - sent to event.js //hub.publish(Events.NewTask, { task, file });
+  }
 
-    #isValidEmail(email) {
-        return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
-    }
-
-    #publishNewContact(contactData) {
-        const hub = EventHub.getInstance(); //ensures there is only one eventHub, "singleton"
-        // Publish new contact event
-        hub.publish('EmergencyContact:new', contactData);  //List Component sees this and updates the display - sent to event.js //hub.publish(Events.NewTask, { task, file });
- 
-    }
-
-    #clearInputs() {
-        this.#container.querySelector('#firstNameInput').value = '';
-        this.#container.querySelector('#lastNameInput').value = '';
-        this.#container.querySelector('#emailInput').value = '';
-    }
+  #clearInputs() {
+    this.#container.querySelector('#firstNameInput').value = '';
+    this.#container.querySelector('#lastNameInput').value = '';
+    this.#container.querySelector('#emailInput').value = '';
+  }
 }
