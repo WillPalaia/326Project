@@ -14,12 +14,10 @@ export class AddNewTrailComponent extends BaseComponent {
         this.trailLogService = new TrailLogService();
         this.trailData = [];
         this.trailImageUrl = '';
-        this.mapImageContainer = null; // Store reference to the map container
-
-        // Initialize containers
+        this.mapImageContainer = null;
         this.trailNameInput = null;
         this.trailResultsContainer = null;
-        this.trailListContainer = null; // Container for the list of added trails
+        this.trailListContainer = null;
     }
 
     render() {
@@ -74,16 +72,16 @@ export class AddNewTrailComponent extends BaseComponent {
         this.trailResultsContainer.className = 'trail-results-container';
         container.appendChild(this.trailResultsContainer);
 
-        // **New**: Container for the list of added trails
+        // Container for the list of added trails
         const trailListHeader = document.createElement('h3');
         trailListHeader.textContent = 'Your Added Trails';
+        trailListHeader.style.marginRight = '100px'; 
         container.appendChild(trailListHeader);
 
         this.trailListContainer = document.createElement('div');
         this.trailListContainer.className = 'trail-list-container';
         container.appendChild(this.trailListContainer);
 
-        // Fetch and display the list of trails when the component is rendered
         this.fetchAndDisplayTrails();
 
         return container;
@@ -113,8 +111,6 @@ export class AddNewTrailComponent extends BaseComponent {
                     // Display the first trail result
                     const trail1 = trails[0];
                     this.displayTrailResult(trail1);
-
-                    // Fetch and display the updated list of trails
                     this.fetchAndDisplayTrails();
                 }
             } else {
@@ -127,9 +123,7 @@ export class AddNewTrailComponent extends BaseComponent {
     }
 
     displayTrailResult(trail) {
-        // Clear previous results
         this.trailResultsContainer.innerHTML = '';
-    
         const trailInfo = document.createElement('div');
         trailInfo.className = 'trail-info';
     
@@ -142,7 +136,6 @@ export class AddNewTrailComponent extends BaseComponent {
             <p><strong>Website:</strong> <a href="${trail.website}" target="_blank">${trail.website}</a></p>
             <hr>
         `;
-    
         this.trailResultsContainer.appendChild(trailInfo);
     }
 
@@ -173,13 +166,12 @@ export class AddNewTrailComponent extends BaseComponent {
         trails.forEach(trail => {
           const trailItem = document.createElement('div');
           trailItem.className = 'trail-item';
-      
           trailItem.innerHTML = `
             <h4>${trail.name}</h4>
             <p><strong>Rating:</strong> ${trail.rating}</p>
             <p><strong>Website:</strong> <a href="${trail.website}" target="_blank">${trail.website}</a></p>
           `;
-          // Create the delete button
+          // delete button
           const deleteButton = document.createElement('button');
           deleteButton.textContent = 'Delete';
           deleteButton.className = 'delete-button';
@@ -195,7 +187,6 @@ export class AddNewTrailComponent extends BaseComponent {
             method: 'DELETE',
           });
           if (response.ok) {
-            // Refresh the trail list
             this.fetchAndDisplayTrails();
           } else {
             console.error('Failed to delete trail.');

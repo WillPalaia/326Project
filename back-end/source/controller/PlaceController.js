@@ -30,7 +30,6 @@ class PlaceController {
                 return res.json([]);
             }
 
-            // Get the first result
             const place = response.data.results[0];
             const placeId = place.place_id;
 
@@ -50,8 +49,7 @@ class PlaceController {
                 }
             });
             const details = detailsResponse.data.result;
-
-            // Extract necessary information
+            // Fields for the main trail being added
             const trailInfo = {
                 name: details.name || 'Unnamed Trail',
                 rating: details.rating || 'N/A',
@@ -61,18 +59,15 @@ class PlaceController {
                 website: details.website || 'No website available',
               };
         
-            // Extract only the fields to be stored in the database
+            // Fields to be stored in the database
             const placeData = {
             name: trailInfo.name,
             rating: details.rating || 0,
             website: details.website || '',
             };
-
-            // Save the trail to the database
             await Trail.create(placeData);
-
             res.json([trailInfo]);
-
+            
         } catch (error) {
             console.error('error searching places:', error);
             res.status(500).json({ 
