@@ -110,6 +110,23 @@ export class TaskRepositoryService extends Service {
       transaction.onerror = (error) => reject(`Error updating trail order: ${error.target.error}`);
     });
   }
+
+  async updateTrailOrder(trails) {
+    const db = await this.initDB();
+
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([this.storeName], "readwrite");
+      const store = transaction.objectStore(this.storeName);
+
+      trails.forEach((trail, index) => {
+        trail.order = index; // Assign an order index to each trail
+        store.put(trail); // Update each trail in the database
+      });
+
+      transaction.oncomplete = () => resolve("Trail order updated successfully");
+      transaction.onerror = (error) => reject(`Error updating trail order: ${error.target.error}`);
+    });
+  }
   
   addSubscriptions() {
     this.subscribe(Events.StoreTask, data => {

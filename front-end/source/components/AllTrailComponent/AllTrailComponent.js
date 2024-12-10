@@ -20,7 +20,8 @@ export class AllTrailComponent extends BaseComponent {
   async fetchTrails() {
     try {
       this.trails = await this.trailLogService.loadTasksFromDB(); // Fetch all stored trails
-      console.log("Fetched trails:", this.trails);
+      this.trails.sort((a, b) => a.order - b.order); // Sort trails by the `order` field
+      console.log("Fetched and sorted trails:", this.trails);
     } catch (error) {
       console.error("Error fetching trails:", error);
     }
@@ -42,7 +43,10 @@ export class AllTrailComponent extends BaseComponent {
       if (trailIndex > -1) {
         const [selectedTrail] = this.trails.splice(trailIndex, 1); // Remove the selected trail
         this.trails.unshift(selectedTrail); // Add it to the beginning of the list
-        await this.trailLogService.updateTrailOrder(this.trails); // Persist updated order
+
+        // Persist the new order
+        await this.trailLogService.updateTrailOrder(this.trails);
+
         this.updateUI(); // Re-render UI
       }
     } catch (error) {
@@ -69,12 +73,10 @@ export class AllTrailComponent extends BaseComponent {
   }
 
   populateContainer(container) {
-    // Add a title
     const title = document.createElement("h2");
     title.textContent = "All Trails";
     container.appendChild(title);
 
-    // Create the list of trails
     const trailList = document.createElement("ul");
     trailList.className = "trail-list";
 
@@ -88,7 +90,6 @@ export class AllTrailComponent extends BaseComponent {
         const listItem = document.createElement("li");
         listItem.className = "trail-list-item";
 
-        // Create trail details div
         const trailDetails = document.createElement("div");
         trailDetails.innerHTML = `
           <strong>Trail Name:</strong> ${trail.trailName}<br />
@@ -96,30 +97,25 @@ export class AllTrailComponent extends BaseComponent {
           <strong>To:</strong> ${trail.toLocation}
         `;
 
-        // Create button container
         const buttonContainer = document.createElement("div");
         buttonContainer.className = "button-container";
 
-        // Add Begin Trail Button
         const beginButton = document.createElement("button");
         beginButton.textContent = "Begin Trail";
         beginButton.className = "begin-trail-button";
         beginButton.addEventListener("click", () => {
-          alert(`Starting trail: ${trail.trailName}`);
-          this.moveTrailToTop(trail.id); // Move the trail to the top of the list
+          alert(`Your trip "${trail.trailName}" is now running on the Current Trip page.`);
+          this.moveTrailToTop(trail.id);
         });
 
-        // Add "X" Button
         const removeButton = document.createElement("button");
         removeButton.textContent = "X";
         removeButton.className = "remove-trail-button";
         removeButton.addEventListener("click", () => this.removeTrail(trail.id));
 
-        // Append buttons to container
         buttonContainer.appendChild(beginButton);
         buttonContainer.appendChild(removeButton);
 
-        // Append details and button container to list item
         listItem.appendChild(trailDetails);
         listItem.appendChild(buttonContainer);
         trailList.appendChild(listItem);
