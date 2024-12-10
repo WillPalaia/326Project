@@ -103,3 +103,7 @@
 .dark-mode .view-all-trails-container * {
     color: black !important;
 }
+
+} .dark-mode .view-all-trails-container button {
+    color: white !important;
+  }

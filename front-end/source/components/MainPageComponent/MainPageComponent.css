@@ -59,7 +59,7 @@
   background-image: url("https://i0.wp.com/stepintoblacksburg.org/wp-content/uploads/2019/03/hiking-trail-lg.jpg?fit=2400%2C1600&ssl=1");
 }
 
-#insightsBtn {
+#personalBtn {
   position: absolute;
   top: 40%;
   left: 7%;
@@ -92,10 +92,10 @@
   opacity: 1; /* Remove transparency on hover */
 }
 
-#trailBtn, #beginBtn, #aboutBtn, #insightsBtn {
+#trailBtn, #beginBtn, #aboutBtn, #personalBtn {
   text-align: center;
 }
 
-#trailBtn span, #beginBtn span, #aboutBtn span, #insightsBtn span, #emergencyContactsBtn span {
+#trailBtn span, #beginBtn span, #aboutBtn span, #personalBtn span, #emergencyContactsBtn span {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Border around each letter */
 }

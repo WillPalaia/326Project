@@ -16,7 +16,7 @@
 
 #forecastContainer {
     width: 80vw;
-    padding-top: 22%;
+    padding-top: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@
 
 .forecast-day{
     padding-left: 2vh;
-    height: 50vh;
+    height: 40vh;
     color: green;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(201, 203, 200);

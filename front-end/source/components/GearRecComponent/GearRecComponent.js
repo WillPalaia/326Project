@@ -1,6 +1,7 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 
+
 export class GearRecComponent extends BaseComponent {
   constructor() {
     super();
@@ -60,10 +61,10 @@ export class GearRecComponent extends BaseComponent {
         const temperature_2m_max = data.daily.temperature_2m_max
         const temperature_2m_min = data.daily.temperature_2m_min
         const weather_code = data.daily.weather_code
-
+        console.log(data)
         time.forEach((day, index) => {
-          const high = temperature_2m_max
-          const low = temperature_2m_min
+          const high = temperature_2m_max[index]
+          const low = temperature_2m_min[index]
           const avgTemp = (high + low)/2
           const gearRecommendation = this.gearRec(avgTemp)
           const dayElement = document.createElement('div');
@@ -86,22 +87,26 @@ export class GearRecComponent extends BaseComponent {
 
   //fetching weatehr data from API
   async getWeatherData(latitude, longitude){
-    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&past_days=0&temperature_unit=fahrenheit&daily=temperature_2m_max,temperature_2m_min,weather_code`
+   const apiUrl = `http://localhost:3000/v1/weather/`;
     try {
-      const response = await fetch(apiUrl)
-      if(!response.ok){
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({latitude: `${latitude}`, longitude: `${longitude}`})
+      });
+      if(!response.ok) {
         throw new Error('Failed to fetch weather data');
       }
-      return response.json()
+      return response.json();
     }
     catch (error) {
       console.error(error);
-      return
+      throw error;
     }
   }
 
   // function to recommend based on average temp
-  GearRec(avgTemp) {
+  gearRec(avgTemp) {
     if (avgTemp < 40) {
       return 'Winter coat, gloves, and hat';
     } else if (avgTemp >= 40 && avgTemp < 60) {
