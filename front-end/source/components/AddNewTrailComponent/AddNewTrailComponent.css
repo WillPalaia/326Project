@@ -64,10 +64,12 @@
   font-weight: bold;
   transition: background-color 0.3s;
   margin-top: 5px;
+  height: 38px;
 }
 
 .add-new-trail-container button:hover {
   background-color: #2b6cb0;
+  height: 38px;
 }
 
 .add-new-trail-container .trail-image-preview {
@@ -121,6 +123,10 @@
   color: black !important;
 }
 
+.dark-mode-label {
+  color: black !important;
+}
+
 .map-image-container {
   text-align: center;
   margin-top: 20px;
@@ -132,4 +138,18 @@
   max-height: 230px;
   object-fit: cover;
   border-radius: 5px;
+}
+
+.delete-button {
+  background-color: #e53e3e !important;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: #c53030 !important;
 }

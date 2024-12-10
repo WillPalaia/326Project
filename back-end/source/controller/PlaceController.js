@@ -1,4 +1,5 @@
 import { config, client } from "../config/googlePlaces.js";
+import Trail from '../model/TrailModel.js';
 
 class PlaceController {
 
@@ -38,22 +39,39 @@ class PlaceController {
                 params: {
                     place_id: placeId,
                     key: config.apiKey,
-                    fields: ['name', 'rating', 'reviews']
+                    fields: [
+                        'name',
+                        'rating',
+                        'reviews',
+                        'editorial_summary',
+                        'website',
+                        'formatted_address'
+                      ],
                 }
             });
-
             const details = detailsResponse.data.result;
 
             // Extract necessary information
-            const placeData = {
+            const trailInfo = {
                 name: details.name || 'Unnamed Trail',
                 rating: details.rating || 'N/A',
-                topReview: details.reviews && details.reviews.length > 0
-                    ? details.reviews[0].text
-                    : ''
+                topReview: details.reviews?.[0]?.text || 'No reviews available',
+                editorial_summary: details.editorial_summary?.overview || 'N/A',
+                formatted_address: details.formatted_address || 'N/A',
+                website: details.website || 'No website available',
+              };
+        
+            // Extract only the fields to be stored in the database
+            const placeData = {
+            name: trailInfo.name,
+            rating: details.rating || 0,
+            website: details.website || '',
             };
 
-            res.json([placeData]);
+            // Save the trail to the database
+            await Trail.create(placeData);
+
+            res.json([trailInfo]);
 
         } catch (error) {
             console.error('error searching places:', error);
@@ -61,6 +79,33 @@ class PlaceController {
                 error: "failed to find places" 
             });
         }
+    }
+    async getAllTrails(req, res) {
+        try {
+          const trails = await Trail.findAll({
+            attributes: ['trailId', 'name', 'rating', 'website'],
+            order: [['rating', 'DESC']],
+          });
+          res.json(trails);
+        } catch (error) {
+          console.error('Error fetching trails:', error.message);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      }
+    
+    async deleteTrail(req, res) {
+    const trailId = req.params.id;
+    try {
+        const result = await Trail.destroy({ where: { trailId } });
+        if (result === 1) {
+        res.status(200).json({ message: 'Trail deleted successfully.' });
+        } else {
+        res.status(404).json({ error: 'Trail not found.' });
+        }
+    } catch (error) {
+        console.error('Error deleting trail:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
     }
 }
 

@@ -1,3 +1,5 @@
+// AddNewTrailComponent.js
+
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 import { TrailLogService } from '../../services/TrailLogService.js';
@@ -13,6 +15,11 @@ export class AddNewTrailComponent extends BaseComponent {
         this.trailData = [];
         this.trailImageUrl = '';
         this.mapImageContainer = null; // Store reference to the map container
+
+        // Initialize containers
+        this.trailNameInput = null;
+        this.trailResultsContainer = null;
+        this.trailListContainer = null; // Container for the list of added trails
     }
 
     render() {
@@ -62,11 +69,23 @@ export class AddNewTrailComponent extends BaseComponent {
         this.successMessage.style.display = 'none';
         container.appendChild(this.successMessage);
 
-        // Trail Results Display
+        // Trail Results Display (For displaying the detailed info of the added trail)
         this.trailResultsContainer = document.createElement('div');
         this.trailResultsContainer.className = 'trail-results-container';
         container.appendChild(this.trailResultsContainer);
-    
+
+        // **New**: Container for the list of added trails
+        const trailListHeader = document.createElement('h3');
+        trailListHeader.textContent = 'Your Added Trails';
+        container.appendChild(trailListHeader);
+
+        this.trailListContainer = document.createElement('div');
+        this.trailListContainer.className = 'trail-list-container';
+        container.appendChild(this.trailListContainer);
+
+        // Fetch and display the list of trails when the component is rendered
+        this.fetchAndDisplayTrails();
+
         return container;
     }
     
@@ -80,29 +99,32 @@ export class AddNewTrailComponent extends BaseComponent {
     async addTrail() {
         const trailName = this.trailNameInput.value.trim();
         if (!trailName) {
-          this.showErrorMessage("Please enter a trail name to search.");
-          return;
+            this.showErrorMessage("Please enter a trail name to search.");
+            return;
         }
     
         try {
-          const response = await fetch(`/v1/places/search?query=${encodeURIComponent(trailName)}`);
-          if (response.ok) {
-            const trails = await response.json();
-            if (trails.length === 0) {
-              this.showErrorMessage("No trails found. Please try a different name.");
+            const response = await fetch(`/v1/places/search?query=${encodeURIComponent(trailName)}`);
+            if (response.ok) {
+                const trails = await response.json();
+                if (trails.length === 0) {
+                    this.showErrorMessage("No trails found. Please try a different name.");
+                } else {
+                    // Display the first trail result
+                    const trail1 = trails[0];
+                    this.displayTrailResult(trail1);
+
+                    // Fetch and display the updated list of trails
+                    this.fetchAndDisplayTrails();
+                }
             } else {
-              // Display the first trail result
-              const trail1 = trails[0];
-              this.displayTrailResult(trail1);
+                this.showErrorMessage("Failed to fetch trail information. Please try again.");
             }
-          } else {
-            this.showErrorMessage("Failed to fetch trail information. Please try again.");
-          }
         } catch (error) {
-          console.error('Error fetching trail:', error);
-          this.showErrorMessage("An error occurred. Please try again.");
+            console.error('Error fetching trail:', error);
+            this.showErrorMessage("An error occurred. Please try again.");
         }
-      }
+    }
 
     displayTrailResult(trail) {
         // Clear previous results
@@ -113,37 +135,86 @@ export class AddNewTrailComponent extends BaseComponent {
     
         trailInfo.innerHTML = `
             <h3>${trail.name}</h3>
+            <p><strong>Editorial Summary:</strong> ${trail.editorial_summary || 'N/A'}</p>
             <p><strong>Rating:</strong> ${trail.rating || 'N/A'}</p>
             <p><strong>Top Review:</strong> ${trail.topReview || 'No reviews available'}</p>
+            <p><strong>Address:</strong> ${trail.formatted_address || 'N/A'}</p>
+            <p><strong>Website:</strong> <a href="${trail.website}" target="_blank">${trail.website}</a></p>
+            <hr>
         `;
     
         this.trailResultsContainer.appendChild(trailInfo);
     }
 
-    showErrorMessage(message) {
-        if (!this.successMessage) {
-          // Create the element if it doesn't exist
-          this.successMessage = document.createElement('div');
-          this.successMessage.className = 'success-message';
-          this.successMessage.style.display = 'none';
-          // Append to container or an appropriate parent element
-          const container = document.getElementById('mainPageContainer');
-          container.appendChild(this.successMessage);
+    async fetchAndDisplayTrails() {
+        try {
+            const response = await fetch('/v1/trails');
+            if (response.ok) {
+                const trails = await response.json();
+                this.displayTrailList(trails);
+            } else {
+                console.error('Failed to fetch trails.');
+            }
+        } catch (error) {
+            console.error('Error fetching trails:', error);
         }
+    }
+
+    displayTrailList(trails) {
+        this.trailListContainer.innerHTML = '';
+        // Check if there are any trails
+        if (trails.length === 0) {
+          const noTrailsMessage = document.createElement('p');
+          noTrailsMessage.textContent = 'No trails added yet.';
+          this.trailListContainer.appendChild(noTrailsMessage);
+          return;
+        }
+        // Display each trail in descending order of rating
+        trails.forEach(trail => {
+          const trailItem = document.createElement('div');
+          trailItem.className = 'trail-item';
+      
+          trailItem.innerHTML = `
+            <h4>${trail.name}</h4>
+            <p><strong>Rating:</strong> ${trail.rating}</p>
+            <p><strong>Website:</strong> <a href="${trail.website}" target="_blank">${trail.website}</a></p>
+          `;
+          // Create the delete button
+          const deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Delete';
+          deleteButton.className = 'delete-button';
+          deleteButton.addEventListener('click', () => this.deleteTrail(trail.trailId));
+          trailItem.appendChild(deleteButton);
+          this.trailListContainer.appendChild(trailItem);
+        });
+      }
+
+      async deleteTrail(trailId) {
+        try {
+          const response = await fetch(`/v1/trails/${trailId}`, {
+            method: 'DELETE',
+          });
+          if (response.ok) {
+            // Refresh the trail list
+            this.fetchAndDisplayTrails();
+          } else {
+            console.error('Failed to delete trail.');
+          }
+        } catch (error) {
+          console.error('Error deleting trail:', error);
+        }
+      }
+
+    showErrorMessage(message) {
         this.successMessage.textContent = message;
         this.successMessage.style.display = 'block';
         setTimeout(() => {
-          this.successMessage.style.display = 'none';
+            this.successMessage.style.display = 'none';
         }, 3000);
-      }
+    }
 
     clearForm() {
         this.trailNameInput.value = '';
-        this.fromLocationInput.value = '';
-        this.toLocationInput.value = '';
-        this.trailImageInput.value = '';
-        this.trailImagePreview.src = '';
-        this.distanceDisplay.textContent = '';
-        this.trailImageUrl = '';
+        this.trailResultsContainer.innerHTML = '';
     }
 }
