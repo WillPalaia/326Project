@@ -15,10 +15,10 @@ const router = express.Router();
 //Registration Route
 router.post("/register", register);
 
+//Login Route
 router.post("/login", login);
 
-//TODO: Add routes for logout
-
+//Logout Route
 router.get("/logout", logout);
 
 // Google Authentication routes
@@ -31,7 +31,6 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
   googleAuthCallback
 );
-//TODO: Add routes for login and logout
 
 //Deletion Route
 router.delete("/delete", deleteAccount);

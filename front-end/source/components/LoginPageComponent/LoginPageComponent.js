@@ -1,6 +1,7 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../eventhub/EventHub.js';
 
+
 export class LoginPageComponent extends BaseComponent {
   constructor() {
     super();
@@ -75,13 +76,22 @@ export class LoginPageComponent extends BaseComponent {
     deleteBtn.addEventListener('click', () => this.deleteAccount());
 
  
-
+    
 
 
     //TODO: Add Admin, add forgot password, add delete button?
     //TODO: Add more user feedback for different scenarios, such as username taken. 
 
     return container;
+  }
+  
+  // Helper function to validate inputs
+  validateInputs(username, password) {
+    if (!username || !password) {
+      alert("Username and password are required.");
+      return false;
+    }
+    return true;
   }
 
   async register() {
@@ -100,24 +110,64 @@ export class LoginPageComponent extends BaseComponent {
   }
 
   async login() {
-    const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const response = await fetch("/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
-        const data = await response.json();
-        console.log(JSON.stringify(data, null, 2));
-        alert(data.message);
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!this.validateInputs(username, password)) return;
+
+    const loginBtn = document.getElementById("loginBtn");
+    loginBtn.disabled = true;
+    loginBtn.textContent = "Logging in...";
+
+    try {
+      const response = await fetch(`/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Login failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      alert(data.message);
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed. Please try again.");
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Login";
+    }
   }
   
   async logout() {
-    const response = await fetch("/logout");
-        const data = await response.json();
-        console.log(JSON.stringify(data, null, 2));
-        alert(data.message);
+    const logoutBtn = document.getElementById("logoutBtn");
+    logoutBtn.disabled = true;
+    logoutBtn.textContent = "Logging out...";
+
+    try {
+      const response = await fetch(`/logout`);
+
+      if (!response.ok) {
+        throw new Error(`Logout failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      alert(data.message);
+
+      // Clear inputs
+      document.getElementById("loginPage-username").value = "";
+      document.getElementById("loginPage-password").value = "";
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("Logout failed. Please try again.");
+    } finally {
+      logoutBtn.disabled = false;
+      logoutBtn.textContent = "Logout";
+    }
   }
+  
   async loginGoogle() {
     window.location.href = "/auth/google";
     }
