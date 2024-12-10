@@ -22,7 +22,9 @@ const config = {
            'photos',
            'reviews',
            'types',
-           'opening_hours'
+           'opening_hours',
+           'editorial_summary',
+           'website'
        ]
    }
 };
