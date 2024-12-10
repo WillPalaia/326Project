@@ -1,16 +1,38 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EmergencyContactsInputComponent } from '../EmergencyContactsInputComponent/EmergencyContactsInputComponent.js';
 import { EmergencyContactsListComponent } from '../EmergencyContactsListComponent/EmergencyContactsListComponent.js';
-import { EventHub } from '../../eventhub/EventHub.js';
+import { EmergencyContactsService } from '../../services/EmergencyContactsService.js';
+
+let first_load = true; // check if this component is loaded for the first time
+
+// info about the current trip
+const currentTrip = {
+  timeRemaining: 7200,
+  from: '',
+  to: '',
+};
 
 export class CurrentTripComponent extends BaseComponent {
   constructor() {
     super();
-    this.loadCSS('CurrentTripComponent');
-    this.hub = EventHub.getInstance();
+    this.contacts = [];
+    this.helpButton = undefined;
+    this.endTripButton = undefined;
   }
 
-  render() {
+  // get emergency contacts
+  async getContacts() {
+    try {
+      const service = new EmergencyContactsService();
+      await service.initDB();
+      //service.clearAllIndexedDBData();
+      this.contacts = await service.loadContactsFromDB();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  async render() {
     // Create or find a specific container for this component's content
     let container = document.getElementById('currentTripContainer');
     if (!container) {
@@ -85,26 +107,48 @@ export class CurrentTripComponent extends BaseComponent {
     });
     countdown.appendChild(editCountDownButton);
 
-    let timeRemaining = 7200;
-
     const updateCountdown = () => {
       const daysElement = document.getElementById('days');
       const hoursElement = document.getElementById('hours');
       const minutesElement = document.getElementById('minutes');
       const secondsElement = document.getElementById('seconds');
 
-      timeRemaining -= 1;
+      if (currentTrip.timeRemaining == 1) {
+        alert('Time is up!');
+        countdown.style.display = 'none';
+        if (this.helpButton) {
+          this.helpButton.style.display = 'none';
+        }
+      }
 
-      const seconds = timeRemaining % 60;
-      const minutes = Math.floor(timeRemaining / 60) % 60;
-      const hours = Math.floor(timeRemaining / 3600) % 24;
-      const days = Math.floor(timeRemaining / (3600 * 24)) % 24;
+      if (currentTrip.timeRemaining <= 0) {
+        countdown.style.display = 'none';
+        if (this.helpButton) {
+          this.helpButton.style.display = 'none';
+        }
+        return;
+      }
+
+      currentTrip.timeRemaining -= 1;
+
+      const seconds = currentTrip.timeRemaining % 60;
+      const minutes = Math.floor(currentTrip.timeRemaining / 60) % 60;
+      const hours = Math.floor(currentTrip.timeRemaining / 3600) % 24;
+      const days = Math.floor(currentTrip.timeRemaining / (3600 * 24)) % 24;
 
       if (!isEditingCountdown) {
-        if (daysElement) {daysElement.textContent = String(days).padStart(2, '0')};
-        if (hoursElement) {hoursElement.textContent = String(hours).padStart(2, '0')};
-        if (minutesElement) {minutesElement.textContent = String(minutes).padStart(2, '0')};
-        if (secondsElement) {secondsElement.textContent = String(seconds).padStart(2, '0')};
+        if (daysElement) {
+          daysElement.textContent = String(days).padStart(2, '0');
+        }
+        if (hoursElement) {
+          hoursElement.textContent = String(hours).padStart(2, '0');
+        }
+        if (minutesElement) {
+          minutesElement.textContent = String(minutes).padStart(2, '0');
+        }
+        if (secondsElement) {
+          secondsElement.textContent = String(seconds).padStart(2, '0');
+        }
       }
     };
 
@@ -203,8 +247,11 @@ export class CurrentTripComponent extends BaseComponent {
     countdown.appendChild(createInteractiveTimeBox('seconds', 'SECONDS'));
     container.appendChild(countdown);
 
-    updateCountdown();
-    setInterval(() => updateCountdown(), 1000);
+    if (first_load) {
+      first_load = false;
+      updateCountdown();
+      setInterval(() => updateCountdown(), 1000);
+    }
 
     // button container
     const editingCountdownButtons = document.createElement('div');
@@ -232,7 +279,6 @@ export class CurrentTripComponent extends BaseComponent {
       editCountDownButton.style.display = 'block';
       saveEditCountdownButton.style.display = 'none';
       cancelEditCountdownButton.style.display = 'none';
-      alert('Save button clicked!');
     });
 
     // save countdown button
@@ -257,11 +303,11 @@ export class CurrentTripComponent extends BaseComponent {
       const minutes = Number(document.getElementById('minutes').textContent);
       const seconds = Number(document.getElementById('seconds').textContent);
 
-      timeRemaining = days * 24 * 3600 + hours * 3600 + minutes * 60 + seconds;
+      currentTrip.timeRemaining =
+        days * 24 * 3600 + hours * 3600 + minutes * 60 + seconds;
 
       saveEditCountdownButton.style.display = 'none';
       cancelEditCountdownButton.style.display = 'none';
-      alert('Save button clicked!');
     });
 
     editingCountdownButtons.appendChild(cancelEditCountdownButton);
@@ -270,28 +316,30 @@ export class CurrentTripComponent extends BaseComponent {
     container.appendChild(editingCountdownButtons);
 
     // HELP button
-    const helpButton = document.createElement('button');
-    helpButton.id = 'helpButton';
-    helpButton.textContent = 'HELP';
-    helpButton.style.position = 'absolute';
-    helpButton.style.top = 'calc(20% + 150px)';
-    helpButton.style.left = '50%';
-    helpButton.style.transform = 'translateX(-50%)';
-    helpButton.style.background = 'red';
-    helpButton.style.color = 'white';
-    helpButton.style.border = 'none';
-    helpButton.style.borderRadius = '50%';
-    helpButton.style.width = '80px';
-    helpButton.style.height = '80px';
-    helpButton.style.fontSize = '16px';
-    helpButton.style.fontWeight = 'bold';
-    helpButton.style.cursor = 'pointer';
-    helpButton.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.3)';
-    helpButton.addEventListener('click', () => {
+    this.helpButton = document.createElement('button');
+    this.helpButton.id = 'helpButton';
+    this.helpButton.textContent = 'HELP';
+    this.helpButton.style.position = 'absolute';
+    this.helpButton.style.top = 'calc(20% + 150px)';
+    this.helpButton.style.left = '45%';
+    this.helpButton.style.transform = 'translateX(-50%)';
+    this.helpButton.style.background = 'red';
+    this.helpButton.style.color = 'white';
+    this.helpButton.style.border = 'none';
+    this.helpButton.style.borderRadius = '50%';
+    this.helpButton.style.width = '80px';
+    this.helpButton.style.height = '80px';
+    this.helpButton.style.fontSize = '16px';
+    this.helpButton.style.fontWeight = 'bold';
+    this.helpButton.style.cursor = 'pointer';
+    this.helpButton.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.3)';
+    this.helpButton.style.display =
+      currentTrip.timeRemaining <= 0 ? 'none' : 'block';
+    this.helpButton.addEventListener('click', () => {
       alert('Called Emergency Contact!');
     });
 
-    container.appendChild(helpButton);
+    container.appendChild(this.helpButton);
 
     // emergency contact list
     const emergencyBox = document.createElement('div');
@@ -306,6 +354,7 @@ export class CurrentTripComponent extends BaseComponent {
     emergencyBox.style.width = '350px';
     emergencyBox.style.textAlign = 'center';
 
+    // edit emergency button
     const editEmergencyButton = document.createElement('button');
     editEmergencyButton.textContent = 'Edit';
     editEmergencyButton.style.position = 'absolute';
@@ -319,7 +368,7 @@ export class CurrentTripComponent extends BaseComponent {
     editEmergencyButton.style.fontSize = '12px';
     editEmergencyButton.style.fontWeight = 'bold';
     editEmergencyButton.addEventListener('click', () => {
-      container.style.backgroundImage = 'none'
+      container.style.backgroundImage = 'none';
       // Clears container all content from container element
       container.innerHTML = '';
 
@@ -344,14 +393,13 @@ export class CurrentTripComponent extends BaseComponent {
     emergencyList.style.listStyleType = 'none';
     emergencyList.style.padding = '0';
 
-    const contacts = [
-      { name: 'Contact 1', phone: '123-456-7890' },
-      { name: 'Contact 2', phone: '123-456-7890' },
-      { name: 'Contact 3', phone: '123-456-7890' },
-    ];
+    emergencyBox.appendChild(emergencyList);
+    container.appendChild(emergencyBox);
+
+    await this.getContacts();
 
     // add contact to list
-    contacts.forEach(({ name, phone }) => {
+    this.contacts.forEach(({ firstName, lastName, email }) => {
       const li = document.createElement('li');
       li.style.display = 'flex';
       li.style.justifyContent = 'space-between';
@@ -361,25 +409,22 @@ export class CurrentTripComponent extends BaseComponent {
 
       // left column: Name
       const nameCol = document.createElement('div');
-      nameCol.textContent = name;
+      nameCol.textContent = firstName + ' ' + lastName;
       nameCol.style.textAlign = 'left';
       nameCol.style.flex = '1';
       li.appendChild(nameCol);
 
-      // right column: Phone
-      const phoneCol = document.createElement('div');
-      phoneCol.textContent = phone;
-      phoneCol.style.textAlign = 'right';
-      phoneCol.style.flex = '1';
-      li.appendChild(phoneCol);
+      // right column: Email
+      const emailCol = document.createElement('div');
+      emailCol.textContent = email;
+      emailCol.style.textAlign = 'right';
+      emailCol.style.flex = '1';
+      li.appendChild(emailCol);
 
       emergencyList.appendChild(li);
     });
 
-    emergencyBox.appendChild(emergencyList);
-    container.appendChild(emergencyBox);
-
-    container.appendChild(helpButton);
+    container.appendChild(this.helpButton);
 
     return container;
   }
