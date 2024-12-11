@@ -19,19 +19,10 @@ class Server {
   // Configure middleware
   configureMiddleware() {
     // Serve static files from the front-end
-    this.app.use(express.static("front-end"));
+    this.app.use(express.static("../front-end/source"));
 
     // Parse JSON bodies
     this.app.use(express.json({ limit: "10mb" }));
-
-    // Set Content Security Policy headers
-    this.app.use((req, res, next) => {
-      res.setHeader(
-        "Content-Security-Policy",
-        "default-src 'self'; font-src 'self' https://www.slant.co data:; img-src 'self' https://images.pexels.com https://images.unsplash.com https://i0.wp.com; style-src 'self'; script-src 'self';"
-      );
-      next();
-    });
 
     // Enable CORS
     this.app.use(
@@ -64,7 +55,17 @@ class Server {
     this.app.use("/v1", WeatherRoutes);
 
     // Add authentication routes
+   this.app.use("/", AuthRoutes); // Correctly mounts all authentication routessetupRoutes() {
+    this.app.use("/v1", TaskRoutes);
+    this.app.use("/v1", PlaceRoutes);
+    this.app.use("/v1", WeatherRoutes);
     this.app.use("/", AuthRoutes);
+  
+    // Serve index.html for all unknown routes
+    this.app.get("*", (req, res) => {
+      res.sendFile("index.html", { root: "front-end/source" });
+    });
+  
   }
 
   // Start the server

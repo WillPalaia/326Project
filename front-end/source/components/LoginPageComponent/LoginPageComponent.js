@@ -169,7 +169,7 @@ export class LoginPageComponent extends BaseComponent {
   }
   
   async loginGoogle() {
-    window.location.href = "/auth/google";
+    window.location.href = "http://localhost:3000/auth/google";
     }
 
   //Method for account deletion
