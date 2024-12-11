@@ -1,5 +1,5 @@
 import express from 'express';
-import emailjs from '@emailjs/nodejs';
+//import emailjs from '@emailjs/nodejs';
 const router = express.Router();
 
 // send email in case of emergency
