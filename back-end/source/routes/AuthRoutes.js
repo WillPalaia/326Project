@@ -5,9 +5,8 @@ import {
   login,
   logout,
   googleAuthCallback,
-  getAdminArea,
-  getProfile,
-} from "../controller/controller.js";
+  deleteAccount
+} from "../controller/AuthController.js";
 import { isAuthenticated, authorizeRole } from "../auth/middleware.js";
 
 const router = express.Router();

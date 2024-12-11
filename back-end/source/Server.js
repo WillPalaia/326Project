@@ -1,8 +1,12 @@
 import express from 'express';
+import session from "express-session";
+import passport from "./auth/passport.js";
+import cors from "cors";
 import TaskRoutes from './routes/TaskRoutes.js';
 import PlaceRoutes from './routes/PlaceRoutes.js';
 import EmailRoute from './routes/api/Email.js';
 import WeatherRoutes from './routes/weatherRoutes.js';
+import AuthRoutes from './routes/AuthRoutes.js';
 
 class Server {
   constructor() {
@@ -24,6 +28,18 @@ class Server {
     // used to process incoming requests before they are sent to the routes.
     // There are many middleware functions available in Express, and you can
     // also create custom middleware functions.
+     // Configure session for Passport
+     this.app.use(
+      session({
+        secret: process.env.SESSION_SECRET || "default_secret",
+        resave: false,
+        saveUninitialized: false,
+      })
+    );
+
+    // Initialize Passport
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
   }
 
   // Setup routes by using imported TaskRoutes
@@ -32,6 +48,7 @@ class Server {
     this.app.use('/v1', PlaceRoutes);
     this.app.use('/v1', EmailRoute);
     this.app.use('/v1', WeatherRoutes);
+    this.app.use("/", AuthRoutes);
   }
 
   // Start the server on a specified port
