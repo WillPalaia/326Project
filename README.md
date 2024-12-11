@@ -24,7 +24,7 @@ Follow these steps to set up and run TrailSafe on your local machine:
 1. Clone the GitHub repository:
 
    ```bash
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/WillPalaia/TrailSafe.git)
    ```
 
 2. Navigate into the project directory:
