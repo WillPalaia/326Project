@@ -23,33 +23,33 @@ Follow these steps to set up and run TrailSafe on your local machine:
 
 1. Clone the GitHub repository:
 
-   \`\`\`bash
-   git clone [repository-url](https://github.com/WillPalaia/TrailSafe.git)
-   \`\`\`
+   ```bash
+   git clone <repository-url>
+   ```
 
 2. Navigate into the project directory:
 
-   \`\`\`bash
-   cd TrailSafe
-   \`\`\`
+   ```bash
+   cd trailSafe
+   ```
 
 3. Install dependencies:
 
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 4. Navigate to the backend folder:
 
-   \`\`\`bash
-   cd back-end
-   \`\`\`
+   ```bash
+   cd backend
+   ```
 
 5. Start the backend server:
 
-   \`\`\`bash
+   ```bash
    npm start
-   \`\`\`
+   ```
 
 ## Usage
 
@@ -74,3 +74,4 @@ Follow these steps to set up and run TrailSafe on your local machine:
 TrailSafe is open-source software licensed under the [MIT License](LICENSE).
 
 Happy Hiking with TrailSafe!
+
