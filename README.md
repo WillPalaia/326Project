@@ -42,7 +42,7 @@ Follow these steps to set up and run TrailSafe on your local machine:
 4. Navigate to the backend folder:
 
    ```bash
-   cd backend
+   cd back-end
    ```
 
 5. Start the backend server:
