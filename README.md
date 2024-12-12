@@ -75,4 +75,6 @@ TrailSafe is open-source software licensed under the [MIT License](LICENSE).
 
 Happy Hiking with TrailSafe!
 
+NOTE: If you git clone this repo, it may not have the API key for Google Places API in the .env file. If the "Add New Trail" button is acting different from what is shown in the demo video, email wpalaia@umass.edu.
+
 (There is a chance it may not work because there is no .env file with the Client ID/Secret. I am not sure how to include it without leaking my data. If there is a way to use another client ID/Secret, please add them into a .env and add that .env into the backend folder)
