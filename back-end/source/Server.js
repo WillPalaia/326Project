@@ -1,5 +1,4 @@
 import express from 'express';
-import TaskRoutes from './routes/TaskRoutes.js';
 import PlaceRoutes from './routes/PlaceRoutes.js';
 import EmailRoute from './routes/api/Email.js';
 import WeatherRoutes from './routes/weatherRoutes.js';
@@ -28,7 +27,6 @@ class Server {
 
   // Setup routes by using imported TaskRoutes
   setupRoutes() {
-    this.app.use('/v1', TaskRoutes); // Mount TaskRoutes on the app
     this.app.use('/v1', PlaceRoutes);
     this.app.use('/v1', EmailRoute);
     this.app.use('/v1', WeatherRoutes);
